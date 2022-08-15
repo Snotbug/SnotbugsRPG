@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d7804829253f343a28e7ab18f9704c, type: 3}
+  m_Name: Intimidate
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Intimidate
+  <Description>k__BackingField: 
+  <Requirement>k__BackingField: []
+  <Costs>k__BackingField: []
+  <Stats>k__BackingField:
+  - <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
+    <Current>k__BackingField: 0
+    <Max>k__BackingField: 0
+  <TargetType>k__BackingField: 3
+  <ActivatedEffect>k__BackingField:
+    <Trigger>k__BackingField: {fileID: 0}
+    <TriggerType>k__BackingField: 0
+    <Triggerable>k__BackingField: 0
+    <Subeffects>k__BackingField: []
+  <TriggeredEffects>k__BackingField:
+  - <Trigger>k__BackingField: {fileID: 11400000, guid: 46b19bc6bc37d714586874c2af45d9ce, type: 2}
+    <TriggerType>k__BackingField: 1
+    <Triggerable>k__BackingField: 0
+    <Subeffects>k__BackingField: []
