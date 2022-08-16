@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Creature : MonoBehaviour
@@ -112,9 +113,10 @@ public class Creature : MonoBehaviour
         Stats[name].ModifyMax(amount);
     }
 
-    public void SetMaxStat(string name, int value)
+    public async Task SetMaxStat(string name, int value)
     {
         Stats[name].SetMax(value);
+        await Task.Delay(1000);
     }
 
     public Status FindStatus(Status status)
