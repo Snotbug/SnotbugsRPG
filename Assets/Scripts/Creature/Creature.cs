@@ -213,5 +213,3 @@ public class Creature : MonoBehaviour
         Items.Remove(item);
     }
 }
-
-// test change
