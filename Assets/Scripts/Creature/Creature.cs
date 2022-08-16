@@ -64,13 +64,13 @@ public class Creature : MonoBehaviour
         }
 
         Equipments = new Dictionary<EquipmentType, Equipment>();
-        foreach(EquipmentType type in Enum.GetValues(typeof(EquipmentType)))
+        foreach(EquipmentType type in Enum.GetValues(typeof(EquipmentType))) { Equipments.Add(type, null); }
+        foreach(Equipment equipment in Base.Equipments)
         {
-            Equipments.Add(type, null);
-        }
-        foreach()
-        {
-
+            Equipment temp = Instantiate(equipment, this.transform.position, Quaternion.identity);
+            temp.transform.SetParent(this.transform);
+            temp.SetBase(this);
+            AddEquipment(equipment);
         }
 
         UI.SetUI(this);
