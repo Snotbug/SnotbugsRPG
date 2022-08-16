@@ -41,11 +41,12 @@ public class StaticEffectData
     [field : SerializeField] public List<StatBase> Scalings { get; private set; }
     [field : SerializeField] public UnityEvent<Creature, Creature, DynamicEffectData> Function { get; private set; }
 
+    [field : SerializeField] public Creature Creature { get; private set; }
     [field : SerializeField] public StatBase Stat { get; private set; }
     [field : SerializeField] public Status Status { get; private set; }
-    [field : SerializeField] public Creature Creature { get; private set; }
     [field : SerializeField] public Spell Spell { get; private set; }
     [field : SerializeField] public Item Item { get; private set; }
+    [field : SerializeField] public Equipment Equipment { get; private set; }
 }
 
 public enum ActivationType

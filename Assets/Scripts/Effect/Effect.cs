@@ -11,6 +11,7 @@ public class Effect
     public Status ParentStatus { get; private set; }
     public Spell ParentSpell { get; private set; }
     public Item ParentItem { get; private set; }
+    public Equipment ParentEquipment { get; private set; }
     public Creature Target { get; set; }
 
     public Effect(EffectBase effectBase, Creature owner, Spell spell)
@@ -32,6 +33,13 @@ public class Effect
         Base = effectBase;
         Owner = owner;
         ParentItem = item;
+    }
+
+    public Effect(EffectBase effectBase, Creature owner, Equipment equipment)
+    {
+        Base = effectBase;
+        Owner = owner;
+        ParentEquipment = equipment;
     }
 
     public void QueueEffect(bool sendTrigger)
@@ -78,6 +86,7 @@ public class DynamicEffectData
     public Status ParentStatus { get; private set; }
     public Spell ParentSpell { get; private set; }
     public Item ParentItem { get; private set; }
+    public Equipment ParentEquipment { get; private set; }
     
     public bool Found { get; set; }
     public int Value { get; set; }
@@ -87,6 +96,7 @@ public class DynamicEffectData
     public Status Status { get; set; }
     public Spell Spell { get; set; }
     public Item Item { get; set; }
+    public Equipment Equipment { get; set; }
 
     public DynamicEffectData(Effect effect, Creature owner, Creature target, bool sendTrigger)
     {
@@ -98,6 +108,7 @@ public class DynamicEffectData
         ParentStatus = effect.ParentStatus;
         ParentSpell = effect.ParentSpell;
         ParentItem = effect.ParentItem;
+        ParentEquipment = effect.ParentEquipment;
 
         Found = false;
         Value = 0;
@@ -112,5 +123,6 @@ public class DynamicEffectData
         if(Base.Status != null) { Status = Base.Status; }
         if(Base.Spell != null) { Spell = Base.Spell; }
         if(Base.Item != null) { Item = Base.Item; }
+        if(Base.Equipment != null) { Equipment = Base.Equipment; }
     }
 }

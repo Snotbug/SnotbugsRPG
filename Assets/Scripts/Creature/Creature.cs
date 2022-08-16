@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,8 +11,6 @@ public class Creature : MonoBehaviour
     [field : SerializeField] public CreatureUI UI { get; private set; }
     [field : SerializeField] public CreatureAnimator Animator { get; private set; }
 
-    public Dictionary<string, Stat> Stats { get; private set; }
-
     public Stat Health { get { return Stats["Health"]; }}
     public Stat Mana { get { return Stats["Mana"]; }}
     public Stat Stamina { get { return Stats["Stamina"]; }}
@@ -22,9 +21,11 @@ public class Creature : MonoBehaviour
     public Stat Resistance { get { return Stats["Resistance"]; }}
     public Stat Speed { get { return Stats["Speed"]; }}
 
+    public Dictionary<string, Stat> Stats { get; private set; }
     public List<Status> Statuses { get; private set; }
     public List<Spell> Spells { get; private set; }
     public List<Item> Items { get; private set; }
+    public Dictionary<EquipmentType, Equipment> Equipments { get; private set; }
 
     public void SetBase()
     {
@@ -60,6 +61,16 @@ public class Creature : MonoBehaviour
             temp.transform.SetParent(this.transform);
             temp.SetBase(this);
             AddItem(temp);
+        }
+
+        Equipments = new Dictionary<EquipmentType, Equipment>();
+        foreach(EquipmentType type in Enum.GetValues(typeof(EquipmentType)))
+        {
+            Equipments.Add(type, null);
+        }
+        foreach()
+        {
+
         }
 
         UI.SetUI(this);
@@ -213,5 +224,23 @@ public class Creature : MonoBehaviour
         if(foundItem == null) { return; }
         Destroy(item.gameObject);
         Items.Remove(item);
+    }
+
+    public Equipment FindEquipment(Equipment equipment)
+    {
+        return Equipments.ContainsKey(equipment.Base.Type) ? Equipments[equipment.Base.Type] : null;
+    }
+
+    public void AddEquipment(Equipment equipment)
+    {
+        Equipments[equipment.Base.Type] = equipment;
+    }
+
+    public void RemoveEquipment(Equipment equipment)
+    {
+        Equipment foundEquipment = FindEquipment(equipment);
+        if(foundEquipment == null) { return; }
+        Destroy(foundEquipment.gameObject);
+        Equipments[foundEquipment.Base.Type] = null;
     }
 }
