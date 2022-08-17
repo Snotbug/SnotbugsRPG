@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [field : SerializeField] public ExplorationManager ExplorationManager { get; private set; }
     [field : SerializeField] public BattleManager BattleManager { get; private set; }
 
-    public Creature player;
+    public Creature player { get; private set; }
 
     private void Start()
     {

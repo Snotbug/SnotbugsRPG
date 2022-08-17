@@ -510,7 +510,6 @@ MonoBehaviour:
   <Player>k__BackingField: {fileID: 5602932842097332090, guid: ac791d732df221b4d9a62ffeae0b961d, type: 3}
   <ExplorationManager>k__BackingField: {fileID: 2094269746}
   <BattleManager>k__BackingField: {fileID: 0}
-  player: {fileID: 0}
 --- !u!4 &334967158
 Transform:
   m_ObjectHideFlags: 0
@@ -2118,6 +2117,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2040a3c63f4d5a4d9f1f6a356323c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Spells>k__BackingField:
+  - {fileID: 6369103817870256385, guid: 7bda5eb42d5721445a8b76f401cf7dbe, type: 3}
+  - {fileID: 7148560043350483482, guid: 9f2621d85edc811478d09cd5bfa43e22, type: 3}
+  <Equipments>k__BackingField: []
 --- !u!1 &2125743494
 GameObject:
   m_ObjectHideFlags: 0
