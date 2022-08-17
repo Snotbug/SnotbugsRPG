@@ -7,6 +7,15 @@ public class EventManager : MonoBehaviour
     public static EventManager current;
     public void Awake() { current = this; }
 
+    public event Action<Choice> onClickChoice;
+    public void ClickChoice(Choice choice) { if(onClickChoice != null) { onClickChoice(choice); }}
+
+    public event Action<Choice> onHoverEnterChoice;
+    public void HoverEnterChoice(Choice choice) { if(onHoverEnterChoice != null) { onHoverEnterChoice(choice); }}
+
+    public event Action onHoverExitChoice;
+    public void HoverExitChoice() { if(onHoverExitChoice != null) { onHoverExitChoice(); }}
+
     public event Action<Creature> onHoverEnterCreature;
     public void HoverEnterCreature(Creature creature) { if(onHoverEnterCreature != null) { onHoverEnterCreature(creature); }}
 
