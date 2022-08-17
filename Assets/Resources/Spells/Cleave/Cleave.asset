@@ -44,14 +44,15 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
+        <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
           <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
           <Current>k__BackingField: 1
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
-        <Creature>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
         <Item>k__BackingField: {fileID: 0}
+        <Equipment>k__BackingField: {fileID: 0}
   <TriggeredEffects>k__BackingField:
   - <Trigger>k__BackingField: {fileID: 11400000, guid: 46b19bc6bc37d714586874c2af45d9ce, type: 2}
     <TriggerType>k__BackingField: 1
@@ -63,27 +64,29 @@ MonoBehaviour:
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls: []
+        <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
           <Definition>k__BackingField: {fileID: 0}
           <Current>k__BackingField: 0
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
-        <Creature>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
         <Item>k__BackingField: {fileID: 0}
+        <Equipment>k__BackingField: {fileID: 0}
       - <ActivationType>k__BackingField: 0
         <Scalings>k__BackingField: []
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls: []
+        <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
           <Definition>k__BackingField: {fileID: 0}
           <Current>k__BackingField: 0
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
-        <Creature>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
         <Item>k__BackingField: {fileID: 0}
+        <Equipment>k__BackingField: {fileID: 0}
   - <Trigger>k__BackingField: {fileID: 11400000, guid: 7ee440efe4da6a542bd2b68df8d39953, type: 2}
     <TriggerType>k__BackingField: 2
     <Subeffects>k__BackingField:
@@ -106,11 +109,12 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
+        <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
           <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
           <Current>k__BackingField: 10
           <Max>k__BackingField: 0
-        <Status>k__BackingField: {fileID: 1812095718089642681, guid: ba05ef72f19c5cb43be3f2000447317c, type: 3}
-        <Creature>k__BackingField: {fileID: 0}
+        <Status>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
         <Item>k__BackingField: {fileID: 0}
+        <Equipment>k__BackingField: {fileID: 0}

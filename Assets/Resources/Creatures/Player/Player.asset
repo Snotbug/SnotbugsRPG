@@ -39,12 +39,6 @@ MonoBehaviour:
     <Current>k__BackingField: 10
     <Max>k__BackingField: 10
   <Statuses>k__BackingField: []
-  <Spells>k__BackingField:
-  - {fileID: 6369103817870256385, guid: 7bda5eb42d5721445a8b76f401cf7dbe, type: 3}
-  - {fileID: 7148560043350483482, guid: 90b458b1d348c2e4184a13393cc12a89, type: 3}
-  - {fileID: 1368470138798657789, guid: 2a41940575e5bf447aff5ef69d2067fd, type: 3}
-  - {fileID: 7148560043350483482, guid: 9f2621d85edc811478d09cd5bfa43e22, type: 3}
-  - {fileID: 6369103817870256385, guid: b5b95a16c1788e843bed73d3f1dc1876, type: 3}
-  - {fileID: 704262962613650049, guid: 72b55faa464a82d4a92178564dec5162, type: 3}
-  - {fileID: 4460628780129308633, guid: b4550c39c1d10ac4cbcc215d5aad3c34, type: 3}
+  <Spells>k__BackingField: []
   <Items>k__BackingField: []
+  <Equipments>k__BackingField: []

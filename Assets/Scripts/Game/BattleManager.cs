@@ -237,9 +237,10 @@ public class BattleManager : MonoBehaviour
         Debug.Log($"source {source.Base.Name} target {target.Base.Name}");
         int damage = source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         damage = Mathf.Clamp(damage - target.Resistance.Current, 1, target.Health.Max);
+        bool isDead = target.Health.Current <= 0;
         target.ModifyStat(target.Health.Definition.Name, -damage);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnDamage.TriggerEffect(source, target); Debug.Log($"{source.Base.Name} damaged {target.Base.Name} for {-damage}"); }
-        if(target.Health.Current <= 0) { BattleManager.current.EffectController.OnDeath.TriggerEffect(source, target); Debug.Log($"{source.Base.Name} killed {target.Base.Name}");}
+        if(!isDead && target.Health.Current <= 0) { BattleManager.current.EffectController.OnDeath.TriggerEffect(source, target); Debug.Log($"{source.Base.Name} killed {target.Base.Name}");}
         data.OnComplete();
     }
 
