@@ -238,7 +238,7 @@ public class BattleManager : MonoBehaviour
         int damage = source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         damage = Mathf.Clamp(damage - target.Resistance.Current, 1, target.Health.Max);
         target.ModifyStat(target.Health.Definition.Name, -damage);
-        if(data.SendTrigger) { BattleManager.current.EffectController.OnDamage.TriggerEffect(source, target); Debug.Log($"{source.Base.Name} damaged {target.Base.Name}"); }
+        if(data.SendTrigger) { BattleManager.current.EffectController.OnDamage.TriggerEffect(source, target); Debug.Log($"{source.Base.Name} damaged {target.Base.Name} for {-damage}"); }
         if(target.Health.Current <= 0) { BattleManager.current.EffectController.OnDeath.TriggerEffect(source, target); Debug.Log($"{source.Base.Name} killed {target.Base.Name}");}
         data.OnComplete();
     }
@@ -302,12 +302,11 @@ public class BattleManager : MonoBehaviour
         {
             status = Instantiate(data.Status, target.transform.position, Quaternion.identity);
             status.SetBase(target);
-            status.SetStat(status.Duration.Definition.Name, duration);
+            status.SetStat("Duration", duration);
             target.AddStatus(status);
-            Debug.Log(status.Duration.Current);
             if(data.SendTrigger) { BattleManager.current.EffectController.OnAfflict.TriggerEffect(source, target); }
         }
-        else { status.ModifyStat(status.Duration.Definition.Name, duration); }
+        else { status.ModifyStat("Duration", duration); }
         data.OnComplete();
     }
 

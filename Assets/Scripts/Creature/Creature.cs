@@ -78,23 +78,13 @@ public class Creature : MonoBehaviour
 
     public void OnDestroy()
     {
-        Destroy(UI?.gameObject);
-        Destroy(Animator?.gameObject);
-
-        // foreach(Status status in Statuses) { RemoveStatus(status); }
-        // foreach(Spell spell in Spells) { RemoveSpell(spell); }
-        // foreach(Item item in Items) { RemoveItem(item); }
+        if(UI != null) { Destroy(UI.gameObject); }
+        if(Animator != null) { Destroy(Animator?.gameObject); }
     }
 
     public Stat FindStat(StatDefinition stat)
     {
         return Stats.ContainsKey(stat.Name) ? Stats[stat.Name] : null;
-    }
-
-    public void PayCost(Spell spell)
-    {
-        foreach(StatBase cost in spell.Base.Costs) { FindStat(cost.Definition).Modify(-cost.Current); }
-        UI.UpdateUI();
     }
 
     public int ApplyScaling(int value, List<StatBase> scalings)
@@ -140,7 +130,7 @@ public class Creature : MonoBehaviour
         if(FindStatus(status) != null) { return; }
         Statuses.Add(status);
 
-        UI?.AddStatus(status);
+        if(UI != null) { UI.AddStatus(status); }
     }
 
     public void RemoveStatus(Status status)
@@ -175,10 +165,16 @@ public class Creature : MonoBehaviour
         return true;
     }
 
+    public void PayCost(Spell spell)
+    {
+        foreach(StatBase cost in spell.Base.Costs) { FindStat(cost.Definition).Modify(-cost.Current); }
+        UI.UpdateUI();
+    }
+
     public void EnableSpells(bool enable)
     {
         if(enable) { foreach(Spell spell in Spells) { spell.UI.SetInteractable(CanActivate(spell)); }}
-        else{ foreach(Spell spell in Spells) {spell.UI.SetInteractable(false);}}
+        else{ foreach(Spell spell in Spells) { spell.UI.SetInteractable(false); }}
     }
 
     public List<Spell> FindActivatable()
@@ -193,7 +189,7 @@ public class Creature : MonoBehaviour
         if(FindSpell(spell) != null) { return; }
         Spells.Add(spell);
 
-        UI?.AddSpell(spell);
+        if(UI != null) { UI.AddSpell(spell); }
     }
 
     public void RemoveSpell(Spell spell)
@@ -211,11 +207,10 @@ public class Creature : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        Item foundItem = FindItem(item);
-        if(foundItem != null) { foundItem.ModifyStat(item.Quantity.Definition.Name, item.Quantity.Current); }
-        else { Items.Add(item); }
+        if(FindItem(item) != null) { return; }
+        Items.Add(item);
 
-        UI.AddItem(item);
+        if(UI != null) { UI.AddItem(item); }
     }
 
     public void RemoveItem(Item item)
@@ -233,6 +228,7 @@ public class Creature : MonoBehaviour
 
     public void AddEquipment(Equipment equipment)
     {
+        if(Equipments[equipment.Base.Type] != null) { return; }
         Equipments[equipment.Base.Type] = equipment;
     }
 
@@ -242,5 +238,31 @@ public class Creature : MonoBehaviour
         if(foundEquipment == null) { return; }
         Destroy(foundEquipment.gameObject);
         Equipments[foundEquipment.Base.Type] = null;
+    }
+
+    public void Equip(Equipment equipment, bool equip)
+    {
+        foreach(StatBase requirement in equipment.Base.Requirement)
+        {
+            Stat stat = FindStat(requirement.Definition);
+            if(stat.Current < requirement.Current || stat.Max < requirement.Max) { return; }
+        }
+
+        foreach(StatBase modifier in equipment.Base.Modifiers)
+        {
+            Stat stat = FindStat(modifier.Definition);
+            stat.Modify(modifier.Current);
+            stat.ModifyMax(modifier.Max);
+        }
+    }
+
+    public void Unequip(Equipment equipment, bool equip)
+    {
+        foreach(StatBase modifier in equipment.Base.Modifiers)
+        {
+            Stat stat = FindStat(modifier.Definition);
+            stat.Modify(-modifier.Current);
+            stat.ModifyMax(-modifier.Max);
+        }
     }
 }

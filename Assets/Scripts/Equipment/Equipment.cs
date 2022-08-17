@@ -13,7 +13,6 @@ public class Equipment : MonoBehaviour
 
     public Stat Cooldown { get { return Stats["Cooldown"]; }}
     
-    public Effect ActivatedEffect { get; private set; }
     public List<Effect> TriggeredEffects { get; private set; }
 
     public void SetBase(Creature owner)
@@ -35,11 +34,6 @@ public class Equipment : MonoBehaviour
         }
 
         UI.SetUI(this);
-    }
-
-    public void Activate()
-    {
-        ActivatedEffect.QueueEffect(true);
     }
 
     public Stat FindStat(StatDefinition stat)
