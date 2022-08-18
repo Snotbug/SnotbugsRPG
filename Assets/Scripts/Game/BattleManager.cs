@@ -10,10 +10,11 @@ using UnityEngine.Events;
 
 public class BattleManager : MonoBehaviour
 {
-    [field : SerializeField] public BattleUI UI { get; private set; }
-    [field : SerializeField] public TargetController TargetController { get; private set; }
     [field : SerializeField] public TurnController TurnController { get; private set; }
+    [field : SerializeField] public TargetController TargetController { get; private set; }
     [field : SerializeField] public EffectController EffectController { get; private set; }
+
+    [field : SerializeField] public BattleUI UI { get; private set; }
 
     public Spell SelectedSpell { get; private set; }
 
@@ -80,7 +81,8 @@ public class BattleManager : MonoBehaviour
                 UI.RemoveCreature(creature);
             }
         }
-        if(TurnController.ActiveCreature == null) { StartTurn(); }
+        Debug.Log("finished checking");
+        // if(TurnController.ActiveCreature == null) { StartTurn(); }
     }
 
     public void EnterBattle()
@@ -161,7 +163,8 @@ public class BattleManager : MonoBehaviour
         SelectedSpell = null;
         TargetController.EnableSelection(false);
         yield return new WaitUntil(() => EffectController.Effects.Count <= 0);
-        // ErrorCheck();
+        ErrorCheck();
+        if(TurnController.ActiveCreature == null) { StartCoroutine(StartTurn()); }
     }
 
     public IEnumerator StartTurn()
@@ -171,12 +174,14 @@ public class BattleManager : MonoBehaviour
         EffectController.OnTurnStart.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
         Debug.Log($"{TurnController.ActiveCreature}");
         yield return new WaitUntil(() => EffectController.Effects.Count <= 0);
-        Debug.Log("starting main phase");
-        StartCoroutine(MainPhase());
+        ErrorCheck();
+        if(TurnController.ActiveCreature == null) { StartCoroutine(StartTurn()); }
+        else { StartCoroutine(MainPhase()); }
     }
 
     public IEnumerator MainPhase()
     {
+        Debug.Log("starting main phase");
         TurnController.ActiveCreature.SetStat("Stamina", TurnController.ActiveCreature.Stamina.Max);
         if(TargetController.IsEnemy(TurnController.ActiveCreature))
         {
@@ -191,8 +196,10 @@ public class BattleManager : MonoBehaviour
                 }
             }
             ActivateSpell();
+            Debug.Log($"enemy casted: {SelectedSpell.Base.Name}");
             yield return new WaitUntil(() => EffectController.Effects.Count <= 0);
-            EndTurn();
+            if(TurnController.ActiveCreature == null) { StartCoroutine(StartTurn()); }
+            else { EndTurn();  }
         }
         else
         {
@@ -204,11 +211,14 @@ public class BattleManager : MonoBehaviour
     
     public void EndTurn()
     {
-        EffectController.OnTurnEnd.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
-        UI.EnableEndTurn(false);
-        TargetController.EnableSelection(false);
         TurnController.ActiveCreature.EnableSpells(false);
         TurnController.ActiveCreature.UI.ShowActiveIndicator(false);
+        TargetController.EnableSelection(false);
+
+        UI.EnableEndTurn(false);
+
+        EffectController.OnTurnEnd.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
+        // yield return new WaitUntil(() => EffectController.Effects.Count <= 0);
         StartCoroutine(StartTurn());
     }
 
@@ -260,11 +270,6 @@ public class BattleManager : MonoBehaviour
         if(data.SendTrigger) { BattleManager.current.EffectController.OnHeal.TriggerEffect(source, target); }
         await Task.Delay(100);
         data.OnComplete();
-    }
-
-    public IEnumerator Wait()
-    {
-        yield return new WaitForSeconds(5f);
     }
 
     public async void Buff(Creature source, Creature target, DynamicEffectData data)
@@ -332,4 +337,11 @@ public class BattleManager : MonoBehaviour
         await Task.Delay(100);
         data.OnComplete();
     }
+}
+
+public enum BattleState
+{
+    StartTurn,
+    ResolveEffects,
+    EndTurn   
 }

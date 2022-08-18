@@ -455,10 +455,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cbe414c73d7eae4a874edc444e78278, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <UI>k__BackingField: {fileID: 4072855701164804925}
-  <TargetController>k__BackingField: {fileID: 2125743495}
   <TurnController>k__BackingField: {fileID: 795828381}
+  <TargetController>k__BackingField: {fileID: 2125743495}
   <EffectController>k__BackingField: {fileID: 5940735011243204041}
+  <UI>k__BackingField: {fileID: 4072855701164804925}
 --- !u!4 &222400564
 Transform:
   m_ObjectHideFlags: 0
