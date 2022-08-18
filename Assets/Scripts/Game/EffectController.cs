@@ -37,16 +37,18 @@ public class EffectController : MonoBehaviour
         if(Effects.Count <= 0) { return; }
 
         DynamicEffectData data = Effects.Dequeue();
+        // if(data.Owner == null || data.Target == null) { return; }
+        if(data.Owner == null || data.Target == null) { return; }
         Pending = true;
         data.OnComplete += OnComplete;
-        if(data.Owner == null || data.Target == null) { return; }
         data.Base.Function.Invoke(data.Owner, data.Target, data);
     }
 
     private void OnComplete()
     {
         Pending = false;
-        if(Effects.Count <= 0) {BattleManager.current.ErrorCheck();}
+        Debug.Log($"effect count: {Effects.Count}");
+        if(Effects.Count <= 0) { BattleManager.current.ErrorCheck(); }
         Activate();
     }
 }

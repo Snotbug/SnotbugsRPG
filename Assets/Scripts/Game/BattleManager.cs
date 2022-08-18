@@ -1,3 +1,4 @@
+// using System;
 using System.Collections;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -52,6 +53,7 @@ public class BattleManager : MonoBehaviour
 
     public void ErrorCheck()
     {
+        Debug.Log("checking error");
         if(UI.Player.Creature.Health.Current <= 0)
         {
             TargetController.Remove(UI.Player.Creature);
@@ -92,7 +94,7 @@ public class BattleManager : MonoBehaviour
 
         TargetController.EnableSelection(false);
         
-        StartTurn();
+        StartCoroutine(StartTurn());
     }
 
     public void AddPlayer(Creature creature)
@@ -135,7 +137,7 @@ public class BattleManager : MonoBehaviour
             TargetController.FindTargets(TurnController.ActiveCreature, spell.Base.TargetType);
             TargetController.EnableSelection(true);
         }
-        else { ActivateSpell(); }
+        else { StartCoroutine(ActivateSpell()); }
     }
 
     public void SelectCreature(Creature creature)
@@ -144,13 +146,13 @@ public class BattleManager : MonoBehaviour
         {
             SelectedSpell.ActivatedEffect.Target = creature;
             TargetController.EnableSelection(false);
-            ActivateSpell();
+            StartCoroutine(ActivateSpell());
         }
     }
 
-    public void ActivateSpell()
+    public IEnumerator ActivateSpell()
     {
-        if(SelectedSpell == null) { return; }
+        if(SelectedSpell == null) { yield return null ; }
         TurnController.ActiveCreature.PayCost(SelectedSpell);
         SelectedSpell.SetStat(SelectedSpell.Cooldown.Definition.Name, SelectedSpell.Cooldown.Max);
         SelectedSpell.UI.SetInteractable(TurnController.ActiveCreature.CanActivate(SelectedSpell));
@@ -158,17 +160,22 @@ public class BattleManager : MonoBehaviour
         EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
         SelectedSpell = null;
         TargetController.EnableSelection(false);
+        yield return new WaitUntil(() => EffectController.Effects.Count <= 0);
+        // ErrorCheck();
     }
 
-    public void StartTurn()
+    public IEnumerator StartTurn()
     {
         TurnController.FindActiveCreature();
         TurnController.ActiveCreature.UI.ShowActiveIndicator(true);
         EffectController.OnTurnStart.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
-        MainPhase();
+        Debug.Log($"{TurnController.ActiveCreature}");
+        yield return new WaitUntil(() => EffectController.Effects.Count <= 0);
+        Debug.Log("starting main phase");
+        StartCoroutine(MainPhase());
     }
 
-    public void MainPhase()
+    public IEnumerator MainPhase()
     {
         TurnController.ActiveCreature.SetStat("Stamina", TurnController.ActiveCreature.Stamina.Max);
         if(TargetController.IsEnemy(TurnController.ActiveCreature))
@@ -184,10 +191,12 @@ public class BattleManager : MonoBehaviour
                 }
             }
             ActivateSpell();
+            yield return new WaitUntil(() => EffectController.Effects.Count <= 0);
             EndTurn();
         }
         else
         {
+            Debug.Log("starting player turn");
             UI.EnableEndTurn(true);
             TurnController.ActiveCreature.EnableSpells(true);
         }
@@ -200,7 +209,7 @@ public class BattleManager : MonoBehaviour
         TargetController.EnableSelection(false);
         TurnController.ActiveCreature.EnableSpells(false);
         TurnController.ActiveCreature.UI.ShowActiveIndicator(false);
-        StartTurn();
+        StartCoroutine(StartTurn());
     }
 
     public void ExitBattle()
@@ -232,69 +241,69 @@ public class BattleManager : MonoBehaviour
         BattleManager.current.RemoveCreature(source);
     }
 
-    public void Damage(Creature source, Creature target, DynamicEffectData data)
+    public async void Damage(Creature source, Creature target, DynamicEffectData data)
     {
-        Debug.Log($"source {source.Base.Name} target {target.Base.Name}");
         int damage = source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         damage = Mathf.Clamp(damage - target.Resistance.Current, 1, target.Health.Max);
         bool isDead = target.Health.Current <= 0;
-        target.ModifyStat(target.Health.Definition.Name, -damage);
+        target.ModifyStat("Health", -damage);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnDamage.TriggerEffect(source, target); Debug.Log($"{source.Base.Name} damaged {target.Base.Name} for {-damage}"); }
-        if(!isDead && target.Health.Current <= 0) { BattleManager.current.EffectController.OnDeath.TriggerEffect(source, target); Debug.Log($"{source.Base.Name} killed {target.Base.Name}");}
+        if(!isDead && target.Health.Current <= 0) { BattleManager.current.EffectController.OnDeath.TriggerEffect(source, target); Debug.Log($"{source.Base.Name} killed {target.Base.Name}"); }
+        await Task.Delay(100);
         data.OnComplete();
     }
 
-    public void Heal(Creature source, Creature target, DynamicEffectData data)
+    public async void Heal(Creature source, Creature target, DynamicEffectData data)
     {
         int heal = source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
-        target.ModifyStat(target.Health.Definition.Name, heal);
+        target.ModifyStat("Health", heal);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnHeal.TriggerEffect(source, target); }
+        await Task.Delay(100);
         data.OnComplete();
     }
 
-    public void ModifyCreatureStat(Creature source, Creature target, DynamicEffectData data)
+    public IEnumerator Wait()
     {
-        target.ModifyStat(data.Stat.Definition.Name, data.Stat.Current);
-        data.OnComplete();
+        yield return new WaitForSeconds(5f);
     }
 
-    public void ModifySpellStat(Creature source, Creature target, DynamicEffectData data)
-    {
-        Spell spell = target.FindSpell(data.Spell);
-        if(spell == null) { return; }
-        spell.ModifyStat(data.Stat.Definition.Name, data.Stat.Current);
-        data.OnComplete();
-    }
-
-    public void ModifyStatusStat(Creature source, Creature target, DynamicEffectData data)
-    {
-        Status status = target.FindStatus(data.Status);
-        if(status == null) { return; }
-        status.ModifyStat(data.Stat.Definition.Name, data.Stat.Current);
-        data.OnComplete();
-    }
-
-    public void Buff(Creature source, Creature target, DynamicEffectData data)
+    public async void Buff(Creature source, Creature target, DynamicEffectData data)
     {
         Stat stat = target.FindStat(data.Stat.Definition);
-        int modifier = data.Stat.Current;
-        source.ApplyScaling(modifier, data.Base.Scalings);
+        int modifier = source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         target.ModifyStat(stat.Definition.Name, modifier);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnBuff.TriggerEffect(source, target); }
+        await Task.Delay(100);
         data.OnComplete();
     }
 
-    public void DeBuff(Creature source, Creature target, DynamicEffectData data)
+    public async void DeBuff(Creature source, Creature target, DynamicEffectData data)
     {
         Stat stat = target.FindStat(data.Stat.Definition);
-        int modifier = data.Stat.Current;
-        source.ApplyScaling(modifier, data.Base.Scalings);
+        int modifier = source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         target.ModifyStat(stat.Definition.Name, -modifier);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnDebuff.TriggerEffect(source, target); }
+        await Task.Delay(100);
         data.OnComplete();
     }
 
-    public void Afflict(Creature source, Creature target, DynamicEffectData data)
+    public async void ModifyCooldown(Creature source, Creature target, DynamicEffectData data)
+    {
+        Spell spell = target.FindSpell(data.Spell);
+        if(spell != null) { spell.ModifyStat("Cooldown", data.Stat.Current); }
+        await Task.Delay(100);
+        data.OnComplete();
+    }
+
+    public async void ModifyDuration(Creature source, Creature target, DynamicEffectData data)
+    {
+        Status status = target.FindStatus(data.Status);
+        if(status != null) { status.ModifyStat("Duration", data.Stat.Current); }
+        await Task.Delay(100);
+        data.OnComplete();
+    }
+
+    public async void Afflict(Creature source, Creature target, DynamicEffectData data)
     {
         Status status = target.FindStatus(data.Status);
         int duration = source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
@@ -308,15 +317,19 @@ public class BattleManager : MonoBehaviour
             if(data.SendTrigger) { BattleManager.current.EffectController.OnAfflict.TriggerEffect(source, target); }
         }
         else { status.ModifyStat("Duration", duration); }
+        await Task.Delay(100);
         data.OnComplete();
     }
 
-    public void Cure(Creature source, Creature target, DynamicEffectData data)
+    public async void Cure(Creature source, Creature target, DynamicEffectData data)
     {
         Status status = target.FindStatus(data.Status);
-        if(status == null) { return; }
-        target.RemoveStatus(status);
-        if(data.SendTrigger) { BattleManager.current.EffectController.OnCure.TriggerEffect(source, target); }
+        if(status != null)
+        {
+            target.RemoveStatus(status);
+            if(data.SendTrigger) { BattleManager.current.EffectController.OnCure.TriggerEffect(source, target); }
+        }
+        await Task.Delay(100);
         data.OnComplete();
     }
 }

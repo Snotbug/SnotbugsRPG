@@ -442,7 +442,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &222400563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1275,7 +1275,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1088320413
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2117,10 +2117,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2040a3c63f4d5a4d9f1f6a356323c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Spells>k__BackingField:
-  - {fileID: 6369103817870256385, guid: 7bda5eb42d5721445a8b76f401cf7dbe, type: 3}
-  - {fileID: 7148560043350483482, guid: 9f2621d85edc811478d09cd5bfa43e22, type: 3}
-  <Equipments>k__BackingField: []
+  <UI>k__BackingField: {fileID: 0}
+  <RootEncounter>k__BackingField: {fileID: 0}
 --- !u!1 &2125743494
 GameObject:
   m_ObjectHideFlags: 0

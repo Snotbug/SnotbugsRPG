@@ -15,7 +15,10 @@ MonoBehaviour:
   <Name>k__BackingField: Cleave
   <Description>k__BackingField: A heavy sweeping strike
   <Requirement>k__BackingField: []
-  <Costs>k__BackingField: []
+  <Costs>k__BackingField:
+  - <Definition>k__BackingField: {fileID: 11400000, guid: d69df50c7da53664ab210201a52b538c, type: 2}
+    <Current>k__BackingField: 3
+    <Max>k__BackingField: 0
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
     <Current>k__BackingField: 0
@@ -28,7 +31,10 @@ MonoBehaviour:
     - <TargetType>k__BackingField: 3
       <Data>k__BackingField:
       - <ActivationType>k__BackingField: 0
-        <Scalings>k__BackingField: []
+        <Scalings>k__BackingField:
+        - <Definition>k__BackingField: {fileID: 11400000, guid: 0fba2f9e91b33b04cacf79210a3f688a, type: 2}
+          <Current>k__BackingField: 100
+          <Max>k__BackingField: 0
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:
@@ -47,44 +53,42 @@ MonoBehaviour:
         <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
           <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
-          <Current>k__BackingField: 1
+          <Current>k__BackingField: 10
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
         <Item>k__BackingField: {fileID: 0}
         <Equipment>k__BackingField: {fileID: 0}
   <TriggeredEffects>k__BackingField:
-  - <Trigger>k__BackingField: {fileID: 11400000, guid: 46b19bc6bc37d714586874c2af45d9ce, type: 2}
+  - <Trigger>k__BackingField: {fileID: 11400000, guid: 5d32a4007e1a47149bbe422c5acf16dd, type: 2}
     <TriggerType>k__BackingField: 1
     <Subeffects>k__BackingField:
-    - <TargetType>k__BackingField: 0
+    - <TargetType>k__BackingField: 1
       <Data>k__BackingField:
       - <ActivationType>k__BackingField: 0
         <Scalings>k__BackingField: []
         <Function>k__BackingField:
           m_PersistentCalls:
-            m_Calls: []
+            m_Calls:
+            - m_Target: {fileID: 5020921527337663034, guid: 2a5ec04ccfb2c754585e94de32075306, type: 3}
+              m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+              m_MethodName: ModifyCooldown
+              m_Mode: 0
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
         <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
-          <Definition>k__BackingField: {fileID: 0}
-          <Current>k__BackingField: 0
+          <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
+          <Current>k__BackingField: -1
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
-        <Spell>k__BackingField: {fileID: 0}
-        <Item>k__BackingField: {fileID: 0}
-        <Equipment>k__BackingField: {fileID: 0}
-      - <ActivationType>k__BackingField: 0
-        <Scalings>k__BackingField: []
-        <Function>k__BackingField:
-          m_PersistentCalls:
-            m_Calls: []
-        <Creature>k__BackingField: {fileID: 0}
-        <Stat>k__BackingField:
-          <Definition>k__BackingField: {fileID: 0}
-          <Current>k__BackingField: 0
-          <Max>k__BackingField: 0
-        <Status>k__BackingField: {fileID: 0}
-        <Spell>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 7148560043350483482, guid: 90b458b1d348c2e4184a13393cc12a89, type: 3}
         <Item>k__BackingField: {fileID: 0}
         <Equipment>k__BackingField: {fileID: 0}
   - <Trigger>k__BackingField: {fileID: 11400000, guid: 7ee440efe4da6a542bd2b68df8d39953, type: 2}
@@ -111,10 +115,10 @@ MonoBehaviour:
               m_CallState: 2
         <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
-          <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
+          <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
           <Current>k__BackingField: 10
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
-        <Spell>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 7148560043350483482, guid: 90b458b1d348c2e4184a13393cc12a89, type: 3}
         <Item>k__BackingField: {fileID: 0}
         <Equipment>k__BackingField: {fileID: 0}

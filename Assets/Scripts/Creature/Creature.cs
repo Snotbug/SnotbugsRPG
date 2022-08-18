@@ -129,6 +129,7 @@ public class Creature : MonoBehaviour
     {
         if(FindStatus(status) != null) { return; }
         Statuses.Add(status);
+        status.transform.SetParent(this.transform);
 
         if(UI != null) { UI.AddStatus(status); }
     }
@@ -167,7 +168,7 @@ public class Creature : MonoBehaviour
 
     public void PayCost(Spell spell)
     {
-        foreach(StatBase cost in spell.Base.Costs) { FindStat(cost.Definition).Modify(-cost.Current); }
+        foreach(StatBase cost in spell.Base.Costs) { ModifyStat(cost.Definition.Name, -cost.Current); }
         UI.UpdateUI();
     }
 
@@ -188,6 +189,7 @@ public class Creature : MonoBehaviour
     {
         if(FindSpell(spell) != null) { return; }
         Spells.Add(spell);
+        spell.transform.SetParent(this.transform);
 
         if(UI != null) { UI.AddSpell(spell); }
     }
