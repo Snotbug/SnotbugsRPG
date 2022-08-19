@@ -39,7 +39,6 @@ public class EffectController : MonoBehaviour
     {
         if(Effects.Count <= 0) { return; }
         data = Effects[0];
-        // if(data.Owner == null || data.Target == null) { return; }
         Pending = true;
         data.OnComplete += OnComplete;
         data.Base.Function.Invoke(data.Owner, data.Target, data);
@@ -49,7 +48,6 @@ public class EffectController : MonoBehaviour
     {
         Pending = false;
         Effects.Remove(data);
-        Debug.Log($"effect count: {Effects.Count}");
         Activate();
     }
 }

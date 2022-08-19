@@ -9,9 +9,9 @@ public class ChoiceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     [field : SerializeField] public TMP_Text Name { get; private set; }
     [field : SerializeField] public Button Button { get; private set; }
 
-    public ChoiceBase Choice { get; private set; }
+    public Choice Choice { get; private set; }
 
-    public void SetBase(ChoiceBase choice)
+    public void SetBase(Choice choice)
     {
         Choice = choice;
         UpdateUI();
@@ -19,7 +19,7 @@ public class ChoiceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void UpdateUI()
     {
-        Name.text = Choice.Name;
+        Name.text = Choice.Base.Name;
     }
 
     public void SetInteractable(bool interactable) { if(Button == null) { return; } Button.interactable = interactable; }

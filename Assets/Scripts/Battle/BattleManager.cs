@@ -1,20 +1,14 @@
-// using System;
 using System.Collections;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Linq;
-using TMPro;
-using UnityEngine.Events;
 
 public class BattleManager : MonoBehaviour
 {
+    [field : SerializeField] public BattleUI UI { get; private set; }
     [field : SerializeField] public TurnController TurnController { get; private set; }
     [field : SerializeField] public TargetController TargetController { get; private set; }
     [field : SerializeField] public EffectController EffectController { get; private set; }
-
-    [field : SerializeField] public BattleUI UI { get; private set; }
 
     public Spell SelectedSpell { get; private set; }
 
@@ -32,16 +26,7 @@ public class BattleManager : MonoBehaviour
         EventManager.current.onClickSpell -= SelectSpell;
     }
 
-    public void Awake()
-    {
-        current = this;
-
-        TurnController.SetBase();
-        TargetController.SetBase();
-        EffectController.SetBase();
-
-        EnterBattle();
-    }
+    public void Awake() { current = this; }
 
     private void Update()
     {
@@ -52,82 +37,69 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void ErrorCheck()
+    public void EnterBattle(Creature player, BattleLayout layout)
     {
-        Debug.Log("checking error");
-        if(UI.Player.Creature.Health.Current <= 0)
-        {
-            TargetController.Remove(UI.Player.Creature);
-            TurnController.Remove(UI.Player.Creature);
-            UI.RemoveCreature(UI.Player.Creature);
-        }
-        foreach(CreatureSpawner friend in UI.Friends)
-        {
-            Creature creature = friend.Creature;
-            if(creature?.Health.Current <= 0)
-            {
-                TargetController.Remove(creature);
-                TurnController.Remove(creature);
-                UI.RemoveCreature(creature);
-            }
-        }
-        foreach(CreatureSpawner enemy in UI.Enemies)
-        {
-            Creature creature = enemy.Creature;
-            if(creature?.Health.Current <= 0)
-            {
-                TargetController.Remove(creature);
-                TurnController.Remove(creature);
-                UI.RemoveCreature(creature);
-            }
-        }
-        Debug.Log("finished checking");
-        // if(TurnController.ActiveCreature == null) { StartTurn(); }
-    }
+        UI.gameObject.SetActive(true);
+        UI.SetBase();
+        UI.SetUI(layout);
+        AddPlayer(player);
+        foreach(CreatureContainer friend in UI.Friends) { AddFriend(friend.Default); }
+        foreach(CreatureContainer enemy in UI.Enemies) { AddEnemy(enemy.Default); }
 
-    public void EnterBattle()
-    {
-        AddPlayer(UI.Player.CreaturePrefab);
-        foreach(CreatureSpawner friend in UI.Friends) { if(friend.CreaturePrefab != null) { AddFriend(friend.CreaturePrefab); }}
-        foreach(CreatureSpawner enemy in UI.Enemies) { if(enemy.CreaturePrefab != null) { AddEnemy(enemy.CreaturePrefab); }}
-
+        TurnController.gameObject.SetActive(true);
+        TurnController.SetBase();
         TurnController.SetTurnOrder();
         TurnController.SortTurnOrder();
 
+        TargetController.gameObject.SetActive(true);
+        TargetController.SetBase();
         TargetController.EnableSelection(false);
+
+        EffectController.SetBase();
         
         StartCoroutine(StartTurn());
     }
 
     public void AddPlayer(Creature creature)
     {
-        Creature player = UI.AddPlayer(creature);
-        if(player == null) { return; }
-        TurnController.Add(player);
-        TargetController.AddPlayer(player);
+        if(creature == null) { return; }
+        CreatureContainer container = UI.FindEmptyPlayer();
+        if(container == null) { return; }
+        Creature temp = Instantiate(creature, container.transform.position, Quaternion.identity);
+        container.Add(temp);
+        TurnController.Add(temp);
+        TargetController.AddPlayer(temp);
     }
 
     public void AddFriend(Creature creature)
     {
-        Creature friend = UI.AddFriend(creature);
-        if(friend == null) { return; }
-        TurnController.Add(friend);
-        TargetController.AddFriend(friend);
+        if(creature == null) { return; }
+        CreatureContainer container = UI.FindEmptyFriend();
+        if(container == null) { return; }
+        Creature temp = Instantiate(creature, container.transform.position, Quaternion.identity);
+        container.Add(temp);
+        TurnController.Add(temp);
+        TargetController.AddFriend(temp);
     }
 
     public void AddEnemy(Creature creature)
     {
-        Creature enemy = UI.AddEnemy(creature);
-        if(enemy == null) { return; }
-        TurnController.Add(enemy);
-        TargetController.AddEnemy(enemy);
+        if(creature == null) { return; }
+        CreatureContainer container = UI.FindEmptyEnemy();
+        if(container == null) { return; }
+        Creature temp = Instantiate(creature, container.transform.position, Quaternion.identity);
+        container.Add(temp);
+        TurnController.Add(temp);
+        TargetController.AddEnemy(temp);
     }
 
     public void RemoveCreature(Creature creature)
     {
-        UI.RemoveCreature(creature);
+        CreatureContainer container = UI.FindContainer(creature);
+        container.Remove();
         TurnController.Remove(creature);
         TargetController.Remove(creature);
+        Destroy(creature.gameObject);
     }
 
     public void SelectSpell(Spell spell)
@@ -172,7 +144,6 @@ public class BattleManager : MonoBehaviour
         TurnController.FindActiveCreature();
         TurnController.ActiveCreature.UI.ShowActiveIndicator(true);
         EffectController.OnTurnStart.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
-        Debug.Log($"{TurnController.ActiveCreature}");
         yield return new WaitUntil(() => EffectController.Effects.Count <= 0);
         ErrorCheck();
         if(TurnController.ActiveCreature == null) { StartCoroutine(StartTurn()); }
@@ -181,7 +152,6 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator MainPhase()
     {
-        Debug.Log("starting main phase");
         TurnController.ActiveCreature.SetStat("Stamina", TurnController.ActiveCreature.Stamina.Max);
         if(TargetController.IsEnemy(TurnController.ActiveCreature))
         {
@@ -196,14 +166,12 @@ public class BattleManager : MonoBehaviour
                 }
             }
             ActivateSpell();
-            Debug.Log($"enemy casted: {SelectedSpell.Base.Name}");
             yield return new WaitUntil(() => EffectController.Effects.Count <= 0);
             if(TurnController.ActiveCreature == null) { StartCoroutine(StartTurn()); }
             else { EndTurn();  }
         }
         else
         {
-            Debug.Log("starting player turn");
             UI.EnableEndTurn(true);
             TurnController.ActiveCreature.EnableSpells(true);
         }
@@ -222,11 +190,53 @@ public class BattleManager : MonoBehaviour
         StartCoroutine(StartTurn());
     }
 
+    public void ErrorCheck()
+    {
+        Creature player = UI.Player.Creature;
+        if(player.Health.Current <= 0)
+        {
+            TurnController.Remove(player);
+            TargetController.Remove(player);
+            UI.Player.Remove();
+            Destroy(player.gameObject);
+        }
+        foreach(CreatureContainer container in UI.Friends)
+        {
+            Creature friend = container.Creature;
+            if(friend?.Health.Current <= 0)
+            {
+                TurnController.Remove(friend);
+                TargetController.Remove(friend);
+                container.Remove();
+                Destroy(friend.gameObject);
+            }
+        }
+        foreach(CreatureContainer container in UI.Enemies)
+        {
+            Creature enemy = container.Creature;
+            if(enemy?.Health.Current <= 0)
+            {
+                TurnController.Remove(enemy);
+                TargetController.Remove(enemy);
+                container.Remove();
+                Destroy(enemy.gameObject);
+            }
+        }
+    }
+
     public void ExitBattle()
     {
+        UI.SetBase();
         UI.gameObject.SetActive(false);
+
+        TurnController.SetBase();
         TurnController.gameObject.SetActive(false);
+
+        TargetController.SetBase();
         TargetController.gameObject.SetActive(false);
+
+        EffectController.SetBase();
+        EffectController.gameObject.SetActive(false);
     }
 
     // battle effects
@@ -244,11 +254,6 @@ public class BattleManager : MonoBehaviour
         TargetController targetController = BattleManager.current.TargetController;
         if(targetController.IsEnemy(source)) { BattleManager.current.AddFriend(data.Creature); }
         else { BattleManager.current.AddEnemy(data.Creature); }
-    }
-
-    public void DeSpawn(Creature source, Creature target, DynamicEffectData data)
-    {
-        BattleManager.current.RemoveCreature(source);
     }
 
     public async void Damage(Creature source, Creature target, DynamicEffectData data)
@@ -337,11 +342,4 @@ public class BattleManager : MonoBehaviour
         await Task.Delay(100);
         data.OnComplete();
     }
-}
-
-public enum BattleState
-{
-    StartTurn,
-    ResolveEffects,
-    EndTurn   
 }
