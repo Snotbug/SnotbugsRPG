@@ -32,11 +32,11 @@ public class ExplorationUI : MonoBehaviour
         Description.text = Encounter.Description;
 
         Choices = new List<ChoiceUI>();
-        foreach(Choice choice in encounter.Choices)
-        {
-            ChoiceUI temp = Instantiate(ChoicePrefab, ChoiceLayout.transform.position, Quaternion.identity);
-            temp.SetBase(choice);
-            Choices.Add(temp);
-        }
+        // foreach(Choice choice in encounter.Choices)
+        // {
+        //     ChoiceUI temp = Instantiate(ChoicePrefab, ChoiceLayout.transform.position, Quaternion.identity);
+        //     temp.SetBase(choice);
+        //     Choices.Add(temp);
+        // }
     }
 }

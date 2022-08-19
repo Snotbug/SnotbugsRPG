@@ -13,7 +13,7 @@ public class ExplorationManager : MonoBehaviour
     public EncounterBase Encounter { get; private set; }
     public Creature Player { get; private set; }
 
-    public ChoiceBase SelectedChoice { get; private set; }
+    public Choice SelectedChoice { get; private set; }
 
     public void OnEnable()
     {
@@ -31,7 +31,7 @@ public class ExplorationManager : MonoBehaviour
         Encounter = RootEncounter;
     }
 
-    public void SelectChoice(ChoiceBase choice)
+    public void SelectChoice(Choice choice)
     {
         SelectedChoice = choice;
     }
@@ -146,7 +146,7 @@ public class ExplorationManager : MonoBehaviour
 
     public void AddSpell()
     {
-        ChoiceData data = SelectedChoice.Consequence.Data;
+        ChoiceData data = SelectedChoice.Base.Consequence.Data;
         Spell spell = Instantiate(data.Spell, this.transform.position, Quaternion.identity);
         Player.AddSpell(spell);
     }

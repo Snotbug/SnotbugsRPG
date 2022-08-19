@@ -14,14 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: 
   <Description>k__BackingField: 
-  <EncounterChoices>k__BackingField:
-  - Name: 
-    Description: 
-    <Prerequisites>k__BackingField:
-      <Trigger>k__BackingField: {fileID: 0}
-      <TriggerType>k__BackingField: 0
-      <Data>k__BackingField: []
-    <Consequences>k__BackingField:
-      <Trigger>k__BackingField: {fileID: 0}
-      <TriggerType>k__BackingField: 0
-      <Data>k__BackingField: []
+  <Choices>k__BackingField:
+  - <Name>k__BackingField: 
+    <Description>k__BackingField: 
+    <NextEncounter>k__BackingField: {fileID: 0}
+    <Requirements>k__BackingField:
+      <Stats>k__BackingField: []
+      <Status>k__BackingField: {fileID: 0}
+      <Item>k__BackingField: {fileID: 0}
+      <Spell>k__BackingField: {fileID: 0}
+      <Equipment>k__BackingField: {fileID: 0}
+      <BattleLayout>k__BackingField: {fileID: 0}
+    <Consequence>k__BackingField:
+      <Function>k__BackingField:
+        m_PersistentCalls:
+          m_Calls: []
+      <Data>k__BackingField:
+        <Stats>k__BackingField: []
+        <Status>k__BackingField: {fileID: 0}
+        <Item>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 0}
+        <Equipment>k__BackingField: {fileID: 0}
+        <BattleLayout>k__BackingField: {fileID: 0}

@@ -26,7 +26,14 @@ public class BattleManager : MonoBehaviour
         EventManager.current.onClickSpell -= SelectSpell;
     }
 
-    public void Awake() { current = this; }
+    public void Awake()
+    {
+        current = this;
+
+        TurnController.SetBase();
+        TargetController.SetBase();
+        EffectController.SetBase();
+    }
 
     private void Update()
     {
@@ -40,22 +47,19 @@ public class BattleManager : MonoBehaviour
     public void EnterBattle(Creature player, BattleLayout layout)
     {
         UI.gameObject.SetActive(true);
-        UI.SetBase();
+        TurnController.gameObject.SetActive(true);
+        TargetController.gameObject.SetActive(true);
+        EffectController.gameObject.SetActive(true);
+
         UI.SetUI(layout);
         AddPlayer(player);
         foreach(CreatureContainer friend in UI.Friends) { AddFriend(friend.Default); }
         foreach(CreatureContainer enemy in UI.Enemies) { AddEnemy(enemy.Default); }
 
-        TurnController.gameObject.SetActive(true);
-        TurnController.SetBase();
         TurnController.SetTurnOrder();
         TurnController.SortTurnOrder();
 
-        TargetController.gameObject.SetActive(true);
-        TargetController.SetBase();
         TargetController.EnableSelection(false);
-
-        EffectController.SetBase();
         
         StartCoroutine(StartTurn());
     }
@@ -65,10 +69,9 @@ public class BattleManager : MonoBehaviour
         if(creature == null) { return; }
         CreatureContainer container = UI.FindEmptyPlayer();
         if(container == null) { return; }
-        Creature temp = Instantiate(creature, container.transform.position, Quaternion.identity);
-        container.Add(temp);
-        TurnController.Add(temp);
-        TargetController.AddPlayer(temp);
+        container.Add(creature);
+        TurnController.Add(creature);
+        TargetController.AddPlayer(creature);
     }
 
     public void AddFriend(Creature creature)
@@ -77,6 +80,7 @@ public class BattleManager : MonoBehaviour
         CreatureContainer container = UI.FindEmptyFriend();
         if(container == null) { return; }
         Creature temp = Instantiate(creature, container.transform.position, Quaternion.identity);
+        temp.SetBase();
         container.Add(temp);
         TurnController.Add(temp);
         TargetController.AddFriend(temp);
@@ -88,6 +92,7 @@ public class BattleManager : MonoBehaviour
         CreatureContainer container = UI.FindEmptyEnemy();
         if(container == null) { return; }
         Creature temp = Instantiate(creature, container.transform.position, Quaternion.identity);
+        temp.SetBase();
         container.Add(temp);
         TurnController.Add(temp);
         TargetController.AddEnemy(temp);

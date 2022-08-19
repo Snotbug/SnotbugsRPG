@@ -11,9 +11,4 @@ public class Choice
     {
 
     }
-
-    public void SetBase()
-    {
-        
-    }
 }

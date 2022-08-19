@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "BattleLayout", menuName = "BattleLayout")]
-public class BattleLayout : ScriptableObject
+[System.Serializable]
+public class BattleLayout : MonoBehaviour
 {
     [field : SerializeField] public Sprite Background { get; private set; }
 

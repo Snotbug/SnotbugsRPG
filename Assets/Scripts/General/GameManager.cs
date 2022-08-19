@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [field : SerializeField] public BattleManager BattleManager { get; private set; }
 
     [field : SerializeField] public EncounterBase RootEncounter { get; private set; }
+    [field : SerializeField] public BattleLayout Layout { get; private set; }
 
     public Creature player { get; private set; }
 
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     {
         player = Instantiate(Player, this.transform.position, Quaternion.identity);
         player.SetBase();
-        ExplorationManager.EnterExploration(player);
+        // ExplorationManager.EnterExploration(player);
+        BattleManager.EnterBattle(player, Layout);
     }
 }

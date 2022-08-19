@@ -7,13 +7,12 @@ using TMPro;
 
 public class BattleUI : MonoBehaviour
 {
+    [field : SerializeField] public TMP_Text Description { get; private set; }
+    [field : SerializeField] public Button EndTurn { get; private set; }
+
     public CreatureContainer Player { get; private set; }
     public List<CreatureContainer> Friends { get; private set; }
     public List<CreatureContainer> Enemies { get; private set; }
-
-    [field : SerializeField] public Button EndTurn { get; private set; }
-
-    [field : SerializeField] public TMP_Text Description { get; private set; }
 
     public void OnEnable()
     {
@@ -53,19 +52,19 @@ public class BattleUI : MonoBehaviour
 
     public void SetUI(BattleLayout layout)
     {
-        Player = Instantiate(layout.Player, this.transform.position, Quaternion.identity);
+        Player = Instantiate(layout.Player, layout.Player.transform.position, Quaternion.identity);
 
         Friends = new List<CreatureContainer>();
         foreach(CreatureContainer friend in layout.Friends)
         {
-            CreatureContainer temp = Instantiate(friend, this.transform.position, Quaternion.identity);
+            CreatureContainer temp = Instantiate(friend, friend.transform.position, Quaternion.identity);
             Friends.Add(temp);
         }
 
         Enemies = new List<CreatureContainer>();
         foreach(CreatureContainer enemy in layout.Enemies)
         {
-            CreatureContainer temp = Instantiate(enemy, this.transform.position, Quaternion.identity);
+            CreatureContainer temp = Instantiate(enemy, enemy.transform.position, Quaternion.identity);
             Enemies.Add(temp);
         }
     }
@@ -103,7 +102,7 @@ public class BattleUI : MonoBehaviour
 
     public void InspectCreature(Creature creature)
     {
-        // Debug.Log(creature.Base.Name);
+
     }
 
     public void InspectSpell(Spell spell)
