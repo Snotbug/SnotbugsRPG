@@ -11,18 +11,13 @@ public class ChoiceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public Choice Choice { get; private set; }
 
-    public void SetBase(Choice choice)
+    public void SetUI(Choice choice)
     {
         Choice = choice;
-        UpdateUI();
-    }
-
-    public void UpdateUI()
-    {
         Name.text = Choice.Base.Name;
     }
 
-    public void SetInteractable(bool interactable) { if(Button == null) { return; } Button.interactable = interactable; }
+    public void SetInteractable(bool interactable) { if(Button != null) { Button.interactable = interactable; }}
 
     public void OnClick() { EventManager.current.ClickChoice(Choice); }
     

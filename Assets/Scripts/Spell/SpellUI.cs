@@ -16,7 +16,7 @@ public class SpellUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         SetInteractable(false);
     }
 
-    public void SetInteractable(bool interactable) { if(Button == null) { return; } Button.interactable = interactable; }
+    public void SetInteractable(bool interactable) { if(Button != null) { Button.interactable = interactable; }}
 
     public void OnClick() { EventManager.current.ClickSpell(Spell); }
     

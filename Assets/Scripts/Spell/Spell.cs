@@ -72,6 +72,6 @@ public class Spell : MonoBehaviour
     public void OnDestroy()
     {
         foreach(Effect effect in TriggeredEffects) { effect.Base.Trigger.UnregisterEffect(effect); }
-        if(UI == null) { return; } Destroy(UI.gameObject);
+        if(UI != null) { Destroy(UI.gameObject); }
     }
 }

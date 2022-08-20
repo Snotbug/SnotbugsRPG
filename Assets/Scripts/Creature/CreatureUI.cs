@@ -71,9 +71,9 @@ public class CreatureUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerExit(PointerEventData eventData) { EventManager.current.HoverExitCreature(); }
 
-    public void ShowActiveIndicator(bool show) { if (ActiveIndicator == null) { return; } ActiveIndicator.gameObject.SetActive(show); }
+    public void ShowActiveIndicator(bool show) { if (ActiveIndicator != null) { ActiveIndicator.gameObject.SetActive(show); }}
 
-    public void ShowTargetIndicator(bool show) { if(TargetIndicator == null) { return; } TargetIndicator.gameObject.SetActive(show); }
+    public void ShowTargetIndicator(bool show) { if(TargetIndicator != null) { TargetIndicator.gameObject.SetActive(show); }}
 
     public void SetInteractable(bool interactable)
     {

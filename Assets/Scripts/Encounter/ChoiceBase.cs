@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -11,19 +10,19 @@ public class ChoiceBase
 
     [field : SerializeField] public EncounterBase NextEncounter { get; private set; }
 
-    [field : SerializeField] public ChoiceData Requirements { get; private set; }
-    [field : SerializeField] public ChoiceConsequence Consequence { get; private set; }
+    [field : SerializeField] public BaseChoiceData Requirements { get; private set; }
+    [field : SerializeField] public List<ChoiceConsequence> Consequences { get; private set; }
 }
 
 [System.Serializable]
 public class ChoiceConsequence
 {
-    [field : SerializeField] public UnityEvent Function { get; private set; }
-    [field : SerializeField] public ChoiceData Data { get; private set; }
+    [field : SerializeField] public UnityEvent<ChoiceData> Function { get; private set; }
+    [field : SerializeField] public BaseChoiceData Data { get; private set; }
 }
 
 [System.Serializable]
-public class ChoiceData
+public class BaseChoiceData
 {
     [field : SerializeField] public List<StatBase> Stats { get; private set; }
     [field : SerializeField] public Status Status { get; private set; }

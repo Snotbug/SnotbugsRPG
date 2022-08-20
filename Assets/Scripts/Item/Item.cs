@@ -59,7 +59,6 @@ public class Item : MonoBehaviour
 
     public void OnDestroy()
     {
-        if(UI == null) { return; }
-        Destroy(UI.gameObject);
+        if(UI != null) { Destroy(UI.gameObject); }
     }
 }

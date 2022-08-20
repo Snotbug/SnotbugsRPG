@@ -1,9 +1,9 @@
+using System;
 using System.Collections;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading.Tasks;
 using UnityEngine.Events;
-using System;
 
 public class EffectController : MonoBehaviour
 {
@@ -44,8 +44,9 @@ public class EffectController : MonoBehaviour
         data.Base.Function.Invoke(data.Owner, data.Target, data);
     }
 
-    private void OnComplete()
+    private async void OnComplete()
     {
+        await Task.Delay(100);
         Pending = false;
         Effects.Remove(data);
         Activate();

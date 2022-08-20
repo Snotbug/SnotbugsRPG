@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour
     {
         player = Instantiate(Player, this.transform.position, Quaternion.identity);
         player.SetBase();
-        // ExplorationManager.EnterExploration(player);
-        BattleManager.EnterBattle(player, Layout);
+        ExplorationManager.EnterExploration(player);
+        // BattleManager.EnterBattle(player, Layout);
     }
 }

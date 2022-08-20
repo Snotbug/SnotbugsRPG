@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,10 +11,14 @@ public class ExplorationManager : MonoBehaviour
 
     public static ExplorationManager current;
 
+    [field : SerializeField] public Choice ChoicePrefab { get; private set; }
+
     public EncounterBase Encounter { get; private set; }
     public Creature Player { get; private set; }
 
     public Choice SelectedChoice { get; private set; }
+
+    public Spell SelectedSpell { get; private set; }
 
     public void OnEnable()
     {
@@ -54,7 +59,9 @@ public class ExplorationManager : MonoBehaviour
         UI.SetUI(Encounter);
         foreach(ChoiceBase choice in Encounter.Choices)
         {
-            if(!CheckRequirements(choice)) {  }
+            Choice temp = Instantiate(ChoicePrefab, this.transform.position, Quaternion.identity);
+            temp.SetBase(choice);
+            if(!temp.CheckRequirements(Player)) {}
         }
     }
 
@@ -69,91 +76,47 @@ public class ExplorationManager : MonoBehaviour
 
     }
 
-    public bool CheckRequirements(ChoiceBase choice)
-    {
-        if
-        (
-            !CheckStats(choice) ||
-            !CheckStatuses(choice) ||
-            !CheckSpells(choice) ||
-            !CheckItems(choice) ||
-            !CheckEquipments(choice)
-        ) { return false; }
-        return true;
-    }
-
-    public bool CheckStats(ChoiceBase choice)
-    {
-        foreach(StatBase requirement in choice.Requirements.Stats)
-        {
-            Stat stat = Player.FindStat(requirement.Definition);
-            if(stat.Current < requirement.Current || stat.Max < requirement.Max) { return false; }
-        }
-        return true;
-    }
-
-    public bool CheckStatuses(ChoiceBase choice)
-    {
-        Status requirement = choice.Requirements.Status;
-        Status status = Player.FindStatus(requirement);
-        if(status == null) { return false; }
-        return true;
-    }
-
-    public bool CheckSpells(ChoiceBase choice)
-    {
-        Spell requirement = choice.Requirements.Spell;
-        Spell spell = Player.FindSpell(requirement);
-        if(spell == null) { return false; }
-        return true;
-    }
-
-    public bool CheckItems(ChoiceBase choice)
-    {
-        Item requirement = choice.Requirements.Item;
-        Item item = Player.FindItem(requirement);
-        if(item == null) { return false; }
-        return true;
-    }
-
-    public bool CheckEquipments(ChoiceBase choice)
-    {
-        Equipment requirement = choice.Requirements.Equipment;
-        Equipment equipment = Player.FindEquipment(requirement);
-        if(equipment == null) { return false; }
-        return true;
-    }
-
     public void ModifyStats(ChoiceData data)
     {
-        foreach(StatBase statBase in data.Stats)
+        foreach(StatBase statBase in data.Base.Stats)
         {
             Stat stat = Player.FindStat(statBase.Definition);
             stat.Modify(statBase.Current);
             stat.ModifyMax(statBase.Max);
         }
+        data.OnComplete();
     }
 
     public void SetStats(ChoiceData data)
     {
-        foreach(StatBase statBase in data.Stats)
+        foreach(StatBase statBase in data.Base.Stats)
         {
             Stat stat = Player.FindStat(statBase.Definition);
             stat.Set(statBase.Current);
             stat.SetMax(statBase.Max);
         }
+        data.OnComplete();
     }
 
-    public void AddSpell()
+    public void AddSpell(ChoiceData data)
     {
-        ChoiceData data = SelectedChoice.Base.Consequence.Data;
-        Spell spell = Instantiate(data.Spell, this.transform.position, Quaternion.identity);
+        Spell spell = Instantiate(data.Base.Spell, this.transform.position, Quaternion.identity);
         Player.AddSpell(spell);
+    }
+
+    public void Erase(ChoiceData data)
+    {
+        StartCoroutine(WaitForSpell(RemoveSpell));
+    }
+
+    public IEnumerator WaitForSpell(Action OnComplete)
+    {
+        yield return new WaitUntil(() => SelectedSpell != null);
+        OnComplete();
     }
 
     public void RemoveSpell()
     {
-        // Spell spell = Instantiate(data.Spell, this.transform.position, Quaternion.identity);
-        // Player.AddSpell(spell);
+        Player.RemoveSpell(SelectedSpell);
     }
 }
