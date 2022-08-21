@@ -10,13 +10,14 @@ public class ExplorationUI : MonoBehaviour
     [field : SerializeField] public TMP_Text Description { get; private set; }
     [field : SerializeField] public SpriteRenderer Background { get; private set; }
     [field : SerializeField] public VerticalLayoutGroup ChoiceLayout { get; private set; }
-    [field : SerializeField] public ChoiceUI ChoicePrefab { get; private set; }
 
-    public EncounterBase Encounter { get; private set; }
     public List<ChoiceUI> Choices { get; private set; }
 
     public void SetBase()
     {
+        Name.text = "";
+        Description.text = "";
+
         for(int i = Choices.Count - 1; i > 0; i--)
         {
             ChoiceUI temp = Choices[i];
@@ -27,16 +28,16 @@ public class ExplorationUI : MonoBehaviour
 
     public void SetUI(EncounterBase encounter)
     {
-        Encounter = encounter;
-        Name.text = Encounter.Name;
-        Description.text = Encounter.Description;
+        Name.text = encounter.Name;
+        Description.text = encounter.Description;
 
         Choices = new List<ChoiceUI>();
-        // foreach(Choice choice in encounter.Choices)
-        // {
-        //     ChoiceUI temp = Instantiate(ChoicePrefab, ChoiceLayout.transform.position, Quaternion.identity);
-        //     temp.SetBase(choice);
-        //     Choices.Add(temp);
-        // }
+    }
+
+    public void AddChoice(Choice choice)
+    {
+        choice.transform.SetParent(ChoiceLayout.transform);
+        choice.transform.localScale = ChoiceLayout.transform.localScale;
+        // Choices.Add(ui);
     }
 }

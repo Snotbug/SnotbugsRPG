@@ -242,7 +242,7 @@ public class Creature : MonoBehaviour
         Equipments[foundEquipment.Base.Type] = null;
     }
 
-    public void Equip(Equipment equipment, bool equip)
+    public void Equip(Equipment equipment)
     {
         foreach(StatBase requirement in equipment.Base.Requirement)
         {
@@ -258,7 +258,7 @@ public class Creature : MonoBehaviour
         }
     }
 
-    public void Unequip(Equipment equipment, bool equip)
+    public void Unequip(Equipment equipment)
     {
         foreach(StatBase modifier in equipment.Base.Modifiers)
         {

@@ -125,5 +125,5 @@ public class BattleUI : MonoBehaviour
 
     }
 
-    public void EnableEndTurn(bool enable) { if(EndTurn == null) { return; } EndTurn.interactable = enable; }
+    public void EnableEndTurn(bool enable) { if(EndTurn != null) { EndTurn.interactable = enable; }  }
 }

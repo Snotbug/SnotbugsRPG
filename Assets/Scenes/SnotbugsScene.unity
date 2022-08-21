@@ -321,7 +321,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &222400563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -452,7 +452,7 @@ MonoBehaviour:
   <Player>k__BackingField: {fileID: 5602932842097332090, guid: ac791d732df221b4d9a62ffeae0b961d, type: 3}
   <ExplorationManager>k__BackingField: {fileID: 2094269746}
   <BattleManager>k__BackingField: {fileID: 222400563}
-  <RootEncounter>k__BackingField: {fileID: 0}
+  <RootEncounter>k__BackingField: {fileID: 11400000, guid: 026a4518607512640a9ace2305ff4fd2, type: 2}
   <Layout>k__BackingField: {fileID: 7991102881252459000, guid: bd10a487465953543b84c7ca05a51eda, type: 3}
 --- !u!4 &334967158
 Transform:
@@ -992,7 +992,6 @@ MonoBehaviour:
   <Description>k__BackingField: {fileID: 1578689245}
   <Background>k__BackingField: {fileID: 1318054754}
   <ChoiceLayout>k__BackingField: {fileID: 257581901}
-  <ChoicePrefab>k__BackingField: {fileID: 0}
 --- !u!1 &1318054752
 GameObject:
   m_ObjectHideFlags: 0
@@ -1465,7 +1464,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2088681534
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1605,8 +1604,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2040a3c63f4d5a4d9f1f6a356323c56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <RootEncounter>k__BackingField: {fileID: 0}
-  <UI>k__BackingField: {fileID: 0}
+  <UI>k__BackingField: {fileID: 1088320417}
+  <ChoicePrefab>k__BackingField: {fileID: 651791774563842048, guid: 477f1722a3010174b8486b0e23eefe96, type: 3}
 --- !u!1 &2125743494
 GameObject:
   m_ObjectHideFlags: 0

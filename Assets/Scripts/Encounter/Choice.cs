@@ -6,11 +6,13 @@ public class Choice : MonoBehaviour
 {
     [field : SerializeField] public ChoiceUI UI { get; private set; }
 
+    public Creature Owner { get; private set; }
     public ChoiceBase Base { get; private set; }
     public bool Pending { get; private set; }
 
-    public void SetBase(ChoiceBase choiceBase)
+    public void SetBase(Creature owner, ChoiceBase choiceBase)
     {
+        Owner = owner;
         Base = choiceBase;
         Pending = false;
 
@@ -43,6 +45,7 @@ public class Choice : MonoBehaviour
     public bool CheckStatuses(Creature creature)
     {
         Status requirement = Base.Requirements.Status;
+        if(requirement == null) { return true; }
         Status status = creature.FindStatus(requirement);
         if(status == null) { return false; }
         return true;
@@ -51,6 +54,7 @@ public class Choice : MonoBehaviour
     public bool CheckSpells(Creature creature)
     {
         Spell requirement = Base.Requirements.Spell;
+        if(requirement == null) { return true; }
         Spell spell = creature.FindSpell(requirement);
         if(spell == null) { return false; }
         return true;
@@ -59,6 +63,7 @@ public class Choice : MonoBehaviour
     public bool CheckItems(Creature creature)
     {
         Item requirement = Base.Requirements.Item;
+        if(requirement == null) { return true; }
         Item item = creature.FindItem(requirement);
         if(item == null) { return false; }
         return true;
@@ -67,6 +72,7 @@ public class Choice : MonoBehaviour
     public bool CheckEquipments(Creature creature)
     {
         Equipment requirement = Base.Requirements.Equipment;
+        if(requirement == null) { return true; }
         Equipment equipment = creature.FindEquipment(requirement);
         if(equipment == null) { return false; }
         return true;
@@ -78,7 +84,7 @@ public class Choice : MonoBehaviour
         foreach(ChoiceConsequence consequence in Base.Consequences)
         {
             Pending = true;
-            data.SetBase(consequence.Data);
+            data.SetBase(consequence.Data, Owner);
             data.OnComplete += OnComplete;
             consequence.Function.Invoke(data);
             yield return new WaitUntil(() => !Pending);
@@ -100,14 +106,16 @@ public class ChoiceData
 {
     public BaseChoiceData Base { get; private set; }
     public Action OnComplete { get; set; }
+    public Creature Owner { get; set; }
 
     public ChoiceData()
     {
         
     }
 
-    public void SetBase(BaseChoiceData baseData)
+    public void SetBase(BaseChoiceData baseData, Creature owner)
     {
         Base = baseData;
+        Owner = owner;
     }
 }
