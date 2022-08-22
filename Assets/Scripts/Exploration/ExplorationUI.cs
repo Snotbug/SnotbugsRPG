@@ -22,7 +22,7 @@ public class ExplorationUI : MonoBehaviour
         {
             ChoiceUI temp = Choices[i];
             Choices.Remove(temp);
-            Destroy(temp);
+            Destroy(temp.gameObject);
         }
     }
 
@@ -32,6 +32,11 @@ public class ExplorationUI : MonoBehaviour
         Description.text = encounter.Description;
 
         Choices = new List<ChoiceUI>();
+    }
+
+    public void UpdateDescription(string description)
+    {
+        Description.text += $"\n {description} \n";
     }
 
     public void AddChoice(Choice choice)

@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99858b869fa17464a87cb3fcc7624869, type: 3}
-  m_Name: Encounter
+  m_Name: Encounter 1
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: The priest
-  <Description>k__BackingField: You meet a suspicious looking priest
+  <Name>k__BackingField: Cumulus Nimbus
+  <Description>k__BackingField: A pretty little cloud
   <Choices>k__BackingField:
-  - <Name>k__BackingField: Ask for healing
-    <Description>k__BackingField: He poisoned you with some tainted rememdy, you'll
-      have to remove a spell
-    <NextEncounter>k__BackingField: {fileID: 11400000, guid: 30206bb655dcac346aa52f04293492c5, type: 2}
+  - <Name>k__BackingField: -5 Health
+    <Description>k__BackingField: Turns out its not so nice after all
+    <NextEncounter>k__BackingField: {fileID: 0}
     <BattleLayout>k__BackingField: {fileID: 0}
     <Requirements>k__BackingField:
       <Stats>k__BackingField: []
@@ -72,8 +71,8 @@ MonoBehaviour:
         <Item>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
         <Equipment>k__BackingField: {fileID: 0}
-  - <Name>k__BackingField: You decided to avoid them
-    <Description>k__BackingField: FIne, but you're still getting poisoned
+  - <Name>k__BackingField: +10 health
+    <Description>k__BackingField: 
     <NextEncounter>k__BackingField: {fileID: 0}
     <BattleLayout>k__BackingField: {fileID: 0}
     <Requirements>k__BackingField:

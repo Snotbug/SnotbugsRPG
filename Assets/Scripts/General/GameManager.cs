@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    [field : SerializeField] public Creature Player { get; private set; }
     [field : SerializeField] public ExplorationManager ExplorationManager { get; private set; }
     [field : SerializeField] public BattleManager BattleManager { get; private set; }
 
+
+    [field : SerializeField] public Creature Player { get; private set; }
     [field : SerializeField] public EncounterBase RootEncounter { get; private set; }
     [field : SerializeField] public BattleLayout Layout { get; private set; }
 
@@ -31,4 +32,10 @@ public class GameManager : MonoBehaviour
         ExplorationManager.EnterExploration(player, RootEncounter);
         // BattleManager.EnterBattle(player, Layout);
     }
+}
+
+public enum GameState
+{
+    Exploration,
+    Battle
 }

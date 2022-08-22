@@ -6,6 +6,12 @@ public class EventManager : MonoBehaviour
     public static EventManager current;
     public void Awake() { current = this; }
 
+    public event Action<Creature, EncounterBase> onEnterExploration;
+    public void EnterExploration(Creature player, EncounterBase encounter) { if(onEnterExploration != null) { onEnterExploration(player, encounter); }}
+
+    public event Action<Creature, BattleLayout> onEnterBattle;
+    public void EnterBattle(Creature player, BattleLayout battleEncounter) { if(onEnterBattle != null) { onEnterBattle(player, battleEncounter); }}
+
     public event Action<Choice> onClickChoice;
     public void ClickChoice(Choice choice) { if(onClickChoice != null) { onClickChoice(choice); }}
 

@@ -78,20 +78,21 @@ public class Choice : MonoBehaviour
         return true;
     }
 
-    public IEnumerator EnactConsequences()
+    public IEnumerator EnactConsequences(Action OnFinish)
     {
         ChoiceData data = new ChoiceData();
         foreach(ChoiceConsequence consequence in Base.Consequences)
         {
             Pending = true;
             data.SetBase(consequence.Data, Owner);
-            data.OnComplete += OnComplete;
+            data.OnComplete = FinishPending;
             consequence.Function.Invoke(data);
             yield return new WaitUntil(() => !Pending);
         }
+        OnFinish();
     }
 
-    public void OnComplete()
+    public void FinishPending()
     {
         Pending = false;
     }

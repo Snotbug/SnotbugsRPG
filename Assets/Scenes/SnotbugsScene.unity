@@ -449,9 +449,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0a043d64b9d75644ace98c37a329886, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Player>k__BackingField: {fileID: 5602932842097332090, guid: ac791d732df221b4d9a62ffeae0b961d, type: 3}
   <ExplorationManager>k__BackingField: {fileID: 2094269746}
   <BattleManager>k__BackingField: {fileID: 222400563}
+  <Player>k__BackingField: {fileID: 5602932842097332090, guid: ac791d732df221b4d9a62ffeae0b961d, type: 3}
   <RootEncounter>k__BackingField: {fileID: 11400000, guid: 026a4518607512640a9ace2305ff4fd2, type: 2}
   <Layout>k__BackingField: {fileID: 7991102881252459000, guid: bd10a487465953543b84c7ca05a51eda, type: 3}
 --- !u!4 &334967158

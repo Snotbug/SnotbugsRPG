@@ -9,6 +9,7 @@ public class ChoiceBase
     [field : SerializeField] public string Description { get; private set; }
 
     [field : SerializeField] public EncounterBase NextEncounter { get; private set; }
+    [field : SerializeField] public BattleLayout BattleLayout { get; private set; }
 
     [field : SerializeField] public BaseChoiceData Requirements { get; private set; }
     [field : SerializeField] public List<ChoiceConsequence> Consequences { get; private set; }
@@ -29,6 +30,4 @@ public class BaseChoiceData
     [field : SerializeField] public Item Item { get; private set; }
     [field : SerializeField] public Spell Spell { get; private set; }
     [field : SerializeField] public Equipment Equipment { get; private set; }
-    
-    [field : SerializeField] public BattleLayout BattleLayout { get; private set; }
 }

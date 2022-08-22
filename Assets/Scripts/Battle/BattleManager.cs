@@ -131,7 +131,7 @@ public class BattleManager : MonoBehaviour
 
     public IEnumerator ActivateSpell()
     {
-        if(SelectedSpell == null) { yield return null ; }
+        if(SelectedSpell == null) { yield return null; }
         TurnController.ActiveCreature.PayCost(SelectedSpell);
         SelectedSpell.SetStat(SelectedSpell.Cooldown.Definition.Name, SelectedSpell.Cooldown.Max);
         SelectedSpell.UI.SetInteractable(TurnController.ActiveCreature.CanActivate(SelectedSpell));
@@ -170,6 +170,8 @@ public class BattleManager : MonoBehaviour
                     SelectedSpell.ActivatedEffect.Target = TargetController.Targets[Random.Range(0, TargetController.Targets.Count)];
                 }
             }
+            // List<Creature> targets = TargetController.FindTargets(TurnController.ActiveCreature, selectedsp);
+            // Debug.Log(SelectedSpell.Base.Name);
             ActivateSpell();
             yield return new WaitUntil(() => EffectController.Effects.Count <= 0);
             if(TurnController.ActiveCreature == null) { StartCoroutine(StartTurn()); }
@@ -227,6 +229,10 @@ public class BattleManager : MonoBehaviour
                 Destroy(enemy.gameObject);
             }
         }
+        if(TargetController.Enemies.Count <= 0)
+        {
+            Debug.Log("you won");
+        }
     }
 
     public void ExitBattle()
@@ -242,6 +248,8 @@ public class BattleManager : MonoBehaviour
 
         EffectController.SetBase();
         EffectController.gameObject.SetActive(false);
+
+        BattleManager.current.gameObject.SetActive(false);
     }
 
     // battle effects
@@ -259,6 +267,7 @@ public class BattleManager : MonoBehaviour
         TargetController targetController = BattleManager.current.TargetController;
         if(targetController.IsEnemy(source)) { BattleManager.current.AddFriend(data.Creature); }
         else { BattleManager.current.AddEnemy(data.Creature); }
+        data.OnComplete();
     }
 
     public async void Damage(Creature source, Creature target, DynamicEffectData data)
@@ -278,6 +287,7 @@ public class BattleManager : MonoBehaviour
         int heal = source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         target.ModifyStat("Health", heal);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnHeal.TriggerEffect(source, target); }
+        Debug.Log("heal");
         await Task.Delay(100);
         data.OnComplete();
     }
@@ -332,6 +342,7 @@ public class BattleManager : MonoBehaviour
             if(data.SendTrigger) { BattleManager.current.EffectController.OnAfflict.TriggerEffect(source, target); }
         }
         else { status.ModifyStat("Duration", duration); }
+        Debug.Log("Afflicted");
         await Task.Delay(100);
         data.OnComplete();
     }

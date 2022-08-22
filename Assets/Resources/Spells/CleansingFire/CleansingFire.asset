@@ -124,3 +124,34 @@ MonoBehaviour:
         <Spell>k__BackingField: {fileID: 7148560043350483482, guid: 9f2621d85edc811478d09cd5bfa43e22, type: 3}
         <Item>k__BackingField: {fileID: 0}
         <Equipment>k__BackingField: {fileID: 0}
+  - <Trigger>k__BackingField: {fileID: 11400000, guid: 5d32a4007e1a47149bbe422c5acf16dd, type: 2}
+    <TriggerType>k__BackingField: 1
+    <Subeffects>k__BackingField:
+    - <TargetType>k__BackingField: 1
+      <Data>k__BackingField:
+      - <ActivationType>k__BackingField: 0
+        <Scalings>k__BackingField: []
+        <Function>k__BackingField:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 5020921527337663034, guid: 2a5ec04ccfb2c754585e94de32075306, type: 3}
+              m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+              m_MethodName: Heal
+              m_Mode: 0
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        <Creature>k__BackingField: {fileID: 0}
+        <Stat>k__BackingField:
+          <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
+          <Current>k__BackingField: 10
+          <Max>k__BackingField: 0
+        <Status>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 7148560043350483482, guid: 9f2621d85edc811478d09cd5bfa43e22, type: 3}
+        <Item>k__BackingField: {fileID: 0}
+        <Equipment>k__BackingField: {fileID: 0}
