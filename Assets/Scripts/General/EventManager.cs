@@ -6,11 +6,11 @@ public class EventManager : MonoBehaviour
     public static EventManager current;
     public void Awake() { current = this; }
 
-    public event Action<BattleState> onChangeStateBattle;
-    public void ChangeStateBattle(BattleState state) { if(onChangeStateBattle != null) { onChangeStateBattle(state); }}
-
     public event Action<Creature, EncounterBase> onEnterExploration;
     public void EnterExploration(Creature player, EncounterBase encounter) { if(onEnterExploration != null) { onEnterExploration(player, encounter); }}
+
+    public event Action<Creature, EncounterBase, BattleLayout> onExitExploration;
+    public void ExitExploration(Creature player, EncounterBase encounter, BattleLayout layout) { if(onExitExploration != null) { onExitExploration(player, encounter, layout); }}
 
     public event Action<Creature, BattleLayout> onEnterBattle;
     public void EnterBattle(Creature player, BattleLayout battleEncounter) { if(onEnterBattle != null) { onEnterBattle(player, battleEncounter); }}

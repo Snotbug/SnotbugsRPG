@@ -7,33 +7,9 @@ public class BattleLayout : MonoBehaviour
 {
     [field : SerializeField] public Sprite Background { get; private set; }
 
-    [field : SerializeField] public CreatureContainer DefaultPlayer { get; private set; }
-    [field : SerializeField] public List<CreatureContainer> DefaultFriends { get; private set; }
-    [field : SerializeField] public List<CreatureContainer> DefaultEnemies { get; private set; }
-
-    public CreatureContainer Player { get; private set; }
-    public List<CreatureContainer> Friends { get; private set; }
-    public List<CreatureContainer> Enemies { get; private set; }
-
-    public void SetBase()
-    {
-        Player = Instantiate(DefaultPlayer, DefaultPlayer.transform.position, Quaternion.identity);
-        Player.transform.SetParent(this.transform);
-
-        Friends = new List<CreatureContainer>();
-        foreach(CreatureContainer friend in DefaultFriends)
-        {
-            CreatureContainer temp = Instantiate(friend, friend.transform.position, Quaternion.identity);
-            temp.transform.SetParent(this.transform);
-        }
-
-        Enemies = new List<CreatureContainer>();
-        foreach(CreatureContainer enemy in DefaultEnemies)
-        {
-            CreatureContainer temp = Instantiate(enemy, enemy.transform.position, Quaternion.identity);
-            temp.transform.SetParent(this.transform);
-        }
-    }
+    [field : SerializeField] public CreatureContainer Player { get; private set; }
+    [field : SerializeField] public List<CreatureContainer> Friends { get; private set; }
+    [field : SerializeField] public List<CreatureContainer> Enemies { get; private set; }
 
     public CreatureContainer FindEmptyPlayer()
     {

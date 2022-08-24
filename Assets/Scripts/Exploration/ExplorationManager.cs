@@ -4,9 +4,8 @@ using UnityEngine;
 public class ExplorationManager : MonoBehaviour
 {
     [field : SerializeField] public ExplorationUI UI { get; private set; }
-    [field : SerializeField] public Choice ChoicePrefab { get; private set; }
-
     [field : SerializeField] public SelectionController Selector { get; private set; }
+    [field : SerializeField] public Choice ChoicePrefab { get; private set; }
 
     public static ExplorationManager current;
 
@@ -14,11 +13,6 @@ public class ExplorationManager : MonoBehaviour
     public Creature Player { get; private set; }
 
     public List<Choice> Choices { get; private set; }
-
-    public void Awake()
-    {
-        current = this;
-    }
 
     public void EnterExploration(Creature player, EncounterBase encounter)
     {
@@ -31,7 +25,7 @@ public class ExplorationManager : MonoBehaviour
         Choices = new List<Choice>();
         foreach(ChoiceBase choice in Encounter.Choices)
         {
-            Choice temp = Instantiate(ChoicePrefab, this.transform.position, Quaternion.identity);
+            Choice temp = Instantiate(ChoicePrefab);
             temp.SetBase(Player, choice);
             Choices.Add(temp);
             if(!temp.CheckRequirements(Player)) { temp.UI.SetInteractable(false); }
@@ -43,7 +37,7 @@ public class ExplorationManager : MonoBehaviour
 
     public void ExitExploration()
     {
-        for(int i = Choices.Count - 1; i > 0; i--)
+        for(int i = Choices.Count - 1; i >= 0; i--)
         {
             Choice temp = Choices[i];
             Destroy(temp.gameObject);
@@ -52,6 +46,8 @@ public class ExplorationManager : MonoBehaviour
         UI.SetBase();
         UI.gameObject.SetActive(false);
 
+        Choice choice = ExplorationManager.current.Selector.Choice;
+        EventManager.current.ExitExploration(Player, choice.Base.NextEncounter, choice.Base.BattleLayout);
         ExplorationManager.current.gameObject.SetActive(false);
     }
 
@@ -94,7 +90,7 @@ public class ExplorationManager : MonoBehaviour
     {
         Status temp = Instantiate(data.Base.Status);
         temp.SetBase(Player);
-        Player.AddStatus(temp);
+        ExplorationManager.current.Player.AddStatus(temp);
         data.OnComplete();
     }
 
@@ -102,15 +98,15 @@ public class ExplorationManager : MonoBehaviour
     {
         if(data.Base.Status != null)
         {
-            Status temp = Player.FindStatus(data.Base.Status);
-            if(temp != null) { Player.RemoveStatus(temp); }
+            Status temp = data.Owner.FindStatus(data.Base.Status);
+            if(temp != null) { data.Owner.RemoveStatus(temp); }
             data.OnComplete();
         }
         else
         {
             ExplorationManager.current.Selector.WaitForStatus = (() =>
             {
-                ExplorationManager.current.Player.RemoveStatus(ExplorationManager.current.Selector.Status);
+                data.Owner.RemoveStatus(ExplorationManager.current.Selector.Status);
                 data.OnComplete();
                 ExplorationManager.current.Selector.Status = null;
                 ExplorationManager.current.Selector.WaitForStatus = null;
@@ -121,7 +117,8 @@ public class ExplorationManager : MonoBehaviour
     public void AddSpell(ChoiceData data)
     {
         Spell temp = Instantiate(data.Base.Spell);
-        ExplorationManager.current.Player.AddSpell(temp);
+        temp.SetBase(Player);
+        data.Owner.AddSpell(temp);
         data.OnComplete();
     }
 
@@ -129,15 +126,15 @@ public class ExplorationManager : MonoBehaviour
     {
         if(data.Base.Spell != null)
         {
-            Spell temp = Player.FindSpell(data.Base.Spell);
-            if(temp != null) { Player.RemoveSpell(temp); }
+            Spell temp = data.Owner.FindSpell(data.Base.Spell);
+            if(temp != null) { data.Owner.RemoveSpell(temp); }
             data.OnComplete();
         }
         else
         {
             ExplorationManager.current.Selector.WaitForSpell = (() =>
             {
-                ExplorationManager.current.Player.RemoveSpell(ExplorationManager.current.Selector.Spell);
+                data.Owner.RemoveSpell(ExplorationManager.current.Selector.Spell);
                 data.OnComplete();
                 ExplorationManager.current.Selector.Spell = null;
                 ExplorationManager.current.Selector.WaitForSpell = null;
@@ -179,15 +176,15 @@ public class ExplorationManager : MonoBehaviour
     {
         if(data.Base.Equipment != null)
         {
-            Equipment temp = Player.FindEquipment(data.Base.Equipment);
-            if(temp != null) { Player.RemoveEquipment(temp); }
+            Equipment temp = data.Owner.FindEquipment(data.Base.Equipment);
+            if(temp != null) { data.Owner.RemoveEquipment(temp); }
             data.OnComplete();
         }
         else
         {
             ExplorationManager.current.Selector.WaitForEquipment = (() =>
             {
-                ExplorationManager.current.Player.RemoveEquipment(ExplorationManager.current.Selector.Equipment);
+                data.Owner.RemoveEquipment(ExplorationManager.current.Selector.Equipment);
                 data.OnComplete();
                 ExplorationManager.current.Selector.Equipment = null;
                 ExplorationManager.current.Selector.WaitForEquipment = null;

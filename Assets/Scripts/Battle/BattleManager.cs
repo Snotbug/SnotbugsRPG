@@ -12,47 +12,20 @@ public class BattleManager : MonoBehaviour
     [field : SerializeField] public SelectionController Selector { get; private set; }
 
     public BattleLayout Layout { get; private set; }
-
-    public BattleState State { get; private set; }
     
     public static BattleManager current;
 
     public void Awake()
     {
-        current = this;
-
         TurnController.SetBase();
         TargetController.SetBase();
         EffectController.SetBase();
     }
 
-    public void UpdateState(BattleState state)
-    {
-        State = state;
-
-        switch(State)
-        {
-            case BattleState.StartTurn:
-                StartTurn();
-                break;
-            case BattleState.WaitForAction:
-                break;
-            case BattleState.WaitForTarget:
-                break;
-            case BattleState.WaitForEffect:
-                break;
-            case BattleState.EndTurn:
-                EndTurn();
-                break;
-            default:
-                break;
-        }
-    }
-
     public void EnterBattle(Creature player, BattleLayout layout)
     {
         Layout = Instantiate(layout, BattleManager.current.transform.position, Quaternion.identity);
-        Layout.SetBase();
+        Layout.transform.SetParent(BattleManager.current.transform);
 
         AddPlayer(player);
         foreach(CreatureContainer friend in Layout.Friends) { if(friend.Default != null) { AddFriend(friend.Default); }}
@@ -63,7 +36,7 @@ public class BattleManager : MonoBehaviour
 
         TargetController.EnableSelection(false);
 
-        UpdateState(BattleState.StartTurn);
+        StartTurn();
     }
 
     public void ExitBattle()
@@ -118,6 +91,7 @@ public class BattleManager : MonoBehaviour
         TurnController.FindActiveCreature();
         TurnController.ActiveCreature.UI.ShowActiveIndicator(true);
         EffectController.OnTurnStart.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
+        Debug.Log("waiting for effects");
         EffectController.WaitForEffect = (() =>
         {
             CheckError();
@@ -188,6 +162,7 @@ public class BattleManager : MonoBehaviour
 
     public void PlayerTurn()
     {
+        Debug.Log($"player turn");
         UI.EnableEndTurn(true);
         TurnController.ActiveCreature.EnableSpells(true);
         
@@ -252,14 +227,4 @@ public class BattleManager : MonoBehaviour
             Debug.Log("you won");
         }
     }
-}
-
-public enum BattleState
-{
-    StartTurn,
-    MainPhase,
-    WaitForAction,
-    WaitForTarget,
-    WaitForEffect,
-    EndTurn,
 }
