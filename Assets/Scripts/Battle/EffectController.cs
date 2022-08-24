@@ -3,7 +3,6 @@ using System.Collections;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class EffectController : MonoBehaviour
 {
@@ -18,18 +17,20 @@ public class EffectController : MonoBehaviour
     [field : SerializeField] public EffectTrigger OnCure { get; private set; }
     [field : SerializeField] public EffectTrigger OnDeath { get; private set; }
 
-    public List<DynamicEffectData> Effects { get; private set; }
+    public List<EffectData> Effects { get; private set; }
     public bool Pending { get; private set; }
 
-    DynamicEffectData data;
+    public Action WaitForEffect { get; set; }
+
+    EffectData data;
 
     public void SetBase()
     {
-        Effects = new List<DynamicEffectData>();
+        Effects = new List<EffectData>();
         Pending = false;
     }
 
-    public void Enqueue(DynamicEffectData data)
+    public void Enqueue(EffectData data)
     {
         Effects.Add(data);
         if(!Pending) { Activate(); }
@@ -40,8 +41,8 @@ public class EffectController : MonoBehaviour
         if(Effects.Count <= 0) { return; }
         data = Effects[0];
         Pending = true;
-        data.OnComplete += OnComplete;
-        data.Base.Function.Invoke(data.Owner, data.Target, data);
+        data.OnComplete = OnComplete;
+        data.Base.Function.Invoke(data);
     }
 
     private async void OnComplete()
@@ -49,6 +50,7 @@ public class EffectController : MonoBehaviour
         await Task.Delay(100);
         Pending = false;
         Effects.Remove(data);
+        if(Effects.Count <= 0) { WaitForEffect(); }
         Activate();
     }
 }

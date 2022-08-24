@@ -7,10 +7,13 @@ public class GameManager : MonoBehaviour
     [field : SerializeField] public ExplorationManager ExplorationManager { get; private set; }
     [field : SerializeField] public BattleManager BattleManager { get; private set; }
 
+    [field : SerializeField] public Creature DefaultPlayer { get; private set; }
+    [field : SerializeField] public EncounterBase DefaultEncounter { get; private set; }
+    
+    [field : SerializeField] public SaveData Save { get; private set; }
 
-    [field : SerializeField] public Creature Player { get; private set; }
-    [field : SerializeField] public EncounterBase RootEncounter { get; private set; }
-    [field : SerializeField] public BattleLayout Layout { get; private set; }
+    public Creature Player { get; private set; }
+    public EncounterBase Encounter { get; private set; }
 
     public static GameManager current;
 
@@ -19,18 +22,61 @@ public class GameManager : MonoBehaviour
         current = this;
     }
 
-    public Creature player { get; private set; }
+    public void OnEnable()
+    {
+        // EventManager.current.onEnterBattle += 
+    }
 
     private void Start()
     {
-        player = Instantiate(Player, this.transform.position, Quaternion.identity);
-        player.SetBase();
-        foreach(Spell spell in player.Spells)
-        {
-            spell.UI.SetInteractable(true);
-        }
-        ExplorationManager.EnterExploration(player, RootEncounter);
+        
+        Player.SetBase();
+        ExplorationManager.EnterExploration(Player, Save.Encounter);
         // BattleManager.EnterBattle(player, Layout);
+    }
+
+    public void UpdateState(GameState state)
+    {
+        switch(state)
+        {
+            case GameState.Exploration:
+                break;
+            case GameState.Battle:
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void EnterBattle(Creature player, BattleLayout layout)
+    {
+
+    }
+
+    public void EnterExploration(Creature player, EncounterBase encounter)
+    {
+
+    }
+
+    public void LoadGame()
+    {
+        if(Save.Player == null)
+        {
+            Player = Instantiate(DefaultPlayer, this.transform.position, Quaternion.identity);
+            Player.SetBase();
+            Encounter = DefaultEncounter;
+        }
+        else
+        {
+            Player = Instantiate(Save.Player, this.transform.position, Quaternion.identity);
+            Encounter = Save.Encounter;
+        }
+    }
+
+    public void SaveGame()
+    {
+        Save.Player = Player;
+        Save.Encounter = Encounter;
     }
 }
 

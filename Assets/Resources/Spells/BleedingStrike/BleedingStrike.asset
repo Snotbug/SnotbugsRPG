@@ -15,10 +15,6 @@ MonoBehaviour:
   <Name>k__BackingField: Bleeding Strike
   <Description>k__BackingField: Make the blade slick with your blood and inflict
     bleed on the enemy
-  <Requirement>k__BackingField:
-  - <Definition>k__BackingField: {fileID: 11400000, guid: 2a972e05bb6de1f44818fe6c9b492fae, type: 2}
-    <Current>k__BackingField: 2
-    <Max>k__BackingField: 2
   <Costs>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
     <Current>k__BackingField: 3
@@ -37,8 +33,7 @@ MonoBehaviour:
     <Subeffects>k__BackingField:
     - <TargetType>k__BackingField: 0
       <Data>k__BackingField:
-      - <ActivationType>k__BackingField: 0
-        <Scalings>k__BackingField: []
+      - <Scalings>k__BackingField: []
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:
@@ -65,8 +60,7 @@ MonoBehaviour:
         <Equipment>k__BackingField: {fileID: 0}
     - <TargetType>k__BackingField: 3
       <Data>k__BackingField:
-      - <ActivationType>k__BackingField: 0
-        <Scalings>k__BackingField: []
+      - <Scalings>k__BackingField: []
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:
@@ -93,8 +87,7 @@ MonoBehaviour:
         <Equipment>k__BackingField: {fileID: 0}
     - <TargetType>k__BackingField: 3
       <Data>k__BackingField:
-      - <ActivationType>k__BackingField: 0
-        <Scalings>k__BackingField: []
+      - <Scalings>k__BackingField: []
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:
@@ -125,8 +118,7 @@ MonoBehaviour:
     <Subeffects>k__BackingField:
     - <TargetType>k__BackingField: 1
       <Data>k__BackingField:
-      - <ActivationType>k__BackingField: 0
-        <Scalings>k__BackingField: []
+      - <Scalings>k__BackingField: []
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:

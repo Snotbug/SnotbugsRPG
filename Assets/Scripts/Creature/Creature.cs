@@ -155,10 +155,6 @@ public class Creature : MonoBehaviour
             spell.Cooldown.Current > 0
         )
         { return false; }
-        foreach(StatBase requirement in spell.Base.Requirement)
-        {
-            if(FindStat(requirement.Definition).Current < requirement.Current) { return false; }
-        }
         foreach(StatBase cost in spell.Base.Costs)
         {
             if(FindStat(cost.Definition).Current < cost.Current) { return false; }
@@ -166,9 +162,9 @@ public class Creature : MonoBehaviour
         return true;
     }
 
-    public void PayCost(Spell spell)
+    public void PayCost(List<StatBase> costs)
     {
-        foreach(StatBase cost in spell.Base.Costs) { ModifyStat(cost.Definition.Name, -cost.Current); }
+        foreach(StatBase cost in costs) { ModifyStat(cost.Definition.Name, -cost.Current); }
         UI.UpdateUI();
     }
 
@@ -240,31 +236,5 @@ public class Creature : MonoBehaviour
         if(foundEquipment == null) { return; }
         Destroy(foundEquipment.gameObject);
         Equipments[foundEquipment.Base.Type] = null;
-    }
-
-    public void Equip(Equipment equipment)
-    {
-        foreach(StatBase requirement in equipment.Base.Requirement)
-        {
-            Stat stat = FindStat(requirement.Definition);
-            if(stat.Current < requirement.Current || stat.Max < requirement.Max) { return; }
-        }
-
-        foreach(StatBase modifier in equipment.Base.Modifiers)
-        {
-            Stat stat = FindStat(modifier.Definition);
-            stat.Modify(modifier.Current);
-            stat.ModifyMax(modifier.Max);
-        }
-    }
-
-    public void Unequip(Equipment equipment)
-    {
-        foreach(StatBase modifier in equipment.Base.Modifiers)
-        {
-            Stat stat = FindStat(modifier.Definition);
-            stat.Modify(-modifier.Current);
-            stat.ModifyMax(-modifier.Max);
-        }
     }
 }

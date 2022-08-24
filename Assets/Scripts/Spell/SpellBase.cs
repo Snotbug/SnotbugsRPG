@@ -7,7 +7,6 @@ public class SpellBase : ScriptableObject
     [field : SerializeField] public string Name { get; private set; }
     [field : SerializeField] public string Description { get; private set; }
 
-    [field : SerializeField] public List<StatBase> Requirement { get; private set; }
     [field : SerializeField] public List<StatBase> Costs { get; private set; }
     [field : SerializeField] public List<StatBase> Stats { get; private set; }
 

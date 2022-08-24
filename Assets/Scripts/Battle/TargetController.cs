@@ -77,6 +77,16 @@ public class TargetController : MonoBehaviour
         return Targets;
     }
 
+    public List<Creature> FindTargets(Creature creature, Spell spell)
+    {
+        return FindTargets(creature, spell.Base.TargetType);
+    }
+
+    public List<Creature> FindTargets(Creature creature, Item item)
+    {
+        return FindTargets(creature, item.Base.TargetType);
+    }
+
     public void EnableSelection(bool enable)
     {
         foreach(Creature creature in Targets) { creature.UI.SetInteractable(enable); }

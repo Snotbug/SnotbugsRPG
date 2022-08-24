@@ -26,12 +26,12 @@ public class Spell : MonoBehaviour
             Stats.Add(stat.Definition.Name, new Stat(stat.Definition, stat.Current, stat.Max));
         };
 
-        ActivatedEffect = new Effect(Base.ActivatedEffect, Owner, this);
+        ActivatedEffect = new Effect(Base.ActivatedEffect, Owner);
 
         TriggeredEffects = new List<Effect>();
         foreach(EffectBase effectBase in Base.TriggeredEffects)
         {
-            Effect effect = new Effect(effectBase, Owner, this);
+            Effect effect = new Effect(effectBase, Owner);
             effectBase.Trigger.RegisterEffect(effect);
             TriggeredEffects.Add(effect);
         }
@@ -39,8 +39,10 @@ public class Spell : MonoBehaviour
         UI.SetUI(this);
     }
 
-    public void Activate()
+    public void ActivateQueued()
     {
+        Owner.PayCost(Base.Costs);
+        SetStat(Cooldown.Definition.Name, Cooldown.Max);
         ActivatedEffect.QueueEffect(true);
     }
 

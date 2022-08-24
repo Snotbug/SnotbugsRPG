@@ -1,45 +1,17 @@
-using System.Collections.Generic;
-using UnityEngine;
-using System.Threading.Tasks;
 using System;
+using System.Collections.Generic;
 
 public class Effect
 {
     public EffectBase Base { get; private set; }
 
     public Creature Owner { get; private set; }
-    public Status ParentStatus { get; private set; }
-    public Spell ParentSpell { get; private set; }
-    public Item ParentItem { get; private set; }
-    public Equipment ParentEquipment { get; private set; }
     public Creature Target { get; set; }
 
-    public Effect(EffectBase effectBase, Creature owner, Spell spell)
+    public Effect(EffectBase effectBase, Creature owner)
     {
         Base = effectBase;
         Owner = owner;
-        ParentSpell = spell;
-    }
-
-    public Effect(EffectBase effectBase, Creature owner, Status status)
-    {
-        Base = effectBase;
-        Owner = owner;
-        ParentStatus = status;
-    }
-
-    public Effect(EffectBase effectBase, Creature owner, Item item)
-    {
-        Base = effectBase;
-        Owner = owner;
-        ParentItem = item;
-    }
-
-    public Effect(EffectBase effectBase, Creature owner, Equipment equipment)
-    {
-        Base = effectBase;
-        Owner = owner;
-        ParentEquipment = equipment;
     }
 
     public void QueueEffect(bool sendTrigger)
@@ -47,49 +19,29 @@ public class Effect
         foreach(Subeffect subeffect in Base.Subeffects)
         {
             List<Creature> Targets = new List<Creature>();
-            if (subeffect.TargetType == TargetType.None && Target != null) { Targets.Add(Target); }
+            if (subeffect.TargetType == TargetType.None) { if(Target != null) { Targets.Add(Target); }}
             else { Targets = BattleManager.current.TargetController.FindTargets(Owner, subeffect.TargetType); }
 
             foreach(Creature target in Targets)
             {
-                DynamicEffectData Data = new DynamicEffectData(this, Owner, target, sendTrigger);
-                foreach(StaticEffectData data in subeffect.Data)
+                foreach(BaseEffectData data in subeffect.Data)
                 {
-                    Data.SetBase(data);
-                    switch(data.ActivationType)
-                    {
-                        case ActivationType.None:
-                            BattleManager.current.EffectController.Enqueue(Data);
-                            break;
-                        case ActivationType.OnTrue:
-                            if(Data.Found) { BattleManager.current.EffectController.Enqueue(Data); }
-                            break;
-                        case ActivationType.OnFalse:
-                            if(!Data.Found) { BattleManager.current.EffectController.Enqueue(Data); }
-                            break;
-                    }
+                    EffectData Data = new EffectData(data, Owner, target, sendTrigger);
+                    BattleManager.current.EffectController.Enqueue(Data);
                 }
             }
         }
     }
 }
 
-public class DynamicEffectData
+public class EffectData
 {
-    public StaticEffectData Base { get; private set; }
+    public BaseEffectData Base { get; private set; }
     public bool SendTrigger { get; private set; }
     public Action OnComplete { get; set; }
 
-    public Creature Owner { get; private set; }
+    public Creature Source { get; private set; }
     public Creature Target { get; private set; }
-
-    public Status ParentStatus { get; private set; }
-    public Spell ParentSpell { get; private set; }
-    public Item ParentItem { get; private set; }
-    public Equipment ParentEquipment { get; private set; }
-    
-    public bool Found { get; set; }
-    public int Value { get; set; }
 
     public StatBase Stat { get; set; }    
     public Creature Creature { get; set; }
@@ -98,31 +50,18 @@ public class DynamicEffectData
     public Item Item { get; set; }
     public Equipment Equipment { get; set; }
 
-    public DynamicEffectData(Effect effect, Creature owner, Creature target, bool sendTrigger)
-    {
-        Owner = owner;
-        Target = target;
-
-        SendTrigger = sendTrigger;
-
-        ParentStatus = effect.ParentStatus;
-        ParentSpell = effect.ParentSpell;
-        ParentItem = effect.ParentItem;
-        ParentEquipment = effect.ParentEquipment;
-
-        Found = false;
-        Value = 0;
-    }
-
-    public void SetBase(StaticEffectData baseData)
+    public EffectData(BaseEffectData baseData, Creature source, Creature target, bool sendTrigger)
     {
         Base = baseData;
+        Source = source;
+        Target = target;
+        SendTrigger = sendTrigger;
 
-        if(Base.Stat.Definition != null) { Stat = Base.Stat; }
-        if(Base.Creature != null) { Creature = Base.Creature; }
-        if(Base.Status != null) { Status = Base.Status; }
-        if(Base.Spell != null) { Spell = Base.Spell; }
-        if(Base.Item != null) { Item = Base.Item; }
-        if(Base.Equipment != null) { Equipment = Base.Equipment; }
+        Stat = Base.Stat;
+        Creature = Base.Creature;
+        Status = Base.Status;
+        Spell = Base.Spell;
+        Item = Base.Item;
+        Equipment = Base.Equipment;
     }
 }

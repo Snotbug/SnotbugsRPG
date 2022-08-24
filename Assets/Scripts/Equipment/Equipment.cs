@@ -28,7 +28,7 @@ public class Equipment : MonoBehaviour
         TriggeredEffects = new List<Effect>();
         foreach(EffectBase effectBase in Base.TriggeredEffects)
         {
-            Effect effect = new Effect(effectBase, Owner, this);
+            Effect effect = new Effect(effectBase, Owner);
             effectBase.Trigger.RegisterEffect(effect);
             TriggeredEffects.Add(effect);
         }

@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,36 +6,14 @@ public class ExplorationManager : MonoBehaviour
     [field : SerializeField] public ExplorationUI UI { get; private set; }
     [field : SerializeField] public Choice ChoicePrefab { get; private set; }
 
+    [field : SerializeField] public SelectionController Selector { get; private set; }
+
     public static ExplorationManager current;
 
     public EncounterBase Encounter { get; private set; }
     public Creature Player { get; private set; }
 
     public List<Choice> Choices { get; private set; }
-
-    public Choice SelectedChoice { get; private set; }
-    public Status SelectedStatus { get; private set; }
-    public Spell SelectedSpell { get; private set; }
-    public Item SelectedItem { get; private set; }
-    public Equipment SelectedEquipment { get; private set; }
-    
-    public void OnEnable()
-    {
-        EventManager.current.onClickChoice += SelectChoice;
-        EventManager.current.onClickStatus += SelectStatus;
-        EventManager.current.onClickSpell += SelectSpell;
-        EventManager.current.onClickItem += SelectItem;
-        EventManager.current.onClickEquipment += SelectEquipment;
-    }
-
-    public void OnDisable()
-    {
-        EventManager.current.onClickChoice -= SelectChoice;
-        EventManager.current.onClickStatus -= SelectStatus;
-        EventManager.current.onClickSpell -= SelectSpell;
-        EventManager.current.onClickItem -= SelectItem;
-        EventManager.current.onClickEquipment -= SelectEquipment;
-    }
 
     public void Awake()
     {
@@ -47,63 +23,10 @@ public class ExplorationManager : MonoBehaviour
     public void EnterExploration(Creature player, EncounterBase encounter)
     {
         Player = player;
-        UI.gameObject.SetActive(true);
-        SetEncounter(encounter);
-        UI.SetUI(Encounter);
-    }
-
-    public void ExitExploration()
-    {
-        UI.SetBase();
-        UI.gameObject.SetActive(false);
-
-        ExplorationManager.current.gameObject.SetActive(false);
-    }
-
-    public void SelectChoice(Choice choice)
-    {
-        if(SelectedChoice != null) { return; }
-        SelectedChoice = choice;
-        SelectedChoice.UI.SetInteractable(false);
-        StartCoroutine(SelectedChoice.EnactConsequences(() =>
-        {
-            UI.UpdateDescription(choice.Base.Description);
-            if(SelectedChoice.Base.NextEncounter != null)
-            {
-                ExitExploration();
-                EnterExploration(ExplorationManager.current.Player, SelectedChoice.Base.NextEncounter);
-            }
-            ExplorationManager.current.SelectedChoice = null;
-        }));
-    }
-
-    public void SelectStatus(Status status)
-    {
-        if(SelectedStatus != null) { return; }
-        SelectedStatus = status;
-    }
-
-    public void SelectSpell(Spell spell)
-    {
-        if(SelectedSpell != null) { return; }
-        SelectedSpell = spell;
-    }
-
-    public void SelectItem(Item item)
-    {
-        if(SelectedItem != null) { return; }
-        SelectedItem = item;
-    }
-
-    public void SelectEquipment(Equipment equipment)
-    {
-        if(SelectedEquipment != null) { return; }
-        SelectedEquipment = equipment;
-    }
-
-    public void SetEncounter(EncounterBase encounter)
-    {
         Encounter = encounter;
+
+        UI.gameObject.SetActive(true);
+        UI.SetUI(Encounter);
 
         Choices = new List<Choice>();
         foreach(ChoiceBase choice in Encounter.Choices)
@@ -114,6 +37,36 @@ public class ExplorationManager : MonoBehaviour
             if(!temp.CheckRequirements(Player)) { temp.UI.SetInteractable(false); }
             UI.AddChoice(temp);
         }
+
+        Selector.WaitForChoice = CheckChoice;
+    }
+
+    public void ExitExploration()
+    {
+        for(int i = Choices.Count - 1; i > 0; i--)
+        {
+            Choice temp = Choices[i];
+            Destroy(temp.gameObject);
+            Choices.Remove(temp);
+        }
+        UI.SetBase();
+        UI.gameObject.SetActive(false);
+
+        ExplorationManager.current.gameObject.SetActive(false);
+    }
+
+    public void CheckChoice()
+    {
+        Selector.Choice.UI.SetInteractable(false);
+        StartCoroutine(Selector.Choice.EnactConsequences(() =>
+        {
+            UI.UpdateDescription(Selector.Choice.Base.Description);
+            if(Selector.Choice.Base.NextEncounter != null)
+            {
+                ExitExploration();
+            }
+            ExplorationManager.current.Selector.Choice = null;
+        }));
     }
 
     public void ModifyStats(ChoiceData data)
@@ -155,12 +108,13 @@ public class ExplorationManager : MonoBehaviour
         }
         else
         {
-            ExplorationManager.current.StartCoroutine(WaitForStatus(() => 
+            ExplorationManager.current.Selector.WaitForStatus = (() =>
             {
-                ExplorationManager.current.Player.RemoveStatus(ExplorationManager.current.SelectedStatus);
-                ExplorationManager.current.SelectedStatus = null;
+                ExplorationManager.current.Player.RemoveStatus(ExplorationManager.current.Selector.Status);
                 data.OnComplete();
-            }));
+                ExplorationManager.current.Selector.Status = null;
+                ExplorationManager.current.Selector.WaitForStatus = null;
+            });
         }
     }
 
@@ -181,12 +135,13 @@ public class ExplorationManager : MonoBehaviour
         }
         else
         {
-            ExplorationManager.current.StartCoroutine(WaitForSpell(() => 
+            ExplorationManager.current.Selector.WaitForSpell = (() =>
             {
-                ExplorationManager.current.Player.RemoveSpell(ExplorationManager.current.SelectedSpell);
-                ExplorationManager.current.SelectedSpell = null;
+                ExplorationManager.current.Player.RemoveSpell(ExplorationManager.current.Selector.Spell);
                 data.OnComplete();
-            }));
+                ExplorationManager.current.Selector.Spell = null;
+                ExplorationManager.current.Selector.WaitForSpell = null;
+            });
         }
     }
 
@@ -197,7 +152,22 @@ public class ExplorationManager : MonoBehaviour
 
     public void RemoveItem(ChoiceData data)
     {
-
+        if(data.Base.Item != null)
+        {
+            Item temp = Player.FindItem(data.Base.Item);
+            if(temp != null) { Player.RemoveItem(temp); }
+            data.OnComplete();
+        }
+        else
+        {
+            ExplorationManager.current.Selector.WaitForItem = (() =>
+            {
+                ExplorationManager.current.Player.RemoveItem(ExplorationManager.current.Selector.Item);
+                data.OnComplete();
+                ExplorationManager.current.Selector.Item = null;
+                ExplorationManager.current.Selector.WaitForItem = null;
+            });
+        }
     }
 
     public void AddEquipment(ChoiceData data)
@@ -207,30 +177,21 @@ public class ExplorationManager : MonoBehaviour
 
     public void RemoveEquipment(ChoiceData data)
     {
-
-    }
-
-    public IEnumerator WaitForStatus(Action OnComplete)
-    {
-        yield return new WaitUntil(() => ExplorationManager.current.SelectedStatus != null);
-        OnComplete();
-    }
-
-    public IEnumerator WaitForSpell(Action OnComplete)
-    {
-        yield return new WaitUntil(() => ExplorationManager.current.SelectedSpell != null);
-        OnComplete();
-    }
-
-    public IEnumerator WaitForItem(Action OnComplete)
-    {
-        yield return new WaitUntil(() => ExplorationManager.current.SelectedItem != null);
-        OnComplete();
-    }
-
-    public IEnumerator WaitForEquipment(Action OnComplete)
-    {
-        yield return new WaitUntil(() => ExplorationManager.current.SelectedEquipment != null);
-        OnComplete();
+        if(data.Base.Equipment != null)
+        {
+            Equipment temp = Player.FindEquipment(data.Base.Equipment);
+            if(temp != null) { Player.RemoveEquipment(temp); }
+            data.OnComplete();
+        }
+        else
+        {
+            ExplorationManager.current.Selector.WaitForEquipment = (() =>
+            {
+                ExplorationManager.current.Player.RemoveEquipment(ExplorationManager.current.Selector.Equipment);
+                data.OnComplete();
+                ExplorationManager.current.Selector.Equipment = null;
+                ExplorationManager.current.Selector.WaitForEquipment = null;
+            });
+        }
     }
 }
