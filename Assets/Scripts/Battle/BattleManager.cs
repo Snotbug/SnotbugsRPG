@@ -91,7 +91,6 @@ public class BattleManager : MonoBehaviour
         TurnController.FindActiveCreature();
         TurnController.ActiveCreature.UI.ShowActiveIndicator(true);
         EffectController.OnTurnStart.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
-        Debug.Log("waiting for effects");
         EffectController.WaitForEffect = (() =>
         {
             CheckError();
@@ -111,8 +110,7 @@ public class BattleManager : MonoBehaviour
 
     public void WaitForTarget()
     {
-        Selector.WaitForSpell = null;
-        Selector.WaitForItem = null;
+        Selector.StopWaiting();
 
         UI.EnableEndTurn(false);
         TurnController.ActiveCreature.EnableSpells(false);
@@ -127,55 +125,54 @@ public class BattleManager : MonoBehaviour
 
     public void WaitForEffects()
     {
-
+        Selector.Spell.ActivatedEffect.Target = Selector.Creature;
+        EffectController.WaitForEffect = (() =>
+        {
+            CheckError();
+            if(TurnController.ActiveCreature == null) { StartTurn(); }
+            else { WaitForAction(); }
+        });
+        Selector.Spell.ActivateQueued();
+        EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
+        Selector.ClearSelection();
     }
 
     public void MainPhase()
     {
         TurnController.ActiveCreature.SetStat("Stamina", TurnController.ActiveCreature.Stamina.Max);
         if(TargetController.IsEnemy(TurnController.ActiveCreature)) { EnemyTurn(); }
-        else { PlayerTurn();}
+        else { WaitForAction();}
     }
 
     public void EnemyTurn()
     {
         List<Spell> Spells = TurnController.ActiveCreature.FindActivatable();
+        Spell selectedSpell = null;
         if(Spells.Count > 0)
         {
-            Selector.SelectSpell(TurnController.ActiveCreature.Spells[Random.Range(0, Spells.Count)]);
-            List<Creature> targets = TargetController.FindTargets(TurnController.ActiveCreature, Selector.Spell);
+            selectedSpell = Spells[Random.Range(0, Spells.Count)];
+            List<Creature> targets = TargetController.FindTargets(TurnController.ActiveCreature, selectedSpell);
             if(targets.Count > 0)
             {
-                Selector.Spell.ActivatedEffect.Target = targets[Random.Range(0, TargetController.Targets.Count)];
+                selectedSpell.ActivatedEffect.Target = targets[Random.Range(0, TargetController.Targets.Count)];
             }
         }
         
-        Selector.Spell.ActivateQueued();
-        EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
-        // StartCoroutine(EffectController.AwaitEffects(() =>
-        // {
-        //     CheckError();
-        //     if(TurnController.ActiveCreature == null) { StartTurn(); }
-        //     else { EndTurn(); }
-        // }));
-    }
+        EffectController.WaitForEffect = (() =>
+        {
+            CheckError();
+            if(TurnController.ActiveCreature == null) { StartTurn(); }
+            else { EndTurn(); }
+        });
 
-    public void PlayerTurn()
-    {
-        Debug.Log($"player turn");
-        UI.EnableEndTurn(true);
-        TurnController.ActiveCreature.EnableSpells(true);
-        
-        // StartCoroutine(EffectController.AwaitEffects(() =>
-        // {
-        //     CheckError();
-        //     if(TurnController.ActiveCreature == null) { StartTurn(); }
-        //     else { EndTurn(); }
-        // }));
+        if(selectedSpell != null) { selectedSpell.ActivateQueued(); }
+        EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
     }
     
     public void EndTurn()
     {
+        Selector.StopWaiting();
+
         TurnController.ActiveCreature.EnableSpells(false);
         TurnController.ActiveCreature.UI.ShowActiveIndicator(false);
 
@@ -184,10 +181,7 @@ public class BattleManager : MonoBehaviour
         UI.EnableEndTurn(false);
 
         EffectController.OnTurnEnd.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
-        // StartCoroutine(EffectController.WaitForEffects(() =>
-        // {
-        //     StartTurn();
-        // }));
+        StartTurn();
     }
 
     public void CheckError()

@@ -78,4 +78,24 @@ public class SelectionController : MonoBehaviour
         Choice = choice;
         WaitForChoice();
     }
+
+    public void StopWaiting()
+    {
+        WaitForCreature = null;
+        WaitForStatus = null;
+        WaitForSpell = null;
+        WaitForItem = null;
+        WaitForEquipment = null;
+        WaitForChoice = null;
+    }
+
+    public void ClearSelection()
+    {
+        Creature = null;
+        Status = null;
+        Spell = null;
+        Item = null;
+        Equipment = null;
+        Choice = null;
+    }
 }
