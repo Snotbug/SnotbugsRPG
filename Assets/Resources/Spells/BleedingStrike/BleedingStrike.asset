@@ -37,8 +37,8 @@ MonoBehaviour:
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:
-            - m_Target: {fileID: 5020921527337663034, guid: 2a5ec04ccfb2c754585e94de32075306, type: 3}
-              m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
               m_MethodName: Damage
               m_Mode: 0
               m_Arguments:
@@ -58,14 +58,14 @@ MonoBehaviour:
         <Spell>k__BackingField: {fileID: 0}
         <Item>k__BackingField: {fileID: 0}
         <Equipment>k__BackingField: {fileID: 0}
-    - <TargetType>k__BackingField: 3
+    - <TargetType>k__BackingField: 0
       <Data>k__BackingField:
       - <Scalings>k__BackingField: []
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:
-            - m_Target: {fileID: 5020921527337663034, guid: 2a5ec04ccfb2c754585e94de32075306, type: 3}
-              m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
               m_MethodName: Afflict
               m_Mode: 0
               m_Arguments:
@@ -78,35 +78,8 @@ MonoBehaviour:
               m_CallState: 2
         <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
-          <Definition>k__BackingField: {fileID: 11400000, guid: b54cf84b7f9960346bbb29b45c5f67fc, type: 2}
-          <Current>k__BackingField: 3
-          <Max>k__BackingField: 0
-        <Status>k__BackingField: {fileID: 1812095718089642681, guid: ba05ef72f19c5cb43be3f2000447317c, type: 3}
-        <Spell>k__BackingField: {fileID: 0}
-        <Item>k__BackingField: {fileID: 0}
-        <Equipment>k__BackingField: {fileID: 0}
-    - <TargetType>k__BackingField: 3
-      <Data>k__BackingField:
-      - <Scalings>k__BackingField: []
-        <Function>k__BackingField:
-          m_PersistentCalls:
-            m_Calls:
-            - m_Target: {fileID: 5020921527337663034, guid: 2a5ec04ccfb2c754585e94de32075306, type: 3}
-              m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-              m_MethodName: Damage
-              m_Mode: 0
-              m_Arguments:
-                m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-                m_IntArgument: 0
-                m_FloatArgument: 0
-                m_StringArgument: 
-                m_BoolArgument: 0
-              m_CallState: 2
-        <Creature>k__BackingField: {fileID: 0}
-        <Stat>k__BackingField:
-          <Definition>k__BackingField: {fileID: 11400000, guid: b54cf84b7f9960346bbb29b45c5f67fc, type: 2}
-          <Current>k__BackingField: 3
+          <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
+          <Current>k__BackingField: 15
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 1812095718089642681, guid: ba05ef72f19c5cb43be3f2000447317c, type: 3}
         <Spell>k__BackingField: {fileID: 0}
@@ -122,8 +95,8 @@ MonoBehaviour:
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:
-            - m_Target: {fileID: 5020921527337663034, guid: 2a5ec04ccfb2c754585e94de32075306, type: 3}
-              m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
               m_MethodName: ModifyCooldown
               m_Mode: 0
               m_Arguments:

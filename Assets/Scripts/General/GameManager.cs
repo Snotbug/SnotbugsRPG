@@ -29,20 +29,21 @@ public class GameManager : MonoBehaviour
     public void OnEnable()
     {
         EventManager.current.onExitExploration += ExitExploration;
-        // EventManager.current.onExitBattle += ExitBattle;
+        EventManager.current.onExitBattle += ExitBattle;
     }
 
     public void OnDisable()
     {
         EventManager.current.onExitExploration -= ExitExploration;
-        // EventManager.current.onExitBattle += ExitBattle;
+        EventManager.current.onExitBattle += ExitBattle;
     }
 
     private void Start()
     {
         LoadGame();
         ExplorationManager.current.gameObject.SetActive(true);
-        ExplorationManager.current.EnterExploration(Player, Encounter);
+        // ExplorationManager.current.EnterExploration(Player, Encounter);
+        EnterExploration(Player, Encounter);
     }
 
     public void EnterExploration(Creature player, EncounterBase encounter)
@@ -51,28 +52,30 @@ public class GameManager : MonoBehaviour
         Encounter = encounter;
 
         ExplorationManager.current.gameObject.SetActive(true);
+        ExplorationManager.gameObject.SetActive(true);
         ExplorationManager.current.EnterExploration(Player, Encounter);
     }
 
     public void ExitExploration(Creature player, EncounterBase encounter, BattleLayout layout)
     {
-        if(layout != null) { EnterBattle(player, layout); }
+        ExplorationManager.current.gameObject.SetActive(false);
+        if(layout != null) { Encounter = encounter; EnterBattle(player, layout); }
         else { EnterExploration(player, encounter); }
     }
 
     public void EnterBattle(Creature player, BattleLayout layout)
     {
         Player = player;
-
         BattleManager.current.gameObject.SetActive(true);
         BattleManager.current.EnterBattle(Player, layout);
     }
 
-    public void ExitBattle(Creature player, BattleLayout layout)
+    public void ExitBattle(Creature player)
     {
         Player = player;
 
-        EnterExploration(Player, Encounter);
+        if(Player != null) { EnterExploration(Player, Encounter); }
+        else { BattleManager.current.gameObject.SetActive(false); Debug.Log("you died"); }
     }
 
     public void SaveGame()

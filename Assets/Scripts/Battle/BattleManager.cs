@@ -31,10 +31,19 @@ public class BattleManager : MonoBehaviour
         foreach(CreatureContainer friend in Layout.Friends) { if(friend.Default != null) { AddFriend(friend.Default); }}
         foreach(CreatureContainer enemy in Layout.Enemies) { if(enemy.Default != null) { AddEnemy(enemy.Default); }}
 
+        foreach(Creature creature in TurnController.Creatures)
+        {
+            creature.UI.ShowTargetIndicator(false);
+            creature.UI.ShowActiveIndicator(false);
+            creature.EnableSpells(false);
+        }
+
         TurnController.SetTurnOrder();
         TurnController.SortTurnOrder();
 
         TargetController.EnableSelection(false);
+
+        Debug.Log($"turn controller size: {TurnController.Creatures.Count}");
 
         StartTurn();
     }
@@ -44,6 +53,8 @@ public class BattleManager : MonoBehaviour
         TurnController.SetBase();
         TargetController.SetBase();
         EffectController.SetBase();
+
+        EventManager.current.ExitBattle(Layout.Player.Creature);
     }
 
     public void AddPlayer(Creature creature)
@@ -88,21 +99,29 @@ public class BattleManager : MonoBehaviour
 
     public void StartTurn()
     {
+        Debug.Log("turn start");
         TurnController.FindActiveCreature();
         TurnController.ActiveCreature.UI.ShowActiveIndicator(true);
         EffectController.OnTurnStart.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
-        EffectController.WaitForEffect = (() =>
+        if(EffectController.Effects.Count <= 0) { MainPhase(); }
+        else
         {
-            CheckError();
-            if(TurnController.ActiveCreature == null) { StartTurn(); }
-            else { MainPhase(); }
-        });
+            EffectController.WaitForEffect = (() =>
+            {
+                if(CheckError())
+                {
+                    if(TurnController.ActiveCreature == null) { StartTurn(); }
+                    else { MainPhase(); }
+                }
+            });
+        }
     }
 
     public void WaitForAction()
     {
-        Selector.WaitForSpell = WaitForTarget;
-        Selector.WaitForItem = WaitForTarget;
+        Debug.Log("waiting for action");
+        BattleManager.current.Selector.WaitForSpell = WaitForTarget;
+        BattleManager.current.Selector.WaitForItem = WaitForTarget;
 
         UI.EnableEndTurn(true);
         TurnController.ActiveCreature.EnableSpells(true);
@@ -110,7 +129,8 @@ public class BattleManager : MonoBehaviour
 
     public void WaitForTarget()
     {
-        Selector.StopWaiting();
+        Debug.Log("waiting for target");
+        BattleManager.current.Selector.StopWaiting();
 
         UI.EnableEndTurn(false);
         TurnController.ActiveCreature.EnableSpells(false);
@@ -125,16 +145,20 @@ public class BattleManager : MonoBehaviour
 
     public void WaitForEffects()
     {
+        Debug.Log("waiting for effects");
+        TargetController.EnableSelection(false);
         Selector.Spell.ActivatedEffect.Target = Selector.Creature;
-        EffectController.WaitForEffect = (() =>
-        {
-            CheckError();
-            if(TurnController.ActiveCreature == null) { StartTurn(); }
-            else { WaitForAction(); }
-        });
+
         Selector.Spell.ActivateQueued();
         EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
-        Selector.ClearSelection();
+        EffectController.WaitForEffect = (() =>
+        {
+            if(CheckError())
+            {
+                if(TurnController.ActiveCreature == null) { StartTurn(); }
+                else { Selector.ClearSelection(); WaitForAction(); }
+            }
+        });
     }
 
     public void MainPhase()
@@ -146,6 +170,7 @@ public class BattleManager : MonoBehaviour
 
     public void EnemyTurn()
     {
+        Debug.Log($"{TurnController.ActiveCreature}'s turn");
         List<Spell> Spells = TurnController.ActiveCreature.FindActivatable();
         Spell selectedSpell = null;
         if(Spells.Count > 0)
@@ -156,17 +181,26 @@ public class BattleManager : MonoBehaviour
             {
                 selectedSpell.ActivatedEffect.Target = targets[Random.Range(0, TargetController.Targets.Count)];
             }
-        }
-        
-        EffectController.WaitForEffect = (() =>
-        {
-            CheckError();
-            if(TurnController.ActiveCreature == null) { StartTurn(); }
-            else { EndTurn(); }
-        });
 
-        if(selectedSpell != null) { selectedSpell.ActivateQueued(); }
-        EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
+            if(selectedSpell != null) { Debug.Log($"{TurnController.ActiveCreature.Base.Name} activating selected spell"); selectedSpell.ActivateQueued(); }
+            EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
+
+            EffectController.WaitForEffect = (() =>
+            {
+                if(CheckError())
+                {
+                    if(TurnController.ActiveCreature == null) { StartTurn(); }
+                    else { EndTurn(); }
+                }
+            });
+
+            // if(selectedSpell != null) { selectedSpell.ActivateQueued(); }
+            // EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
+        }
+        else
+        {
+            EndTurn();
+        }
     }
     
     public void EndTurn()
@@ -184,8 +218,9 @@ public class BattleManager : MonoBehaviour
         StartTurn();
     }
 
-    public void CheckError()
+    public bool CheckError()
     {
+        Debug.Log("checking errors");
         Creature player = Layout.Player.Creature;
         if(player.Health.Current <= 0)
         {
@@ -193,6 +228,8 @@ public class BattleManager : MonoBehaviour
             TargetController.Remove(player);
             Layout.Player.Remove();
             Destroy(player.gameObject);
+            ExitBattle();
+            return false;
         }
         foreach(CreatureContainer container in Layout.Friends)
         {
@@ -213,12 +250,16 @@ public class BattleManager : MonoBehaviour
                 TurnController.Remove(enemy);
                 TargetController.Remove(enemy);
                 container.Remove();
+                Debug.Log($"removing {enemy.Base.Name}");
+                Debug.Log($"turn controller size: {TurnController.Creatures.Count}");
                 Destroy(enemy.gameObject);
             }
         }
         if(TargetController.Enemies.Count <= 0)
         {
-            Debug.Log("you won");
+            ExitBattle();
+            return false;
         }
+        return true;
     }
 }

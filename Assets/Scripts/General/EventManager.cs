@@ -15,6 +15,9 @@ public class EventManager : MonoBehaviour
     public event Action<Creature, BattleLayout> onEnterBattle;
     public void EnterBattle(Creature player, BattleLayout battleEncounter) { if(onEnterBattle != null) { onEnterBattle(player, battleEncounter); }}
 
+    public event Action<Creature> onExitBattle;
+    public void ExitBattle(Creature player) { if(onExitBattle != null) { onExitBattle(player); }}
+
     public event Action<Choice> onClickChoice;
     public void ClickChoice(Choice choice) { if(onClickChoice != null) { onClickChoice(choice); }}
 

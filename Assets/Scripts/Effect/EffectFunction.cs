@@ -68,6 +68,7 @@ public class EffectFunction : ScriptableObject
     {
         Spell spell = data.Target.FindSpell(data.Spell);
         if(spell != null) { spell.ModifyStat("Cooldown", data.Stat.Current); }
+        Debug.Log($"{spell.Base.Name}: {spell.Cooldown.Current}");
         data.OnComplete();
     }
 
@@ -80,6 +81,7 @@ public class EffectFunction : ScriptableObject
 
     public void Afflict(EffectData data)
     {
+        Debug.Log("afflicting");
         Status status = data.Target.FindStatus(data.Status);
         int duration = data.Source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         duration = Mathf.Clamp(duration - data.Target.Resistance.Current, 1, duration);

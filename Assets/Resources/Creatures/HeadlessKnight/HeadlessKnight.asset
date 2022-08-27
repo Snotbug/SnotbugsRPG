@@ -15,7 +15,7 @@ MonoBehaviour:
   <Name>k__BackingField: Headless Knight
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
-    <Current>k__BackingField: 20
+    <Current>k__BackingField: 5
     <Max>k__BackingField: 20
   - <Definition>k__BackingField: {fileID: 11400000, guid: f819d00694667614c90d08afb2be7996, type: 2}
     <Current>k__BackingField: 10
@@ -40,5 +40,6 @@ MonoBehaviour:
     <Max>k__BackingField: 5
   <Statuses>k__BackingField: []
   <Spells>k__BackingField:
-  - {fileID: 7148560043350483482, guid: 90b458b1d348c2e4184a13393cc12a89, type: 3}
+  - {fileID: 6369103817870256385, guid: 7bda5eb42d5721445a8b76f401cf7dbe, type: 3}
   <Items>k__BackingField: []
+  <Equipments>k__BackingField: []

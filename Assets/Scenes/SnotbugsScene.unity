@@ -437,8 +437,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 378, y: -2}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 208, y: -154}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &257581901
 MonoBehaviour:
@@ -883,7 +883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The Cleric
+  m_text: Encounter Name
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 262beb06ff0300d499952756728a4755, type: 2}
   m_sharedMaterial: {fileID: -3672818044584347841, guid: 262beb06ff0300d499952756728a4755, type: 2}
@@ -995,7 +995,6 @@ RectTransform:
   - {fileID: 1318054753}
   - {fileID: 953075601}
   - {fileID: 1578689244}
-  - {fileID: 2027719082}
   - {fileID: 257581900}
   m_Father: {fileID: 2094269745}
   m_RootOrder: -1
@@ -1292,7 +1291,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: The Cleric
+  m_text: Encounter Description
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 262beb06ff0300d499952756728a4755, type: 2}
   m_sharedMaterial: {fileID: -3672818044584347841, guid: 262beb06ff0300d499952756728a4755, type: 2}
@@ -1504,37 +1503,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917380027}
   m_CullTransparentMesh: 1
---- !u!1 &2027719081
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2027719082}
-  m_Layer: 0
-  m_Name: Player
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2027719082
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2027719081}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -112, y: 110, z: 0}
-  m_LocalScale: {x: 108, y: 108, z: 108}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1088320413}
-  m_RootOrder: -1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2088681533
 GameObject:
   m_ObjectHideFlags: 0
@@ -1697,8 +1665,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <UI>k__BackingField: {fileID: 1088320417}
-  <ChoicePrefab>k__BackingField: {fileID: 651791774563842048, guid: 477f1722a3010174b8486b0e23eefe96, type: 3}
   <Selector>k__BackingField: {fileID: 37916558}
+  <ChoicePrefab>k__BackingField: {fileID: 651791774563842048, guid: 477f1722a3010174b8486b0e23eefe96, type: 3}
 --- !u!1 &2125743494
 GameObject:
   m_ObjectHideFlags: 0

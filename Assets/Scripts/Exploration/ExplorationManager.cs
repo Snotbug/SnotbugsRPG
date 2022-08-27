@@ -35,20 +35,22 @@ public class ExplorationManager : MonoBehaviour
         Selector.WaitForChoice = CheckChoice;
     }
 
-    public void ExitExploration()
+    public async void ExitExploration()
     {
+        ChoiceBase choice = ExplorationManager.current.Selector.Choice.Base;
+
         for(int i = Choices.Count - 1; i >= 0; i--)
         {
             Choice temp = Choices[i];
             Destroy(temp.gameObject);
             Choices.Remove(temp);
         }
+
+        await System.Threading.Tasks.Task.Delay(2000);
+
         UI.SetBase();
         UI.gameObject.SetActive(false);
-
-        Choice choice = ExplorationManager.current.Selector.Choice;
-        EventManager.current.ExitExploration(Player, choice.Base.NextEncounter, choice.Base.BattleLayout);
-        ExplorationManager.current.gameObject.SetActive(false);
+        EventManager.current.ExitExploration(Player, choice.NextEncounter, choice.BattleLayout);
     }
 
     public void CheckChoice()
@@ -89,8 +91,8 @@ public class ExplorationManager : MonoBehaviour
     public void AddStatus(ChoiceData data)
     {
         Status temp = Instantiate(data.Base.Status);
-        temp.SetBase(Player);
-        ExplorationManager.current.Player.AddStatus(temp);
+        temp.SetBase(data.Owner);
+        data.Owner.AddStatus(temp);
         data.OnComplete();
     }
 
@@ -117,7 +119,7 @@ public class ExplorationManager : MonoBehaviour
     public void AddSpell(ChoiceData data)
     {
         Spell temp = Instantiate(data.Base.Spell);
-        temp.SetBase(Player);
+        temp.SetBase(data.Owner);
         data.Owner.AddSpell(temp);
         data.OnComplete();
     }

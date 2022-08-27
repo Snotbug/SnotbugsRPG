@@ -15,8 +15,8 @@ MonoBehaviour:
   <Name>k__BackingField: Skeleton Soldier
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
-    <Current>k__BackingField: 20
-    <Max>k__BackingField: 20
+    <Current>k__BackingField: 10
+    <Max>k__BackingField: 10
   - <Definition>k__BackingField: {fileID: 11400000, guid: f819d00694667614c90d08afb2be7996, type: 2}
     <Current>k__BackingField: 10
     <Max>k__BackingField: 10
