@@ -40,6 +40,11 @@ public class Status : MonoBehaviour
         return Stats.ContainsKey(stat.Name) ? Stats[stat.Name] : null;
     }
 
+    public Stat FindStat(string name)
+    {
+        return Stats.ContainsKey(name) ? Stats[name] : null;
+    }
+
     public void ModifyStat(string name, int amount)
     {
         Stats[name].Modify(amount);

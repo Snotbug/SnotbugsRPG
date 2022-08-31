@@ -12,6 +12,7 @@ public class StatusUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void SetUI(Status status)
     {
         Status = status;
+        // Image.sprite = Status.Base.Icon;
     }
 
     public void SetInteractable(bool interactable) { if(Button != null) { Button.interactable = interactable; }}

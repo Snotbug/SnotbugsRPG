@@ -14,10 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Power Surge
   <Description>k__BackingField: Empowers the target with a suddent burst of light
-  <Requirement>k__BackingField:
-  - <Definition>k__BackingField: {fileID: 11400000, guid: ad7e805f35aba6f4587aef8b6dfe6808, type: 2}
-    <Current>k__BackingField: 2
-    <Max>k__BackingField: 0
   <Costs>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: f819d00694667614c90d08afb2be7996, type: 2}
     <Current>k__BackingField: 3
@@ -33,13 +29,12 @@ MonoBehaviour:
     <Subeffects>k__BackingField:
     - <TargetType>k__BackingField: 0
       <Data>k__BackingField:
-      - <ActivationType>k__BackingField: 0
-        <Scalings>k__BackingField: []
+      - <Scalings>k__BackingField: []
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:
-            - m_Target: {fileID: 5020921527337663034, guid: 2a5ec04ccfb2c754585e94de32075306, type: 3}
-              m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
               m_MethodName: Buff
               m_Mode: 0
               m_Arguments:
@@ -65,13 +60,12 @@ MonoBehaviour:
     <Subeffects>k__BackingField:
     - <TargetType>k__BackingField: 1
       <Data>k__BackingField:
-      - <ActivationType>k__BackingField: 0
-        <Scalings>k__BackingField: []
+      - <Scalings>k__BackingField: []
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:
-            - m_Target: {fileID: 5020921527337663034, guid: 2a5ec04ccfb2c754585e94de32075306, type: 3}
-              m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
               m_MethodName: ModifyCooldown
               m_Mode: 0
               m_Arguments:

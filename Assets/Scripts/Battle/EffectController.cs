@@ -20,7 +20,7 @@ public class EffectController : MonoBehaviour
     public List<EffectData> Effects { get; private set; }
     public bool Pending { get; private set; }
 
-    public Action WaitForEffect { get; set; }
+    public Action OnEffectComplete { get; set; }
 
     EffectData data;
 
@@ -51,7 +51,7 @@ public class EffectController : MonoBehaviour
         Pending = false;
         Effects.Remove(data);
         Debug.Log($"num effects: {Effects.Count}");
-        if(Effects.Count <= 0) { WaitForEffect(); }
+        if(Effects.Count <= 0) { OnEffectComplete(); }
         else { Activate(); }
     }
 }

@@ -23,12 +23,12 @@ public class SelectionController : MonoBehaviour
         EventManager.current.onClickChoice -= SelectChoice;
     }
 
-    public Action WaitForCreature { get; set; }
-    public Action WaitForStatus { get; set; }
-    public Action WaitForSpell { get; set; }
-    public Action WaitForItem { get; set; }
-    public Action WaitForEquipment { get; set; }
-    public Action WaitForChoice { get; set; }
+    public Action OnSelectCreature { get; set; }
+    public Action OnSelectStatus { get; set; }
+    public Action OnSelectSpell { get; set; }
+    public Action OnSelectItem { get; set; }
+    public Action OnSelectEquipment { get; set; }
+    public Action OnSelectChoice { get; set; }
 
     public Creature Creature { get; set; }
     public Status Status { get; set; }
@@ -39,54 +39,54 @@ public class SelectionController : MonoBehaviour
 
     public void SelectCreature(Creature creature)
     {
-        if(WaitForCreature == null || Creature != null) { return; }
+        if(OnSelectCreature == null || Creature != null) { return; }
         Creature = creature;
-        WaitForCreature();
+        OnSelectCreature();
     }
 
     public void SelectStatus(Status status)
     {
-        if(WaitForStatus == null || Status != null) { return; }
+        if(OnSelectStatus == null || Status != null) { return; }
         Status = status;
-        WaitForStatus();
+        OnSelectStatus();
     }
 
     public void SelectSpell(Spell spell)
     {
-        if(WaitForSpell == null || Spell != null) { return; }
+        if(OnSelectSpell == null || Spell != null) { return; }
         Spell = spell;
-        WaitForSpell();
+        OnSelectSpell();
     }
 
     public void SelectItem(Item item)
     {
-        if(WaitForItem == null || Item != null) { return; }
+        if(OnSelectItem == null || Item != null) { return; }
         Item = item;
-        WaitForItem();
+        OnSelectItem();
     }
 
     public void SelectEquipment(Equipment equipment)
     {
-        if(WaitForEquipment == null || Equipment != null) { return; }
+        if(OnSelectEquipment == null || Equipment != null) { return; }
         Equipment = equipment;
-        WaitForEquipment();
+        OnSelectEquipment();
     }
 
     public void SelectChoice(Choice choice)
     {
-        if(WaitForChoice == null || Choice != null) { return; }
+        if(OnSelectChoice == null || Choice != null) { return; }
         Choice = choice;
-        WaitForChoice();
+        OnSelectChoice();
     }
 
     public void StopWaiting()
     {
-        WaitForCreature = null;
-        WaitForStatus = null;
-        WaitForSpell = null;
-        WaitForItem = null;
-        WaitForEquipment = null;
-        WaitForChoice = null;
+        OnSelectCreature = null;
+        OnSelectStatus = null;
+        OnSelectSpell = null;
+        OnSelectItem = null;
+        OnSelectEquipment = null;
+        OnSelectChoice = null;
     }
 
     public void ClearSelection()

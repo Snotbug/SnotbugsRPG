@@ -30,7 +30,8 @@ public class BattleUI : MonoBehaviour
 
     public void InspectSpell(Spell spell)
     {
-        Description.text = spell.Base.Description;
+        Description.text =
+        $"Cooldown: {spell.Cooldown.Current} \n {spell.Base.Description}";
     }
 
     public void InspectItem(Item item)

@@ -133,4 +133,133 @@ public class EffectFunction : ScriptableObject
     //         stat.ModifyMax(-modifier.Max);
     //     }
     // }
+
+    // exploration effects
+
+        public void ModifyStats(ChoiceData data)
+    {
+        foreach(StatBase statBase in data.Base.Stats)
+        {
+            Stat stat = data.Owner.FindStat(statBase.Definition);
+            stat.Modify(statBase.Current);
+            data.Owner.UI.UpdateUI();
+        }
+        data.OnComplete();
+    }
+
+    public void SetStats(ChoiceData data)
+    {
+        foreach(StatBase statBase in data.Base.Stats)
+        {
+            Stat stat = data.Owner.FindStat(statBase.Definition);
+            stat.Set(statBase.Current);
+        }
+        data.OnComplete();
+    }
+
+    public void AddStatus(ChoiceData data)
+    {
+        Status temp = Instantiate(data.Base.Status);
+        temp.SetBase(data.Owner);
+        data.Owner.AddStatus(temp);
+        data.OnComplete();
+    }
+
+    public void RemoveStatus(ChoiceData data)
+    {
+        if(data.Base.Status != null)
+        {
+            Status temp = data.Owner.FindStatus(data.Base.Status);
+            if(temp != null) { data.Owner.RemoveStatus(temp); }
+            data.OnComplete();
+        }
+        else
+        {
+            ExplorationManager.current.Selector.OnSelectStatus = (() =>
+            {
+                data.Owner.RemoveStatus(ExplorationManager.current.Selector.Status);
+                data.OnComplete();
+                ExplorationManager.current.Selector.Status = null;
+                ExplorationManager.current.Selector.OnSelectStatus = null;
+            });
+        }
+    }
+
+    public void AddSpell(ChoiceData data)
+    {
+        Spell temp = Instantiate(data.Base.Spell);
+        temp.SetBase(data.Owner);
+        data.Owner.AddSpell(temp);
+        data.OnComplete();
+    }
+
+    public void RemoveSpell(ChoiceData data)
+    {
+        if(data.Base.Spell != null)
+        {
+            Spell temp = data.Owner.FindSpell(data.Base.Spell);
+            if(temp != null) { data.Owner.RemoveSpell(temp); }
+            data.OnComplete();
+        }
+        else
+        {
+            ExplorationManager.current.Selector.OnSelectSpell = (() =>
+            {
+                data.Owner.RemoveSpell(ExplorationManager.current.Selector.Spell);
+                data.OnComplete();
+                ExplorationManager.current.Selector.Spell = null;
+                ExplorationManager.current.Selector.OnSelectSpell = null;
+            });
+        }
+    }
+
+    public void AddItem(ChoiceData data)
+    {
+
+    }
+
+    public void RemoveItem(ChoiceData data)
+    {
+        if(data.Base.Item != null)
+        {
+            Item temp = data.Owner.FindItem(data.Base.Item);
+            if(temp != null) { data.Owner.RemoveItem(temp); }
+            data.OnComplete();
+        }
+        else
+        {
+            ExplorationManager.current.Selector.OnSelectItem = (() =>
+            {
+                ExplorationManager.current.Player.RemoveItem(ExplorationManager.current.Selector.Item);
+                data.OnComplete();
+                ExplorationManager.current.Selector.Item = null;
+                ExplorationManager.current.Selector.OnSelectItem = null;
+            });
+        }
+    }
+
+    public void AddEquipment(ChoiceData data)
+    {
+
+    }
+
+    public void RemoveEquipment(ChoiceData data)
+    {
+        if(data.Base.Equipment != null)
+        {
+            Equipment temp = data.Owner.FindEquipment(data.Base.Equipment);
+            if(temp != null) { data.Owner.RemoveEquipment(temp); }
+            data.OnComplete();
+        }
+        else
+        {
+            ExplorationManager.current.Selector.OnSelectEquipment = (() =>
+            {
+                data.Owner.RemoveEquipment(ExplorationManager.current.Selector.Equipment);
+                data.OnComplete();
+                ExplorationManager.current.Selector.Equipment = null;
+                ExplorationManager.current.Selector.OnSelectEquipment = null;
+            });
+        }
+    }
 }

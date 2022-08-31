@@ -25,7 +25,7 @@ public class ExplorationUI : MonoBehaviour
 
     public void UpdateDescription(string description)
     {
-        Description.text += $"\n {description} \n";
+        Description.text = $"{description}";
     }
 
     public void AddChoice(Choice choice)

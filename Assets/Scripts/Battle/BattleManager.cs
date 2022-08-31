@@ -43,16 +43,24 @@ public class BattleManager : MonoBehaviour
 
         TargetController.EnableSelection(false);
 
-        Debug.Log($"turn controller size: {TurnController.Creatures.Count}");
-
         StartTurn();
     }
 
     public void ExitBattle()
     {
+        foreach(Creature creature in TurnController.Creatures)
+        {
+            creature.UI.ShowActiveIndicator(false);
+            creature.UI.ShowTargetIndicator(false);
+        }
+        
+        Layout.Player?.Creature.ResetStats();
+
         TurnController.SetBase();
         TargetController.SetBase();
         EffectController.SetBase();
+        Selector.ClearSelection();
+        Selector.StopWaiting();
 
         EventManager.current.ExitBattle(Layout.Player.Creature);
     }
@@ -106,7 +114,7 @@ public class BattleManager : MonoBehaviour
         if(EffectController.Effects.Count <= 0) { MainPhase(); }
         else
         {
-            EffectController.WaitForEffect = (() =>
+            EffectController.OnEffectComplete = (() =>
             {
                 if(CheckError())
                 {
@@ -117,17 +125,19 @@ public class BattleManager : MonoBehaviour
         }
     }
 
-    public void WaitForAction()
+    public void OnSelectAction()
     {
         Debug.Log("waiting for action");
-        BattleManager.current.Selector.WaitForSpell = WaitForTarget;
-        BattleManager.current.Selector.WaitForItem = WaitForTarget;
+        BattleManager.current.Selector.OnSelectSpell = OnSelectTarget;
+        BattleManager.current.Selector.OnSelectItem = OnSelectTarget;
+
+        Debug.Log($"num activatable {TurnController.ActiveCreature.FindActivatable().Count}");
 
         UI.EnableEndTurn(true);
         TurnController.ActiveCreature.EnableSpells(true);
     }
 
-    public void WaitForTarget()
+    public void OnSelectTarget()
     {
         Debug.Log("waiting for target");
         BattleManager.current.Selector.StopWaiting();
@@ -137,13 +147,13 @@ public class BattleManager : MonoBehaviour
         TargetController.FindTargets(TurnController.ActiveCreature, Selector.Spell);
         if(TargetController.Targets.Count > 0)
         {
-            Selector.WaitForCreature = WaitForEffects;
+            Selector.OnSelectCreature = OnSelectEffects;
             TargetController.EnableSelection(true);
         }
-        else { WaitForEffects(); }
+        else { OnSelectEffects(); }
     }
 
-    public void WaitForEffects()
+    public void OnSelectEffects()
     {
         Debug.Log("waiting for effects");
         TargetController.EnableSelection(false);
@@ -151,12 +161,12 @@ public class BattleManager : MonoBehaviour
 
         Selector.Spell.ActivateQueued();
         EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
-        EffectController.WaitForEffect = (() =>
+        EffectController.OnEffectComplete = (() =>
         {
             if(CheckError())
             {
                 if(TurnController.ActiveCreature == null) { StartTurn(); }
-                else { Selector.ClearSelection(); WaitForAction(); }
+                else { Selector.ClearSelection(); OnSelectAction(); }
             }
         });
     }
@@ -165,7 +175,7 @@ public class BattleManager : MonoBehaviour
     {
         TurnController.ActiveCreature.SetStat("Stamina", TurnController.ActiveCreature.Stamina.Max);
         if(TargetController.IsEnemy(TurnController.ActiveCreature)) { EnemyTurn(); }
-        else { WaitForAction();}
+        else { OnSelectAction();}
     }
 
     public void EnemyTurn()
@@ -185,7 +195,7 @@ public class BattleManager : MonoBehaviour
             if(selectedSpell != null) { Debug.Log($"{TurnController.ActiveCreature.Base.Name} activating selected spell"); selectedSpell.ActivateQueued(); }
             EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
 
-            EffectController.WaitForEffect = (() =>
+            EffectController.OnEffectComplete = (() =>
             {
                 if(CheckError())
                 {
@@ -193,9 +203,6 @@ public class BattleManager : MonoBehaviour
                     else { EndTurn(); }
                 }
             });
-
-            // if(selectedSpell != null) { selectedSpell.ActivateQueued(); }
-            // EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
         }
         else
         {

@@ -41,7 +41,6 @@ public class Spell : MonoBehaviour
 
     public void ActivateQueued()
     {
-        Debug.Log($"{this.Base.Name}'s owner is null {this.Owner == null}");
         Owner.PayCost(Base.Costs);
         SetStat(Cooldown.Definition.Name, Cooldown.Max);
         ActivatedEffect.QueueEffect(true);

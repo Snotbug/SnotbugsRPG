@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: BleedingStrike
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Bleeding Strike
-  <Description>k__BackingField: Make the blade slick with your blood and inflict
-    bleed on the enemy
+  <Description>k__BackingField: 
   <Costs>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
     <Current>k__BackingField: 3

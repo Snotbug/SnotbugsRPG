@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99858b869fa17464a87cb3fcc7624869, type: 3}
-  m_Name: Encounter 2
+  m_Name: 2A
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Encounter 2
-  <Description>k__BackingField: You took a detour
+  <Name>k__BackingField: 2A
+  <Description>k__BackingField: 
   <Choices>k__BackingField:
-  - <Name>k__BackingField: -5 Health
-    <Description>k__BackingField: Turns out its not so nice after all
+  - <Name>k__BackingField: Remove spell > 5 heal
+    <Description>k__BackingField: 
     <NextEncounter>k__BackingField: {fileID: 0}
     <BattleLayout>k__BackingField: {fileID: 0}
     <Requirements>k__BackingField:
@@ -29,8 +29,8 @@ MonoBehaviour:
     - <Function>k__BackingField:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 7763286581366733895, guid: fd607ef6e02373b4e9aaedfc6b870a2a, type: 3}
-            m_TargetAssemblyTypeName: ExplorationManager, Assembly-CSharp
+          - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+            m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
             m_MethodName: RemoveSpell
             m_Mode: 0
             m_Arguments:
@@ -50,8 +50,8 @@ MonoBehaviour:
     - <Function>k__BackingField:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 7763286581366733895, guid: fd607ef6e02373b4e9aaedfc6b870a2a, type: 3}
-            m_TargetAssemblyTypeName: ExplorationManager, Assembly-CSharp
+          - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+            m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
             m_MethodName: ModifyStats
             m_Mode: 0
             m_Arguments:
@@ -65,15 +65,15 @@ MonoBehaviour:
       <Data>k__BackingField:
         <Stats>k__BackingField:
         - <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
-          <Current>k__BackingField: -5
+          <Current>k__BackingField: 5
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
         <Item>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
         <Equipment>k__BackingField: {fileID: 0}
-  - <Name>k__BackingField: +10 health
+  - <Name>k__BackingField: Add [Bleed] status > 2B
     <Description>k__BackingField: 
-    <NextEncounter>k__BackingField: {fileID: 0}
+    <NextEncounter>k__BackingField: {fileID: 11400000, guid: 361cabf8be30ac9458d7ce58b9ba2f3f, type: 2}
     <BattleLayout>k__BackingField: {fileID: 0}
     <Requirements>k__BackingField:
       <Stats>k__BackingField: []
@@ -85,9 +85,9 @@ MonoBehaviour:
     - <Function>k__BackingField:
         m_PersistentCalls:
           m_Calls:
-          - m_Target: {fileID: 7763286581366733895, guid: fd607ef6e02373b4e9aaedfc6b870a2a, type: 3}
-            m_TargetAssemblyTypeName: ExplorationManager, Assembly-CSharp
-            m_MethodName: AddSpell
+          - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+            m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
+            m_MethodName: AddStatus
             m_Mode: 0
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
@@ -99,31 +99,7 @@ MonoBehaviour:
             m_CallState: 2
       <Data>k__BackingField:
         <Stats>k__BackingField: []
-        <Status>k__BackingField: {fileID: 0}
-        <Item>k__BackingField: {fileID: 0}
-        <Spell>k__BackingField: {fileID: 6369103817870256385, guid: 7bda5eb42d5721445a8b76f401cf7dbe, type: 3}
-        <Equipment>k__BackingField: {fileID: 0}
-    - <Function>k__BackingField:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 7763286581366733895, guid: fd607ef6e02373b4e9aaedfc6b870a2a, type: 3}
-            m_TargetAssemblyTypeName: ExplorationManager, Assembly-CSharp
-            m_MethodName: ModifyStats
-            m_Mode: 0
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-      <Data>k__BackingField:
-        <Stats>k__BackingField:
-        - <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
-          <Current>k__BackingField: 10
-          <Max>k__BackingField: 0
-        <Status>k__BackingField: {fileID: 0}
+        <Status>k__BackingField: {fileID: 1812095718089642681, guid: ba05ef72f19c5cb43be3f2000447317c, type: 3}
         <Item>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
         <Equipment>k__BackingField: {fileID: 0}

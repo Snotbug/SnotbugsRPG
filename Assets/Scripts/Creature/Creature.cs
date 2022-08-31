@@ -82,6 +82,19 @@ public class Creature : MonoBehaviour
         if(Animator != null) { Destroy(Animator?.gameObject); }
     }
 
+    public void ResetStats()
+    {
+        foreach(KeyValuePair<string, Stat> pair in Stats)
+        {
+            Stat stat = pair.Value;
+            if(!stat.Definition.IsResource)
+            {
+                stat.Set(stat.Max);
+                UI.UpdateUI();
+            }
+        }
+    }
+
     public Stat FindStat(StatDefinition stat)
     {
         return Stats.ContainsKey(stat.Name) ? Stats[stat.Name] : null;
@@ -114,10 +127,9 @@ public class Creature : MonoBehaviour
         Stats[name].ModifyMax(amount);
     }
 
-    public async Task SetMaxStat(string name, int value)
+    public void SetMaxStat(string name, int value)
     {
         Stats[name].SetMax(value);
-        await Task.Delay(1000);
     }
 
     public Status FindStatus(Status status)
@@ -151,7 +163,6 @@ public class Creature : MonoBehaviour
     {
         if
         (
-            this != BattleManager.current.TurnController.ActiveCreature ||
             spell.Cooldown.Current > 0
         )
         { return false; }
