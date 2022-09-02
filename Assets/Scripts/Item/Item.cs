@@ -24,12 +24,12 @@ public class Item : MonoBehaviour
             Stats.Add(Stat.Definition.Name, new Stat(Stat.Definition, Stat.Current, Stat.Max));
         };
 
-        ActivatedEffect = new Effect(Base.ActivatedEffect, Owner, this);
+        ActivatedEffect = new Effect(Base.ActivatedEffect, Owner);
 
         UI.SetUI(this);
     }
 
-    public void Activate()
+    public void ActivateQueued()
     {
         ModifyStat(Quantity.Definition.Name, -1);
         ActivatedEffect.QueueEffect(true);
@@ -59,7 +59,6 @@ public class Item : MonoBehaviour
 
     public void OnDestroy()
     {
-        if(UI == null) { return; }
-        Destroy(UI.gameObject);
+        if(UI != null) { Destroy(UI.gameObject); }
     }
 }

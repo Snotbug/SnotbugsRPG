@@ -15,8 +15,8 @@ MonoBehaviour:
   <Name>k__BackingField: Player
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
-    <Current>k__BackingField: 30
-    <Max>k__BackingField: 30
+    <Current>k__BackingField: 1000
+    <Max>k__BackingField: 1000
   - <Definition>k__BackingField: {fileID: 11400000, guid: f819d00694667614c90d08afb2be7996, type: 2}
     <Current>k__BackingField: 10
     <Max>k__BackingField: 10
@@ -24,27 +24,23 @@ MonoBehaviour:
     <Current>k__BackingField: 10
     <Max>k__BackingField: 10
   - <Definition>k__BackingField: {fileID: 11400000, guid: 0fba2f9e91b33b04cacf79210a3f688a, type: 2}
-    <Current>k__BackingField: 10
-    <Max>k__BackingField: 10
+    <Current>k__BackingField: 1
+    <Max>k__BackingField: 1
   - <Definition>k__BackingField: {fileID: 11400000, guid: 2a972e05bb6de1f44818fe6c9b492fae, type: 2}
-    <Current>k__BackingField: 10
-    <Max>k__BackingField: 10
+    <Current>k__BackingField: 1
+    <Max>k__BackingField: 1
   - <Definition>k__BackingField: {fileID: 11400000, guid: ad7e805f35aba6f4587aef8b6dfe6808, type: 2}
-    <Current>k__BackingField: 10
-    <Max>k__BackingField: 10
+    <Current>k__BackingField: 1
+    <Max>k__BackingField: 1
   - <Definition>k__BackingField: {fileID: 11400000, guid: 76242941c888f0a4299faeae19aa8ce0, type: 2}
-    <Current>k__BackingField: 0
-    <Max>k__BackingField: 10
+    <Current>k__BackingField: 1
+    <Max>k__BackingField: 1
   - <Definition>k__BackingField: {fileID: 11400000, guid: b775c8499a2eaa445ad0e7566041be68, type: 2}
     <Current>k__BackingField: 10
     <Max>k__BackingField: 10
   <Statuses>k__BackingField: []
   <Spells>k__BackingField:
   - {fileID: 6369103817870256385, guid: 7bda5eb42d5721445a8b76f401cf7dbe, type: 3}
-  - {fileID: 7148560043350483482, guid: 90b458b1d348c2e4184a13393cc12a89, type: 3}
-  - {fileID: 1368470138798657789, guid: 2a41940575e5bf447aff5ef69d2067fd, type: 3}
-  - {fileID: 7148560043350483482, guid: 9f2621d85edc811478d09cd5bfa43e22, type: 3}
-  - {fileID: 6369103817870256385, guid: b5b95a16c1788e843bed73d3f1dc1876, type: 3}
   - {fileID: 704262962613650049, guid: 72b55faa464a82d4a92178564dec5162, type: 3}
-  - {fileID: 4460628780129308633, guid: b4550c39c1d10ac4cbcc215d5aad3c34, type: 3}
   <Items>k__BackingField: []
+  <Equipments>k__BackingField: []

@@ -14,8 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Cleansing Fire
   <Description>k__BackingField: Burn away the body's impurities with fire
-  <Requirement>k__BackingField: []
-  <Costs>k__BackingField: []
+  <Costs>k__BackingField:
+  - <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
+    <Current>k__BackingField: 5
+    <Max>k__BackingField: 0
+  - <Definition>k__BackingField: {fileID: 11400000, guid: f819d00694667614c90d08afb2be7996, type: 2}
+    <Current>k__BackingField: 2
+    <Max>k__BackingField: 0
+  - <Definition>k__BackingField: {fileID: 11400000, guid: d69df50c7da53664ab210201a52b538c, type: 2}
+    <Current>k__BackingField: 1
+    <Max>k__BackingField: 0
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
     <Current>k__BackingField: 0
@@ -27,40 +35,12 @@ MonoBehaviour:
     <Subeffects>k__BackingField:
     - <TargetType>k__BackingField: 1
       <Data>k__BackingField:
-      - <ActivationType>k__BackingField: 0
-        <Scalings>k__BackingField: []
+      - <Scalings>k__BackingField: []
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:
-            - m_Target: {fileID: 5020921527337663034, guid: 2a5ec04ccfb2c754585e94de32075306, type: 3}
-              m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
-              m_MethodName: Cure
-              m_Mode: 0
-              m_Arguments:
-                m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-                m_IntArgument: 0
-                m_FloatArgument: 0
-                m_StringArgument: 
-                m_BoolArgument: 0
-              m_CallState: 2
-        <Stat>k__BackingField:
-          <Definition>k__BackingField: {fileID: 0}
-          <Current>k__BackingField: 0
-          <Max>k__BackingField: 0
-        <Status>k__BackingField: {fileID: 1812095718089642681, guid: ba05ef72f19c5cb43be3f2000447317c, type: 3}
-        <Creature>k__BackingField: {fileID: 0}
-        <Spell>k__BackingField: {fileID: 0}
-        <Item>k__BackingField: {fileID: 0}
-    - <TargetType>k__BackingField: 1
-      <Data>k__BackingField:
-      - <ActivationType>k__BackingField: 0
-        <Scalings>k__BackingField: []
-        <Function>k__BackingField:
-          m_PersistentCalls:
-            m_Calls:
-            - m_Target: {fileID: 5020921527337663034, guid: 2a5ec04ccfb2c754585e94de32075306, type: 3}
-              m_TargetAssemblyTypeName: BattleManager, Assembly-CSharp
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
               m_MethodName: Damage
               m_Mode: 0
               m_Arguments:
@@ -71,47 +51,70 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
+        <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
           <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
           <Current>k__BackingField: 5
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
-        <Creature>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
         <Item>k__BackingField: {fileID: 0}
+        <Equipment>k__BackingField: {fileID: 0}
     - <TargetType>k__BackingField: 1
-      <Data>k__BackingField: []
-  <TriggeredEffects>k__BackingField:
-  - <Trigger>k__BackingField: {fileID: 11400000, guid: 46b19bc6bc37d714586874c2af45d9ce, type: 2}
-    <TriggerType>k__BackingField: 1
-    <Subeffects>k__BackingField:
-    - <TargetType>k__BackingField: 0
       <Data>k__BackingField:
-      - <ActivationType>k__BackingField: 0
-        <Scalings>k__BackingField: []
+      - <Scalings>k__BackingField: []
         <Function>k__BackingField:
           m_PersistentCalls:
             m_Calls:
-            - m_Target: {fileID: 5020921527337663035, guid: 2a5ec04ccfb2c754585e94de32075306, type: 3}
-              m_TargetAssemblyTypeName: 
-              m_MethodName: 
-              m_Mode: 1
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
+              m_MethodName: Cure
+              m_Mode: 0
               m_Arguments:
                 m_ObjectArgument: {fileID: 0}
-                m_ObjectArgumentAssemblyTypeName: 
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
                 m_IntArgument: 0
                 m_FloatArgument: 0
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
+        <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
           <Definition>k__BackingField: {fileID: 0}
           <Current>k__BackingField: 0
           <Max>k__BackingField: 0
-        <Status>k__BackingField: {fileID: 0}
-        <Creature>k__BackingField: {fileID: 0}
+        <Status>k__BackingField: {fileID: 1812095718089642681, guid: ba05ef72f19c5cb43be3f2000447317c, type: 3}
         <Spell>k__BackingField: {fileID: 0}
         <Item>k__BackingField: {fileID: 0}
-  - <Trigger>k__BackingField: {fileID: 11400000, guid: 5d32a4007e1a47149bbe422c5acf16dd, type: 2}
-    <TriggerType>k__BackingField: 2
-    <Subeffects>k__BackingField: []
+        <Equipment>k__BackingField: {fileID: 0}
+  <TriggeredEffects>k__BackingField:
+  - <Trigger>k__BackingField: {fileID: 11400000, guid: 46b19bc6bc37d714586874c2af45d9ce, type: 2}
+    <TriggerType>k__BackingField: 1
+    <Subeffects>k__BackingField:
+    - <TargetType>k__BackingField: 1
+      <Data>k__BackingField:
+      - <Scalings>k__BackingField: []
+        <Function>k__BackingField:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
+              m_MethodName: ModifyCooldown
+              m_Mode: 0
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        <Creature>k__BackingField: {fileID: 0}
+        <Stat>k__BackingField:
+          <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
+          <Current>k__BackingField: -1
+          <Max>k__BackingField: 0
+        <Status>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 7148560043350483482, guid: 9f2621d85edc811478d09cd5bfa43e22, type: 3}
+        <Item>k__BackingField: {fileID: 0}
+        <Equipment>k__BackingField: {fileID: 0}

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99858b869fa17464a87cb3fcc7624869, type: 3}
+  m_Name: 2B
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: 2B
+  <Description>k__BackingField: 
+  <Choices>k__BackingField:
+  - <Name>k__BackingField: Battle
+    <Description>k__BackingField: 
+    <NextEncounter>k__BackingField: {fileID: 11400000}
+    <BattleLayout>k__BackingField: {fileID: 7991102881252459000, guid: bd10a487465953543b84c7ca05a51eda, type: 3}
+    <Requirements>k__BackingField:
+      <Stats>k__BackingField: []
+      <Status>k__BackingField: {fileID: 0}
+      <Item>k__BackingField: {fileID: 0}
+      <Spell>k__BackingField: {fileID: 0}
+      <Equipment>k__BackingField: {fileID: 0}
+    <Consequences>k__BackingField: []

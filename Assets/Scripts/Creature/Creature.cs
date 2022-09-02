@@ -1,6 +1,8 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class Creature : MonoBehaviour
@@ -8,8 +10,6 @@ public class Creature : MonoBehaviour
     [field : SerializeField] public CreatureBase Base { get; private set; }
     [field : SerializeField] public CreatureUI UI { get; private set; }
     [field : SerializeField] public CreatureAnimator Animator { get; private set; }
-
-    public Dictionary<string, Stat> Stats { get; private set; }
 
     public Stat Health { get { return Stats["Health"]; }}
     public Stat Mana { get { return Stats["Mana"]; }}
@@ -21,9 +21,11 @@ public class Creature : MonoBehaviour
     public Stat Resistance { get { return Stats["Resistance"]; }}
     public Stat Speed { get { return Stats["Speed"]; }}
 
+    public Dictionary<string, Stat> Stats { get; private set; }
     public List<Status> Statuses { get; private set; }
     public List<Spell> Spells { get; private set; }
     public List<Item> Items { get; private set; }
+    public Dictionary<EquipmentType, Equipment> Equipments { get; private set; }
 
     public void SetBase()
     {
@@ -61,28 +63,41 @@ public class Creature : MonoBehaviour
             AddItem(temp);
         }
 
+        Equipments = new Dictionary<EquipmentType, Equipment>();
+        foreach(EquipmentType type in Enum.GetValues(typeof(EquipmentType))) { Equipments.Add(type, null); }
+        foreach(Equipment equipment in Base.Equipments)
+        {
+            Equipment temp = Instantiate(equipment, this.transform.position, Quaternion.identity);
+            temp.transform.SetParent(this.transform);
+            temp.SetBase(this);
+            AddEquipment(equipment);
+        }
+
         UI.SetUI(this);
     }
 
     public void OnDestroy()
     {
-        Destroy(UI?.gameObject);
-        Destroy(Animator?.gameObject);
+        if(UI != null) { Destroy(UI.gameObject); }
+        if(Animator != null) { Destroy(Animator?.gameObject); }
+    }
 
-        // foreach(Status status in Statuses) { RemoveStatus(status); }
-        // foreach(Spell spell in Spells) { RemoveSpell(spell); }
-        // foreach(Item item in Items) { RemoveItem(item); }
+    public void ResetStats()
+    {
+        foreach(KeyValuePair<string, Stat> pair in Stats)
+        {
+            Stat stat = pair.Value;
+            if(!stat.Definition.IsResource)
+            {
+                stat.Set(stat.Max);
+                UI.UpdateUI();
+            }
+        }
     }
 
     public Stat FindStat(StatDefinition stat)
     {
         return Stats.ContainsKey(stat.Name) ? Stats[stat.Name] : null;
-    }
-
-    public void PayCost(Spell spell)
-    {
-        foreach(StatBase cost in spell.Base.Costs) { FindStat(cost.Definition).Modify(-cost.Current); }
-        UI.UpdateUI();
     }
 
     public int ApplyScaling(int value, List<StatBase> scalings)
@@ -126,8 +141,9 @@ public class Creature : MonoBehaviour
     {
         if(FindStatus(status) != null) { return; }
         Statuses.Add(status);
+        status.transform.SetParent(this.transform);
 
-        UI?.AddStatus(status);
+        if(UI != null) { UI.AddStatus(status); }
     }
 
     public void RemoveStatus(Status status)
@@ -147,14 +163,9 @@ public class Creature : MonoBehaviour
     {
         if
         (
-            this != BattleManager.current.TurnController.ActiveCreature ||
             spell.Cooldown.Current > 0
         )
         { return false; }
-        foreach(StatBase requirement in spell.Base.Requirement)
-        {
-            if(FindStat(requirement.Definition).Current < requirement.Current) { return false; }
-        }
         foreach(StatBase cost in spell.Base.Costs)
         {
             if(FindStat(cost.Definition).Current < cost.Current) { return false; }
@@ -162,10 +173,16 @@ public class Creature : MonoBehaviour
         return true;
     }
 
+    public void PayCost(List<StatBase> costs)
+    {
+        foreach(StatBase cost in costs) { ModifyStat(cost.Definition.Name, -cost.Current); }
+        UI.UpdateUI();
+    }
+
     public void EnableSpells(bool enable)
     {
         if(enable) { foreach(Spell spell in Spells) { spell.UI.SetInteractable(CanActivate(spell)); }}
-        else{ foreach(Spell spell in Spells) {spell.UI.SetInteractable(false);}}
+        else{ foreach(Spell spell in Spells) { spell.UI.SetInteractable(false); }}
     }
 
     public List<Spell> FindActivatable()
@@ -179,8 +196,9 @@ public class Creature : MonoBehaviour
     {
         if(FindSpell(spell) != null) { return; }
         Spells.Add(spell);
+        spell.transform.SetParent(this.transform);
 
-        UI?.AddSpell(spell);
+        if(UI != null) { UI.AddSpell(spell); }
     }
 
     public void RemoveSpell(Spell spell)
@@ -198,11 +216,10 @@ public class Creature : MonoBehaviour
 
     public void AddItem(Item item)
     {
-        Item foundItem = FindItem(item);
-        if(foundItem != null) { foundItem.ModifyStat(item.Quantity.Definition.Name, item.Quantity.Current); }
-        else { Items.Add(item); }
+        if(FindItem(item) != null) { return; }
+        Items.Add(item);
 
-        UI.AddItem(item);
+        if(UI != null) { UI.AddItem(item); }
     }
 
     public void RemoveItem(Item item)
@@ -211,5 +228,24 @@ public class Creature : MonoBehaviour
         if(foundItem == null) { return; }
         Destroy(item.gameObject);
         Items.Remove(item);
+    }
+
+    public Equipment FindEquipment(Equipment equipment)
+    {
+        return Equipments.ContainsKey(equipment.Base.Type) ? Equipments[equipment.Base.Type] : null;
+    }
+
+    public void AddEquipment(Equipment equipment)
+    {
+        if(Equipments[equipment.Base.Type] != null) { return; }
+        Equipments[equipment.Base.Type] = equipment;
+    }
+
+    public void RemoveEquipment(Equipment equipment)
+    {
+        Equipment foundEquipment = FindEquipment(equipment);
+        if(foundEquipment == null) { return; }
+        Destroy(foundEquipment.gameObject);
+        Equipments[foundEquipment.Base.Type] = null;
     }
 }

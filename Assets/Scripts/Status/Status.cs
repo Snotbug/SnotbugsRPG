@@ -27,7 +27,7 @@ public class Status : MonoBehaviour
         TriggeredEffects = new List<Effect>();
         foreach(EffectBase effectBase in Base.TriggeredEffects)
         {
-            Effect effect = new Effect(effectBase, Owner, this);
+            Effect effect = new Effect(effectBase, Owner);
             effectBase.Trigger.RegisterEffect(effect);
             TriggeredEffects.Add(effect);
         }
@@ -38,6 +38,11 @@ public class Status : MonoBehaviour
     public Stat FindStat(StatDefinition stat)
     {
         return Stats.ContainsKey(stat.Name) ? Stats[stat.Name] : null;
+    }
+
+    public Stat FindStat(string name)
+    {
+        return Stats.ContainsKey(name) ? Stats[name] : null;
     }
 
     public void ModifyStat(string name, int amount)
@@ -67,6 +72,6 @@ public class Status : MonoBehaviour
     public void OnDestroy()
     {
         foreach(Effect effect in TriggeredEffects) { effect.Base.Trigger.UnregisterEffect(effect); }
-        if(UI == null) { return; } Destroy(UI.gameObject);
+        if(UI != null) { Destroy(UI.gameObject); }
     }
 }
