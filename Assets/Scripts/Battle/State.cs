@@ -1,8 +1,17 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class State : ScriptableObject
+[CreateAssetMenu(fileName = "State", menuName = "State")]
+public class State : ScriptableObject
 {
-    public abstract void Enter();
+    public void Enter()
+    {
 
-    public abstract void Exit();
+    }
+
+    public void Exit()
+    {
+        
+    }
 }

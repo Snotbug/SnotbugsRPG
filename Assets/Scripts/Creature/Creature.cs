@@ -95,14 +95,9 @@ public class Creature : MonoBehaviour
         }
     }
 
-    public Stat FindStat(string name)
+    public Stat FindStat(StatDefinition stat)
     {
-        return Stats.ContainsKey(name) ? Stats[name] : null;
-    }
-
-    public Stat FindStat(StatDefinition definition)
-    {
-        return Stats.ContainsKey(definition.Name) ? Stats[definition.Name] : null;
+        return Stats.ContainsKey(stat.Name) ? Stats[stat.Name] : null;
     }
 
     public int ApplyScaling(int value, List<StatBase> scalings)

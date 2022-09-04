@@ -41,11 +41,6 @@ public class BattleManager : MonoBehaviour
         TurnController.SetTurnOrder();
         TurnController.SortTurnOrder();
 
-        foreach(Creature creature in TurnController.Creatures)
-        {
-            creature.UI.SetInteractable(false);
-        }
-
         TargetController.EnableSelection(false);
 
         StartTurn();
@@ -58,8 +53,8 @@ public class BattleManager : MonoBehaviour
             creature.UI.ShowActiveIndicator(false);
             creature.UI.ShowTargetIndicator(false);
         }
-
-        if(Layout.Player.Creature != null) { Layout.Player.Creature.ResetStats(); }
+        
+        Layout.Player?.Creature.ResetStats();
 
         TurnController.SetBase();
         TargetController.SetBase();
