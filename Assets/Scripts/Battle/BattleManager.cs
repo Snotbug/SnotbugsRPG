@@ -35,7 +35,7 @@ public class BattleManager : MonoBehaviour
         {
             creature.UI.ShowTargetIndicator(false);
             creature.UI.ShowActiveIndicator(false);
-            creature.EnableSpells(false);
+         //   creature.EnableSpells(false);
         }
 
         TurnController.SetTurnOrder();
@@ -59,7 +59,7 @@ public class BattleManager : MonoBehaviour
             creature.UI.ShowTargetIndicator(false);
         }
 
-        if(Layout.Player.Creature != null) { Layout.Player.Creature.ResetStats(); }
+       // if(Layout.Player.Creature != null) { Layout.Player.Creature.ResetStats(); }
 
         TurnController.SetBase();
         TargetController.SetBase();
@@ -136,10 +136,10 @@ public class BattleManager : MonoBehaviour
         BattleManager.current.Selector.OnSelectSpell = OnSelectTarget;
         BattleManager.current.Selector.OnSelectItem = OnSelectTarget;
 
-        Debug.Log($"num activatable {TurnController.ActiveCreature.FindActivatable().Count}");
+        //Debug.Log($"num activatable {TurnController.ActiveCreature.FindActivatable().Count}");
 
         UI.EnableEndTurn(true);
-        TurnController.ActiveCreature.EnableSpells(true);
+        //TurnController.ActiveCreature.EnableSpells(true);
     }
 
     public void OnSelectTarget()
@@ -148,7 +148,7 @@ public class BattleManager : MonoBehaviour
         BattleManager.current.Selector.StopWaiting();
 
         UI.EnableEndTurn(false);
-        TurnController.ActiveCreature.EnableSpells(false);
+       // TurnController.ActiveCreature.EnableSpells(false);
         TargetController.FindTargets(TurnController.ActiveCreature, Selector.Spell);
         if(TargetController.Targets.Count > 0)
         {
@@ -178,7 +178,7 @@ public class BattleManager : MonoBehaviour
 
     public void MainPhase()
     {
-        TurnController.ActiveCreature.SetStat("Stamina", TurnController.ActiveCreature.Stamina.Max);
+        TurnController.ActiveCreature.statBlock.baseStats[(int)StatBlock.StatType.STAM] = TurnController.ActiveCreature.statBlock.baseStats[(int)StatBlock.StatType.STAM];
         if(TargetController.IsEnemy(TurnController.ActiveCreature)) { EnemyTurn(); }
         else { OnSelectAction();}
     }
@@ -186,7 +186,7 @@ public class BattleManager : MonoBehaviour
     public void EnemyTurn()
     {
         Debug.Log($"{TurnController.ActiveCreature}'s turn");
-        List<Spell> Spells = TurnController.ActiveCreature.FindActivatable();
+      /*  List<Spell> Spells = TurnController.ActiveCreature.FindActivatable();
         Spell selectedSpell = null;
         if(Spells.Count > 0)
         {
@@ -197,7 +197,7 @@ public class BattleManager : MonoBehaviour
                 selectedSpell.ActivatedEffect.Target = targets[Random.Range(0, TargetController.Targets.Count)];
             }
 
-            if(selectedSpell != null) { Debug.Log($"{TurnController.ActiveCreature.Base.Name} activating selected spell"); selectedSpell.ActivateQueued(); }
+            if(selectedSpell != null) { Debug.Log($"{TurnController.ActiveCreature.data.name} activating selected spell"); selectedSpell.ActivateQueued(); }
             EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
 
             EffectController.OnEffectComplete = (() =>
@@ -213,13 +213,15 @@ public class BattleManager : MonoBehaviour
         {
             EndTurn();
         }
+        */
+      EndTurn();
     }
     
     public void EndTurn()
     {
         Selector.StopWaiting();
 
-        TurnController.ActiveCreature.EnableSpells(false);
+        //TurnController.ActiveCreature.EnableSpells(false);  // sorry still working on it. 
         TurnController.ActiveCreature.UI.ShowActiveIndicator(false);
 
         TargetController.EnableSelection(false);
@@ -234,7 +236,7 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("checking errors");
         Creature player = Layout.Player.Creature;
-        if(player.Health.Current <= 0)
+        if(player.statBlock.CalculateTotalHealth(1) <= 0) // This is not the ideal way to do this, this is VERY temp while I work my way around the systems
         {
             TurnController.Remove(player);
             TargetController.Remove(player);
@@ -246,7 +248,7 @@ public class BattleManager : MonoBehaviour
         foreach(CreatureContainer container in Layout.Friends)
         {
             Creature friend = container.Creature;
-            if(friend?.Health.Current <= 0)
+            if(friend?.statBlock.CalculateTotalHealth(1) <= 0)
             {
                 TurnController.Remove(friend);
                 TargetController.Remove(friend);
@@ -257,12 +259,12 @@ public class BattleManager : MonoBehaviour
         foreach(CreatureContainer container in Layout.Enemies)
         {
             Creature enemy = container.Creature;
-            if(enemy?.Health.Current <= 0)
+            if(enemy?.statBlock.CalculateTotalHealth(1) <= 0)
             {
                 TurnController.Remove(enemy);
                 TargetController.Remove(enemy);
                 container.Remove();
-                Debug.Log($"removing {enemy.Base.Name}");
+                Debug.Log($"removing {enemy.data.name}");
                 Debug.Log($"turn controller size: {TurnController.Creatures.Count}");
                 Destroy(enemy.gameObject);
             }

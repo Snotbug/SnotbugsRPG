@@ -9,9 +9,7 @@ public class Equipment : MonoBehaviour
 
     public Creature Owner { get; private set; }
     
-    public Dictionary<string, Stat> Stats { get; private set; }
-
-    public Stat Cooldown { get { return Stats["Cooldown"]; }}
+ 
     
     public List<Effect> TriggeredEffects { get; private set; }
 
@@ -19,11 +17,7 @@ public class Equipment : MonoBehaviour
     {
         Owner = owner;
 
-        Stats = new Dictionary<string, Stat>();
-        foreach(StatBase stat in Base.Stats)
-        {
-            Stats.Add(stat.Definition.Name, new Stat(stat.Definition, stat.Current, stat.Max));
-        };
+    
 
         TriggeredEffects = new List<Effect>();
         foreach(EffectBase effectBase in Base.TriggeredEffects)
@@ -36,30 +30,7 @@ public class Equipment : MonoBehaviour
         UI.SetUI(this);
     }
 
-    public Stat FindStat(StatDefinition stat)
-    {
-        return Stats.ContainsKey(stat.Name) ? Stats[stat.Name] : null;
-    }
-
-    public void ModifyStat(string name, int amount)
-    {
-        Stats[name].Modify(amount);
-    }
-
-    public void SetStat(string name, int value)
-    {
-        Stats[name].Set(value);
-    }
-
-    public void ModifyMaxStat(string name, int amount)
-    {
-        Stats[name].ModifyMax(amount);
-    }
-
-    public void SetMaxStat(string name, int value)
-    {
-        Stats[name].SetMax(value);
-    }
+   
 
     public void OnDestroy()
     {

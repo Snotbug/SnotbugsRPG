@@ -12,7 +12,7 @@ using UnityEditor.UIElements;
 using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
+//using UnityEngine.UIElements;
 
 namespace Hierarchy2
 {
@@ -21,7 +21,7 @@ namespace Hierarchy2
     {
         internal const int GLOBAL_SPACE_OFFSET_LEFT = 16 * 2;
 
-        static HierarchyEditor instance;
+        private static HierarchyEditor instance;
 
         public static HierarchyEditor Instance
         {

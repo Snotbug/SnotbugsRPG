@@ -36,8 +36,8 @@ public class Choice : MonoBehaviour
     {
         foreach(StatBase requirement in Base.Requirements.Stats)
         {
-            Stat stat = creature.FindStat(requirement.Definition);
-            if(stat.Current < requirement.Current || stat.Max < requirement.Max) { return false; }
+        //    Stat stat = creature.FindStat(requirement.Definition);
+      //      if(stat.Current < requirement.Current || stat.Max < requirement.Max) { return false; }
         }
         return true;
     }

@@ -79,7 +79,7 @@ public class TargetController : MonoBehaviour
 
     public List<Creature> FindTargets(Creature creature, Spell spell)
     {
-        return FindTargets(creature, spell.Base.TargetType);
+        return FindTargets(creature, spell.data.TargetType);
     }
 
     public List<Creature> FindTargets(Creature creature, Item item)

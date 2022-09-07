@@ -34,17 +34,17 @@ public class CreatureUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         UpdateUI();
     }
 
-    public void UpdateUI()
+    public void UpdateUI() // TODO Write a method for getting whole block info? Or just easier ways to have boiler plate
     {
-        Health.text = $"HP: {Creature.Health.Current}";
-        Mana.text = $"MP: {Creature.Mana.Current}";
-        Stamina.text = $"SP: {Creature.Stamina.Current}";
-
-        Strength.text = $"STR: {Creature.Strength.Current}";
-        Dexterity.text = $"DEX: {Creature.Dexterity.Current}";
-        Resistance.text = $"RES: {Creature.Resistance.Current}";
-        Knowledge.text = $"KNO: {Creature.Knowledge.Current}";
-        Speed.text = $"SPD: {Creature.Speed.Current}";
+        //Health.text = $"HP: {Creature.Health.Current}";
+        //Mana.text = $"MP: {Creature.Mana.Current}";
+        //Stamina.text = $"SP: {Creature.Stamina.Current}";
+//
+        //Strength.text = $"STR: {Creature.Strength.Current}";
+        //Dexterity.text = $"DEX: {Creature.Dexterity.Current}";
+        //Resistance.text = $"RES: {Creature.Resistance.Current}";
+        //Knowledge.text = $"KNO: {Creature.Knowledge.Current}";
+        //Speed.text = $"SPD: {Creature.Speed.Current}";
     }
 
     public void AddSpell(Spell spell)

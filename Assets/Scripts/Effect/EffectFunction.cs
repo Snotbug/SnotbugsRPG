@@ -17,7 +17,7 @@ public class EffectFunction : ScriptableObject
         if(targetController.IsEnemy(data.Source)) { BattleManager.current.AddFriend(data.Creature); }
         else { BattleManager.current.AddEnemy(data.Creature); }
     }
-
+/*
     public void Damage(EffectData data)
     {
         int damage = data.Source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
@@ -262,4 +262,5 @@ public class EffectFunction : ScriptableObject
             });
         }
     }
+    */
 }

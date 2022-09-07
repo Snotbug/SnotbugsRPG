@@ -4,14 +4,13 @@ using System.Linq;
 
 public class Spell : MonoBehaviour
 {
-    [field : SerializeField] public SpellBase Base { get; private set; }
+    [field : SerializeField] public SpellBase data { get; private set; }
     [field : SerializeField] public SpellUI UI { get; private set; }
 
     public Creature Owner { get; private set; }
     
-    public Dictionary<string, Stat> Stats { get; private set; }
-
-    public Stat Cooldown { get { return Stats["Cooldown"]; }}
+ 
+    
     
     public Effect ActivatedEffect { get; private set; }
     public List<Effect> TriggeredEffects { get; private set; }
@@ -20,16 +19,10 @@ public class Spell : MonoBehaviour
     {
         Owner = owner;
 
-        Stats = new Dictionary<string, Stat>();
-        foreach(StatBase stat in Base.Stats)
-        {
-            Stats.Add(stat.Definition.Name, new Stat(stat.Definition, stat.Current, stat.Max));
-        };
-
-        ActivatedEffect = new Effect(Base.ActivatedEffect, Owner);
+        ActivatedEffect = new Effect(data.ActivatedEffect, Owner);
 
         TriggeredEffects = new List<Effect>();
-        foreach(EffectBase effectBase in Base.TriggeredEffects)
+        foreach(EffectBase effectBase in data.TriggeredEffects)
         {
             Effect effect = new Effect(effectBase, Owner);
             effectBase.Trigger.RegisterEffect(effect);
@@ -41,35 +34,12 @@ public class Spell : MonoBehaviour
 
     public void ActivateQueued()
     {
-        Owner.PayCost(Base.Costs);
-        SetStat(Cooldown.Definition.Name, Cooldown.Max);
+       // Owner.PayCost(data.Costs);
+    
         ActivatedEffect.QueueEffect(true);
     }
 
-    public Stat FindStat(StatDefinition stat)
-    {
-        return Stats.ContainsKey(stat.Name) ? Stats[stat.Name] : null;
-    }
-
-    public void ModifyStat(string name, int amount)
-    {
-        Stats[name].Modify(amount);
-    }
-
-    public void SetStat(string name, int value)
-    {
-        Stats[name].Set(value);
-    }
-
-    public void ModifyMaxStat(string name, int amount)
-    {
-        Stats[name].ModifyMax(amount);
-    }
-
-    public void SetMaxStat(string name, int value)
-    {
-        Stats[name].SetMax(value);
-    }
+   
 
     public void OnDestroy()
     {

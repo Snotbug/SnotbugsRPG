@@ -37,7 +37,7 @@ public class TurnController : MonoBehaviour
     
     public void SortTurnOrder()
     {
-        TurnOrder.Sort((a, b) => a.Speed.Current.CompareTo(b.Speed.Current));
+        TurnOrder.Sort((a, b) => a.statBlock.GetStatTotal(StatBlock.StatType.SPD).CompareTo(b.statBlock.GetStatTotal(StatBlock.StatType.SPD)));
         TurnOrder.Reverse();
     }
 

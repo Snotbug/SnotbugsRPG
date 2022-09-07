@@ -7,21 +7,32 @@ using UnityEngine;
 
 public class Creature : MonoBehaviour
 {
-    [field : SerializeField] public CreatureBase Base { get; private set; }
+    [field: SerializeField] public CreatureData data; 
     [field : SerializeField] public CreatureUI UI { get; private set; }
     [field : SerializeField] public CreatureAnimator Animator { get; private set; }
 
-    public Stat Health { get { return Stats["Health"]; }}
-    public Stat Mana { get { return Stats["Mana"]; }}
-    public Stat Stamina { get { return Stats["Stamina"]; }}
+    private StatBlock _statBlock;
 
-    public Stat Strength { get { return Stats["Strength"]; }}
-    public Stat Dexterity { get { return Stats["Dexterity"]; }}
-    public Stat Knowledge { get { return Stats["Knowledge"]; }}
-    public Stat Resistance { get { return Stats["Resistance"]; }}
-    public Stat Speed { get { return Stats["Speed"]; }}
-
-    public Dictionary<string, Stat> Stats { get; private set; }
+    public StatBlock statBlock // this is intended to create a new component if the creature is does not already have a block. Since the Statblock will pull values from save data, starting with a component will be for testing. 
+    {
+        get
+        {
+            if (_statBlock == null)
+            {
+                if (Application.isPlaying)
+                {
+                    StatBlock local = gameObject.GetComponent<StatBlock>();
+                    if (local == null)
+                    {
+                        local = gameObject.AddComponent<StatBlock>();
+                    }
+                    _statBlock = local;
+                }
+            }
+            return _statBlock;
+        }
+    } 
+    
     public List<Status> Statuses { get; private set; }
     public List<Spell> Spells { get; private set; }
     public List<Item> Items { get; private set; }
@@ -29,13 +40,8 @@ public class Creature : MonoBehaviour
 
     public void SetBase()
     {
-        Stats = new Dictionary<string, Stat>();
-        foreach(StatBase stat in Base.Stats)
-        {
-            Stat temp = new Stat(stat.Definition, stat.Current, stat.Max);
-            Stats.Add(stat.Definition.Name, temp);
-        };
-
+    
+        /*
         Statuses = new List<Status>();
         foreach(Status status in Base.Statuses)
         {
@@ -72,6 +78,7 @@ public class Creature : MonoBehaviour
             temp.SetBase(this);
             AddEquipment(equipment);
         }
+        */
 
         UI.SetUI(this);
     }
@@ -82,61 +89,7 @@ public class Creature : MonoBehaviour
         if(Animator != null) { Destroy(Animator?.gameObject); }
     }
 
-    public void ResetStats()
-    {
-        foreach(KeyValuePair<string, Stat> pair in Stats)
-        {
-            Stat stat = pair.Value;
-            if(!stat.Definition.IsResource)
-            {
-                stat.Set(stat.Max);
-                UI.UpdateUI();
-            }
-        }
-    }
-
-    public Stat FindStat(string name)
-    {
-        return Stats.ContainsKey(name) ? Stats[name] : null;
-    }
-
-    public Stat FindStat(StatDefinition definition)
-    {
-        return Stats.ContainsKey(definition.Name) ? Stats[definition.Name] : null;
-    }
-
-    public int ApplyScaling(int value, List<StatBase> scalings)
-    {
-        foreach(StatBase scaling in scalings)
-        {
-            Stat stat = FindStat(scaling.Definition);
-            value += (int)((stat.Current * (float)scaling.Current / 100) + (stat.Max * (float)scaling.Max / 100));
-        }
-        return value;
-    }
-
-    public void ModifyStat(string name, int amount)
-    {
-        Stats[name].Modify(amount);
-        UI.UpdateUI();
-    }
-
-    public void SetStat(string name, int value)
-    {
-        Stats[name].Set(value);
-        UI.UpdateUI();
-    }
-
-    public void ModifyMaxStat(string name, int amount)
-    {
-        Stats[name].ModifyMax(amount);
-    }
-
-    public void SetMaxStat(string name, int value)
-    {
-        Stats[name].SetMax(value);
-    }
-
+   
     public Status FindStatus(Status status)
     {
         return (Status)Statuses.FirstOrDefault(n => n.Base.Name.Equals(status.Base.Name));
@@ -161,9 +114,9 @@ public class Creature : MonoBehaviour
 
     public Spell FindSpell(Spell spell)
     {
-        return (Spell)Spells.FirstOrDefault(n => n.Base.Name.Equals(spell.Base.Name));
+        return (Spell)Spells.FirstOrDefault(n => n.data.Name.Equals(spell.data.Name));
     }
-
+/*
     public bool CanActivate(Spell spell)
     {
         if
@@ -196,7 +149,7 @@ public class Creature : MonoBehaviour
         foreach(Spell spell in Spells) { if(CanActivate(spell)) { spells.Add(spell); }}
         return spells;
     }
-
+*/
     public void AddSpell(Spell spell)
     {
         if(FindSpell(spell) != null) { return; }
