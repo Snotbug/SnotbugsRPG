@@ -53,22 +53,4 @@ public class EventManager : MonoBehaviour
 
     public event Action onHoverExitSpell;
     public void HoverExitSpell() { if(onHoverExitSpell != null) { onHoverExitSpell(); }}
-
-    public event Action<Item> onClickItem;
-    public void ClickItem(Item item) { if(onClickItem != null) { onClickItem(item); }}
-
-    public event Action<Item> onHoverEnterItem;
-    public void HoverEnterItem(Item item) { if(onHoverEnterItem != null) { onHoverEnterItem(item); }}
-
-    public event Action onHoverExitItem;
-    public void HoverExitItem() { if(onHoverExitItem != null) { onHoverExitItem(); }}
-
-    public event Action<Equipment> onClickEquipment;
-    public void ClickEquipment(Equipment equipment) { if(onClickEquipment != null) { onClickEquipment(equipment); }}
-
-    public event Action<Equipment> onHoverEnterEquipment;
-    public void HoverEnterEquipment(Equipment equipment) { if(onHoverEnterEquipment != null) { onHoverEnterEquipment(equipment); }}
-
-    public event Action onHoverExitEquipment;
-    public void HoverExitEquipment() { if(onHoverExitEquipment != null) { onHoverExitEquipment(); }}
 }

@@ -59,12 +59,6 @@ public class CreatureUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         status.UI.transform.localScale = Statuses.transform.localScale;
     }
 
-    public void AddItem(Item item)
-    {
-        item.UI.transform.SetParent(Items.transform);
-        item.UI.transform.localScale = Items.transform.localScale;
-    }
-
     public void OnClick() { EventManager.current.ClickCreature(Creature); }
 
     public void OnPointerEnter(PointerEventData eventData) { EventManager.current.HoverEnterCreature(Creature); }

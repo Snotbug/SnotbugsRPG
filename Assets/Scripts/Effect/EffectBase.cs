@@ -44,6 +44,4 @@ public class BaseEffectData
     [field : SerializeField] public StatBase Stat { get; private set; }
     [field : SerializeField] public Status Status { get; private set; }
     [field : SerializeField] public Spell Spell { get; private set; }
-    [field : SerializeField] public Item Item { get; private set; }
-    [field : SerializeField] public Equipment Equipment { get; private set; }
 }

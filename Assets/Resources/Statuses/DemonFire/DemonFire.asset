@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: DemonFire
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Demon Fire
+  <Icon>k__BackingField: {fileID: 0}
   <Description>k__BackingField: 
   <Stats>k__BackingField: []
   <TriggeredEffects>k__BackingField:

@@ -47,8 +47,6 @@ public class EffectData
     public Creature Creature { get; set; }
     public Status Status { get; set; }
     public Spell Spell { get; set; }
-    public Item Item { get; set; }
-    public Equipment Equipment { get; set; }
 
     public EffectData(BaseEffectData baseData, Creature source, Creature target, bool sendTrigger)
     {
@@ -61,7 +59,5 @@ public class EffectData
         Creature = Base.Creature;
         Status = Base.Status;
         Spell = Base.Spell;
-        Item = Base.Item;
-        Equipment = Base.Equipment;
     }
 }

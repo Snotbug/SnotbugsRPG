@@ -25,9 +25,7 @@ public class Choice : MonoBehaviour
         (
             !CheckStats(creature) ||
             !CheckStatuses(creature) ||
-            !CheckSpells(creature) ||
-            !CheckItems(creature) ||
-            !CheckEquipments(creature)
+            !CheckSpells(creature)
         ) { return false; }
         return true;
     }
@@ -57,24 +55,6 @@ public class Choice : MonoBehaviour
         if(requirement == null) { return true; }
         Spell spell = creature.FindSpell(requirement);
         if(spell == null) { return false; }
-        return true;
-    }
-
-    public bool CheckItems(Creature creature)
-    {
-        Item requirement = Base.Requirements.Item;
-        if(requirement == null) { return true; }
-        Item item = creature.FindItem(requirement);
-        if(item == null) { return false; }
-        return true;
-    }
-
-    public bool CheckEquipments(Creature creature)
-    {
-        Equipment requirement = Base.Requirements.Equipment;
-        if(requirement == null) { return true; }
-        Equipment equipment = creature.FindEquipment(requirement);
-        if(equipment == null) { return false; }
         return true;
     }
 

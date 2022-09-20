@@ -24,8 +24,6 @@ public class Creature : MonoBehaviour
     public Dictionary<string, Stat> Stats { get; private set; }
     public List<Status> Statuses { get; private set; }
     public List<Spell> Spells { get; private set; }
-    public List<Item> Items { get; private set; }
-    public Dictionary<EquipmentType, Equipment> Equipments { get; private set; }
 
     public void SetBase()
     {
@@ -52,25 +50,6 @@ public class Creature : MonoBehaviour
             temp.transform.SetParent(this.transform);
             temp.SetBase(this);
             AddSpell(temp);
-        }
-
-        Items = new List<Item>();
-        foreach(Item item in Base.Items)
-        {
-            Item temp = Instantiate(item, this.transform.position, Quaternion.identity);
-            temp.transform.SetParent(this.transform);
-            temp.SetBase(this);
-            AddItem(temp);
-        }
-
-        Equipments = new Dictionary<EquipmentType, Equipment>();
-        foreach(EquipmentType type in Enum.GetValues(typeof(EquipmentType))) { Equipments.Add(type, null); }
-        foreach(Equipment equipment in Base.Equipments)
-        {
-            Equipment temp = Instantiate(equipment, this.transform.position, Quaternion.identity);
-            temp.transform.SetParent(this.transform);
-            temp.SetBase(this);
-            AddEquipment(equipment);
         }
 
         UI.SetUI(this);
@@ -212,45 +191,5 @@ public class Creature : MonoBehaviour
         if(foundSpell == null) { return; }
         Destroy(foundSpell.gameObject);
         Spells.Remove(foundSpell);
-    }
-
-    public Item FindItem(Item item)
-    {
-        return (Item)Items.FirstOrDefault(n => n.Base.Name.Equals(item.Base.Name));
-    }
-
-    public void AddItem(Item item)
-    {
-        if(FindItem(item) != null) { return; }
-        Items.Add(item);
-
-        if(UI != null) { UI.AddItem(item); }
-    }
-
-    public void RemoveItem(Item item)
-    {
-        Item foundItem = FindItem(item);
-        if(foundItem == null) { return; }
-        Destroy(item.gameObject);
-        Items.Remove(item);
-    }
-
-    public Equipment FindEquipment(Equipment equipment)
-    {
-        return Equipments.ContainsKey(equipment.Base.Type) ? Equipments[equipment.Base.Type] : null;
-    }
-
-    public void AddEquipment(Equipment equipment)
-    {
-        if(Equipments[equipment.Base.Type] != null) { return; }
-        Equipments[equipment.Base.Type] = equipment;
-    }
-
-    public void RemoveEquipment(Equipment equipment)
-    {
-        Equipment foundEquipment = FindEquipment(equipment);
-        if(foundEquipment == null) { return; }
-        Destroy(foundEquipment.gameObject);
-        Equipments[foundEquipment.Base.Type] = null;
     }
 }

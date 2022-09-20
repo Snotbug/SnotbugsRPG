@@ -134,8 +134,6 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log("waiting for action");
         BattleManager.current.Selector.OnSelectSpell = OnSelectTarget;
-        BattleManager.current.Selector.OnSelectItem = OnSelectTarget;
-
         Debug.Log($"num activatable {TurnController.ActiveCreature.FindActivatable().Count}");
 
         UI.EnableEndTurn(true);

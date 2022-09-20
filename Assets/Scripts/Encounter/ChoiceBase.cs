@@ -27,7 +27,5 @@ public class BaseChoiceData
 {
     [field : SerializeField] public List<StatBase> Stats { get; private set; }
     [field : SerializeField] public Status Status { get; private set; }
-    [field : SerializeField] public Item Item { get; private set; }
     [field : SerializeField] public Spell Spell { get; private set; }
-    [field : SerializeField] public Equipment Equipment { get; private set; }
 }

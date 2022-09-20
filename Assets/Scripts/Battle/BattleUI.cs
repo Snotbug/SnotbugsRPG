@@ -34,17 +34,7 @@ public class BattleUI : MonoBehaviour
         $"Cooldown: {spell.Cooldown.Current} \n {spell.Base.Description}";
     }
 
-    public void InspectItem(Item item)
-    {
-
-    }
-
     public void InspectStatus(Status status)
-    {
-
-    }
-
-    public void InspectEquipment(Status status)
     {
 
     }

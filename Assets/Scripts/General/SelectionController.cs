@@ -8,8 +8,6 @@ public class SelectionController : MonoBehaviour
         EventManager.current.onClickCreature += SelectCreature;
         EventManager.current.onClickStatus += SelectStatus;
         EventManager.current.onClickSpell += SelectSpell;
-        EventManager.current.onClickItem += SelectItem;
-        EventManager.current.onClickEquipment += SelectEquipment;
         EventManager.current.onClickChoice += SelectChoice;
     }
 
@@ -18,23 +16,17 @@ public class SelectionController : MonoBehaviour
         EventManager.current.onClickCreature -= SelectCreature;
         EventManager.current.onClickStatus -= SelectStatus;
         EventManager.current.onClickSpell -= SelectSpell;
-        EventManager.current.onClickItem -= SelectItem;
-        EventManager.current.onClickEquipment -= SelectEquipment;
         EventManager.current.onClickChoice -= SelectChoice;
     }
 
     public Action OnSelectCreature { get; set; }
     public Action OnSelectStatus { get; set; }
     public Action OnSelectSpell { get; set; }
-    public Action OnSelectItem { get; set; }
-    public Action OnSelectEquipment { get; set; }
     public Action OnSelectChoice { get; set; }
 
     public Creature Creature { get; set; }
     public Status Status { get; set; }
     public Spell Spell { get; set; }
-    public Item Item { get; set; }
-    public Equipment Equipment { get; set; }
     public Choice Choice { get; set; }
 
     public void SelectCreature(Creature creature)
@@ -58,20 +50,6 @@ public class SelectionController : MonoBehaviour
         OnSelectSpell();
     }
 
-    public void SelectItem(Item item)
-    {
-        if(OnSelectItem == null || Item != null) { return; }
-        Item = item;
-        OnSelectItem();
-    }
-
-    public void SelectEquipment(Equipment equipment)
-    {
-        if(OnSelectEquipment == null || Equipment != null) { return; }
-        Equipment = equipment;
-        OnSelectEquipment();
-    }
-
     public void SelectChoice(Choice choice)
     {
         if(OnSelectChoice == null || Choice != null) { return; }
@@ -84,8 +62,6 @@ public class SelectionController : MonoBehaviour
         OnSelectCreature = null;
         OnSelectStatus = null;
         OnSelectSpell = null;
-        OnSelectItem = null;
-        OnSelectEquipment = null;
         OnSelectChoice = null;
     }
 
@@ -94,8 +70,6 @@ public class SelectionController : MonoBehaviour
         Creature = null;
         Status = null;
         Spell = null;
-        Item = null;
-        Equipment = null;
         Choice = null;
     }
 }
