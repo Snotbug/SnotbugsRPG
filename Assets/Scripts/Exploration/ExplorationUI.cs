@@ -10,6 +10,7 @@ public class ExplorationUI : MonoBehaviour
     [field : SerializeField] public TMP_Text Description { get; private set; }
     [field : SerializeField] public SpriteRenderer Background { get; private set; }
     [field : SerializeField] public VerticalLayoutGroup ChoiceLayout { get; private set; }
+    [field : SerializeField] public GridLayoutGroup Spells { get; private set; }
 
     public void SetBase()
     {
@@ -32,5 +33,11 @@ public class ExplorationUI : MonoBehaviour
     {
         choice.transform.SetParent(ChoiceLayout.transform);
         choice.transform.localScale = ChoiceLayout.transform.localScale;
+    }
+
+    public void AddSpell(Spell spell)
+    {
+        spell.UI.transform.SetParent(Spells.transform);
+        spell.UI.transform.localScale = Spells.transform.localScale;
     }
 }

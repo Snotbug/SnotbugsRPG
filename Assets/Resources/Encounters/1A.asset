@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99858b869fa17464a87cb3fcc7624869, type: 3}
   m_Name: 1A
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 1A
+  <Name>k__BackingField: The Grave
   <Description>k__BackingField: 
   <Choices>k__BackingField:
   - <Name>k__BackingField: 5 heal > battle > 2B
@@ -22,9 +22,7 @@ MonoBehaviour:
     <Requirements>k__BackingField:
       <Stats>k__BackingField: []
       <Status>k__BackingField: {fileID: 0}
-      <Item>k__BackingField: {fileID: 0}
       <Spell>k__BackingField: {fileID: 0}
-      <Equipment>k__BackingField: {fileID: 0}
     <Consequences>k__BackingField:
     - <Function>k__BackingField:
         m_PersistentCalls:
@@ -47,9 +45,7 @@ MonoBehaviour:
           <Current>k__BackingField: 5
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
-        <Item>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
-        <Equipment>k__BackingField: {fileID: 0}
   - <Name>k__BackingField: '[5 STR] 2A'
     <Description>k__BackingField: 
     <NextEncounter>k__BackingField: {fileID: 11400000, guid: 30206bb655dcac346aa52f04293492c5, type: 2}
@@ -60,9 +56,7 @@ MonoBehaviour:
         <Current>k__BackingField: 5
         <Max>k__BackingField: 0
       <Status>k__BackingField: {fileID: 0}
-      <Item>k__BackingField: {fileID: 0}
       <Spell>k__BackingField: {fileID: 0}
-      <Equipment>k__BackingField: {fileID: 0}
     <Consequences>k__BackingField: []
   - <Name>k__BackingField: 5 damage > add [Cleave] spell
     <Description>k__BackingField: 
@@ -71,9 +65,7 @@ MonoBehaviour:
     <Requirements>k__BackingField:
       <Stats>k__BackingField: []
       <Status>k__BackingField: {fileID: 0}
-      <Item>k__BackingField: {fileID: 0}
       <Spell>k__BackingField: {fileID: 0}
-      <Equipment>k__BackingField: {fileID: 0}
     <Consequences>k__BackingField:
     - <Function>k__BackingField:
         m_PersistentCalls:
@@ -96,9 +88,7 @@ MonoBehaviour:
           <Current>k__BackingField: -5
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
-        <Item>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
-        <Equipment>k__BackingField: {fileID: 0}
     - <Function>k__BackingField:
         m_PersistentCalls:
           m_Calls:
@@ -117,6 +107,4 @@ MonoBehaviour:
       <Data>k__BackingField:
         <Stats>k__BackingField: []
         <Status>k__BackingField: {fileID: 0}
-        <Item>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 7148560043350483482, guid: 90b458b1d348c2e4184a13393cc12a89, type: 3}
-        <Equipment>k__BackingField: {fileID: 0}

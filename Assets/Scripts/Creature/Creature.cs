@@ -165,8 +165,12 @@ public class Creature : MonoBehaviour
 
     public void EnableSpells(bool enable)
     {
-        if(enable) { foreach(Spell spell in Spells) { spell.UI.SetInteractable(CanActivate(spell)); }}
-        else{ foreach(Spell spell in Spells) { spell.UI.SetInteractable(false); }}
+        foreach(Spell spell in Spells)
+        {
+            spell.UI.gameObject.SetActive(enable);
+        }
+        // if(enable) { foreach(Spell spell in Spells) { spell.UI.SetInteractable(CanActivate(spell)); }}
+        // else{ foreach(Spell spell in Spells) { spell.UI.SetInteractable(false); }}
     }
 
     public List<Spell> FindActivatable()

@@ -15,8 +15,8 @@ MonoBehaviour:
   <Name>k__BackingField: Player
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
-    <Current>k__BackingField: 20
-    <Max>k__BackingField: 20
+    <Current>k__BackingField: 100
+    <Max>k__BackingField: 100
   - <Definition>k__BackingField: {fileID: 11400000, guid: f819d00694667614c90d08afb2be7996, type: 2}
     <Current>k__BackingField: 10
     <Max>k__BackingField: 10
@@ -24,7 +24,7 @@ MonoBehaviour:
     <Current>k__BackingField: 10
     <Max>k__BackingField: 10
   - <Definition>k__BackingField: {fileID: 11400000, guid: 0fba2f9e91b33b04cacf79210a3f688a, type: 2}
-    <Current>k__BackingField: 5
+    <Current>k__BackingField: 0
     <Max>k__BackingField: 5
   - <Definition>k__BackingField: {fileID: 11400000, guid: 2a972e05bb6de1f44818fe6c9b492fae, type: 2}
     <Current>k__BackingField: 1
@@ -42,5 +42,4 @@ MonoBehaviour:
   <Spells>k__BackingField:
   - {fileID: 6369103817870256385, guid: 7bda5eb42d5721445a8b76f401cf7dbe, type: 3}
   - {fileID: 704262962613650049, guid: 72b55faa464a82d4a92178564dec5162, type: 3}
-  <Items>k__BackingField: []
-  <Equipments>k__BackingField: []
+  - {fileID: 1368470138798657789, guid: 2a41940575e5bf447aff5ef69d2067fd, type: 3}

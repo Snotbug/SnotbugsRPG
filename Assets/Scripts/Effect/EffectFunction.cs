@@ -16,6 +16,7 @@ public class EffectFunction : ScriptableObject
         TargetController targetController = BattleManager.current.TargetController;
         if(targetController.IsEnemy(data.Source)) { BattleManager.current.AddFriend(data.Creature); }
         else { BattleManager.current.AddEnemy(data.Creature); }
+        data.OnComplete();
     }
 
     public void Damage(EffectData data)
@@ -133,6 +134,7 @@ public class EffectFunction : ScriptableObject
     {
         Status temp = Instantiate(data.Base.Status);
         temp.SetBase(data.Owner);
+        temp.Duration.Set(temp.Duration.Max);
         data.Owner.AddStatus(temp);
         data.OnComplete();
     }
@@ -162,6 +164,7 @@ public class EffectFunction : ScriptableObject
         Spell temp = Instantiate(data.Base.Spell);
         temp.SetBase(data.Owner);
         data.Owner.AddSpell(temp);
+        ExplorationManager.current.UI.AddSpell(temp);
         data.OnComplete();
     }
 

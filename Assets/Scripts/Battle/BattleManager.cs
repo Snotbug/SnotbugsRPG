@@ -28,14 +28,13 @@ public class BattleManager : MonoBehaviour
         Layout.transform.SetParent(BattleManager.current.transform);
 
         AddPlayer(player);
-        foreach(CreatureContainer friend in Layout.Friends) { if(friend.Default != null) { AddFriend(friend.Default); }}
-        foreach(CreatureContainer enemy in Layout.Enemies) { if(enemy.Default != null) { AddEnemy(enemy.Default); }}
-
-        foreach(Creature creature in TurnController.Creatures)
+        foreach(CreatureContainer friend in Layout.Friends)
         {
-            creature.UI.ShowTargetIndicator(false);
-            creature.UI.ShowActiveIndicator(false);
-            creature.EnableSpells(false);
+            if(friend.Default != null) { AddFriend(friend.Default); }
+        }
+        foreach(CreatureContainer enemy in Layout.Enemies)
+        {
+            if(enemy.Default != null) { AddEnemy(enemy.Default); }
         }
 
         TurnController.SetTurnOrder();
@@ -43,7 +42,10 @@ public class BattleManager : MonoBehaviour
 
         foreach(Creature creature in TurnController.Creatures)
         {
+            creature.UI.ShowTargetIndicator(false);
+            creature.UI.ShowActiveIndicator(false);
             creature.UI.SetInteractable(false);
+            creature.EnableSpells(false);
         }
 
         TargetController.EnableSelection(false);
@@ -67,6 +69,11 @@ public class BattleManager : MonoBehaviour
         Selector.ClearSelection();
         Selector.StopWaiting();
 
+        foreach(CreatureContainer container in Layout.Friends)
+        {
+            if(!container.IsEmpty()) { RemoveCreature(container.Creature); }
+        }
+
         EventManager.current.ExitBattle(Layout.Player.Creature);
     }
 
@@ -77,6 +84,8 @@ public class BattleManager : MonoBehaviour
         container.Add(creature);
         TurnController.Add(creature);
         TargetController.AddPlayer(creature);
+        creature.EnableSpells(false);
+        foreach(Spell spell in creature.Spells) { UI.AddSpell(spell); }
     }
 
     public void AddFriend(Creature creature)
@@ -88,6 +97,8 @@ public class BattleManager : MonoBehaviour
         container.Add(temp);
         TurnController.Add(temp);
         TargetController.AddFriend(temp);
+        temp.EnableSpells(false);
+        foreach(Spell spell in temp.Spells) { UI.AddSpell(spell); }
     }
 
     public void AddEnemy(Creature creature)
@@ -99,6 +110,7 @@ public class BattleManager : MonoBehaviour
         container.Add(temp);
         TurnController.Add(temp);
         TargetController.AddEnemy(temp);
+        temp.EnableSpells(false);
     }
 
     public void RemoveCreature(Creature creature)
@@ -112,7 +124,6 @@ public class BattleManager : MonoBehaviour
 
     public void StartTurn()
     {
-        Debug.Log("turn start");
         TurnController.FindActiveCreature();
         TurnController.ActiveCreature.UI.ShowActiveIndicator(true);
         EffectController.OnTurnStart.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
@@ -132,21 +143,25 @@ public class BattleManager : MonoBehaviour
 
     public void OnSelectAction()
     {
-        Debug.Log("waiting for action");
         BattleManager.current.Selector.OnSelectSpell = OnSelectTarget;
-        Debug.Log($"num activatable {TurnController.ActiveCreature.FindActivatable().Count}");
 
         UI.EnableEndTurn(true);
+        foreach(Spell spell in TurnController.ActiveCreature.Spells)
+        {
+            spell.UI.SetInteractable(TurnController.ActiveCreature.CanActivate(spell));
+        }
         TurnController.ActiveCreature.EnableSpells(true);
     }
 
     public void OnSelectTarget()
     {
-        Debug.Log("waiting for target");
         BattleManager.current.Selector.StopWaiting();
 
         UI.EnableEndTurn(false);
-        TurnController.ActiveCreature.EnableSpells(false);
+        foreach(Spell spell in TurnController.ActiveCreature.Spells)
+        {
+            spell.UI.SetInteractable(false);
+        }
         TargetController.FindTargets(TurnController.ActiveCreature, Selector.Spell);
         if(TargetController.Targets.Count > 0)
         {
@@ -158,7 +173,6 @@ public class BattleManager : MonoBehaviour
 
     public void OnSelectEffects()
     {
-        Debug.Log("waiting for effects");
         TargetController.EnableSelection(false);
         Selector.Spell.ActivatedEffect.Target = Selector.Creature;
 

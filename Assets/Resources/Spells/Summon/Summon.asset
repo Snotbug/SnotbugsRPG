@@ -14,20 +14,70 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Summon
   <Description>k__BackingField: Summons a helper
-  <Prerequisites>k__BackingField: []
-  <Costs>k__BackingField: []
+  <Costs>k__BackingField:
+  - <Definition>k__BackingField: {fileID: 11400000, guid: f819d00694667614c90d08afb2be7996, type: 2}
+    <Current>k__BackingField: 5
+    <Max>k__BackingField: 0
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
     <Current>k__BackingField: 0
-    <Max>k__BackingField: 0
+    <Max>k__BackingField: 2
   <TargetType>k__BackingField: 0
   <ActivatedEffect>k__BackingField:
     <Trigger>k__BackingField: {fileID: 0}
     <TriggerType>k__BackingField: 0
-    <Triggerable>k__BackingField: 0
-    <Subeffects>k__BackingField: []
+    <Subeffects>k__BackingField:
+    - <TargetType>k__BackingField: 1
+      <Data>k__BackingField:
+      - <Scalings>k__BackingField: []
+        <Function>k__BackingField:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
+              m_MethodName: SpawnFriend
+              m_Mode: 0
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        <Creature>k__BackingField: {fileID: 5602932842097332090, guid: b0e40c336077a184aa3e8e03816a525f, type: 3}
+        <Stat>k__BackingField:
+          <Definition>k__BackingField: {fileID: 0}
+          <Current>k__BackingField: 0
+          <Max>k__BackingField: 0
+        <Status>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 0}
   <TriggeredEffects>k__BackingField:
   - <Trigger>k__BackingField: {fileID: 11400000, guid: 46b19bc6bc37d714586874c2af45d9ce, type: 2}
     <TriggerType>k__BackingField: 1
-    <Triggerable>k__BackingField: 0
-    <Subeffects>k__BackingField: []
+    <Subeffects>k__BackingField:
+    - <TargetType>k__BackingField: 1
+      <Data>k__BackingField:
+      - <Scalings>k__BackingField: []
+        <Function>k__BackingField:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
+              m_MethodName: ModifyCooldown
+              m_Mode: 0
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        <Creature>k__BackingField: {fileID: 0}
+        <Stat>k__BackingField:
+          <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
+          <Current>k__BackingField: -1
+          <Max>k__BackingField: 0
+        <Status>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 1368470138798657789, guid: 2a41940575e5bf447aff5ef69d2067fd, type: 3}

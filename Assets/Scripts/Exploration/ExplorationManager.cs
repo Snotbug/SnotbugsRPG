@@ -17,6 +17,7 @@ public class ExplorationManager : MonoBehaviour
     public void EnterExploration(Creature player, EncounterBase encounter)
     {
         Player = player;
+        Player.gameObject.SetActive(false);
         Encounter = encounter;
 
         UI.gameObject.SetActive(true);
@@ -30,6 +31,11 @@ public class ExplorationManager : MonoBehaviour
             Choices.Add(temp);
             if(!temp.CheckRequirements(Player)) { temp.UI.SetInteractable(false); }
             UI.AddChoice(temp);
+        }
+
+        foreach(Spell spell in Player.Spells)
+        {
+            UI.AddSpell(spell);
         }
 
         Selector.OnSelectChoice = CheckChoice;
@@ -46,10 +52,16 @@ public class ExplorationManager : MonoBehaviour
             Choices.Remove(temp);
         }
 
+        foreach(Spell spell in Player.Spells)
+        {
+            Player.UI.AddSpell(spell);
+        }
+
         await System.Threading.Tasks.Task.Delay(2000);
 
         UI.SetBase();
         UI.gameObject.SetActive(false);
+        Player.gameObject.SetActive(true);
         EventManager.current.ExitExploration(Player, choice.NextEncounter, choice.BattleLayout);
     }
 

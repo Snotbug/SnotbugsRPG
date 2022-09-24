@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class StateMachine
 {
-    [field : SerializeField] public State Current { get; private set; }
-    [field : SerializeField] public State Previous { get; private set; }
+    public IState Current { get; private set; }
+    public IState Previous { get; private set; }
 
     public bool Pending = false;
 
-    public void Change(State state)
+    public StateMachine()
+    {
+        
+    }
+
+    public void Switch(IState state)
     {
         if(Current == state || Pending) { return; }
         
@@ -24,6 +29,6 @@ public class StateMachine
     public void Revert()
     {
         if(Previous == null) { return; }
-        Change(Previous);
+        Switch(Previous);
     }
 }

@@ -29,8 +29,8 @@ public class CreatureUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public void SetUI(Creature creature)
     {
         Creature = creature;
-        // SetInteractable(false);
-        // ShowActiveIndicator(false);
+        SetInteractable(false);
+        ShowActiveIndicator(false);
         UpdateUI();
     }
 
