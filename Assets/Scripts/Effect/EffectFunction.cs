@@ -8,6 +8,7 @@ public class EffectFunction : ScriptableObject
         TargetController targetController = BattleManager.current.TargetController;
         if(targetController.IsEnemy(data.Source)) { BattleManager.current.AddEnemy(data.Creature); }
         else { BattleManager.current.AddFriend(data.Creature); }
+        BattleManager.current.Print($"{data.Source.Base.Name} has summoned {data.Creature.Base.Name}");
         data.OnComplete();
     }
 
@@ -16,6 +17,7 @@ public class EffectFunction : ScriptableObject
         TargetController targetController = BattleManager.current.TargetController;
         if(targetController.IsEnemy(data.Source)) { BattleManager.current.AddFriend(data.Creature); }
         else { BattleManager.current.AddEnemy(data.Creature); }
+        BattleManager.current.Print($"{data.Source.Base.Name} has summoned {data.Creature.Base.Name}");
         data.OnComplete();
     }
 
@@ -25,8 +27,8 @@ public class EffectFunction : ScriptableObject
         damage = Mathf.Clamp(damage - data.Target.Resistance.Current, 1, data.Target.Health.Max);
         bool isDead = data.Target.Health.Current <= 0;
         data.Target.ModifyStat("Health", -damage);
-        if(data.SendTrigger) { BattleManager.current.EffectController.OnDamage.TriggerEffect(data.Source, data.Target); Debug.Log($"{data.Source.Base.Name} damaged {data.Target.Base.Name} for {-damage}"); }
-        if(!isDead && data.Target.Health.Current <= 0) { BattleManager.current.EffectController.OnDeath.TriggerEffect(data.Source, data.Target); Debug.Log($"{data.Source.Base.Name} killed {data.Target.Base.Name}"); }
+        if(data.SendTrigger) { BattleManager.current.EffectController.OnDamage.TriggerEffect(data.Source, data.Target); BattleManager.current.Print($"{data.Source.Base.Name} damaged {data.Target.Base.Name} for {damage}"); }
+        if(!isDead && data.Target.Health.Current <= 0) { BattleManager.current.EffectController.OnDeath.TriggerEffect(data.Source, data.Target); BattleManager.current.Print($"{data.Source.Base.Name} killed {data.Target.Base.Name}"); }
         data.OnComplete();
     }
 
@@ -34,20 +36,19 @@ public class EffectFunction : ScriptableObject
     {
         int heal = data.Source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         data.Target.ModifyStat("Health", heal);
-        Debug.Log("healing" + data.Target.Health.Current);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnHeal.TriggerEffect(data.Source, data.Target); }
+        BattleManager.current.Print($"{data.Source.Base.Name} healed for {heal}");
         data.OnComplete();
     }
 
     public void Buff(EffectData data)
     {
-        Debug.Log("start buffing");
         Stat stat = data.Target.FindStat(data.Stat.Definition);
         int modifier = data.Source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         data.Target.ModifyStat(stat.Definition.Name, modifier);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnBuff.TriggerEffect(data.Source, data.Target); }
+        BattleManager.current.Print($"{data.Source.Base.Name} buffed {data.Target.Base.Name}'s {stat.Definition.Name} by {stat.Current}");
         data.OnComplete();
-        Debug.Log("finished buffing");
     }
 
     public void DeBuff(EffectData data)
@@ -56,6 +57,7 @@ public class EffectFunction : ScriptableObject
         int modifier = data.Source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         data.Target.ModifyStat(stat.Definition.Name, -modifier);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnDebuff.TriggerEffect(data.Source, data.Target); }
+        BattleManager.current.Print($"{data.Source.Base.Name} debuffed {data.Target.Base.Name}'s {stat.Definition.Name} by {stat.Current}");
         data.OnComplete();
     }
 
@@ -72,7 +74,6 @@ public class EffectFunction : ScriptableObject
     {
         Spell spell = data.Target.FindSpell(data.Spell);
         if(spell != null) { spell.ModifyStat("Cooldown", data.Stat.Current); }
-        Debug.Log($"{spell.Base.Name}: {spell.Cooldown.Current}");
         data.OnComplete();
     }
 
@@ -95,8 +96,9 @@ public class EffectFunction : ScriptableObject
             status.SetStat("Duration", duration);
             data.Target.AddStatus(status);
             if(data.SendTrigger) { BattleManager.current.EffectController.OnAfflict.TriggerEffect(data.Source, data.Target); }
+            BattleManager.current.Print($"{data.Target.Base.Name} is afflicted with {data.Status.Base.Name}");
         }
-        else { status.ModifyStat("Duration", duration); }
+        else { status.ModifyStat("Duration", duration); BattleManager.current.Print($"{status.Owner.Base.Name}'s {data.Status.Base.Name}'s duration has been modified by {duration}"); }
         data.OnComplete();
     }
 
@@ -107,6 +109,7 @@ public class EffectFunction : ScriptableObject
         {
             data.Target.RemoveStatus(status);
             if(data.SendTrigger) { BattleManager.current.EffectController.OnCure.TriggerEffect(data.Source, data.Target); }
+            BattleManager.current.Print($"{data.Target.Base.Name} is cured from {data.Status.Base.Name}");
         }
         data.OnComplete();
     }

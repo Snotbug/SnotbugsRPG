@@ -36,6 +36,8 @@ public class ExplorationManager : MonoBehaviour
         foreach(Spell spell in Player.Spells)
         {
             UI.AddSpell(spell);
+            spell.UI.gameObject.SetActive(true);
+            spell.UI.SetInteractable(true);
         }
 
         UI.UpdateStats(player);
@@ -57,6 +59,8 @@ public class ExplorationManager : MonoBehaviour
         foreach(Spell spell in Player.Spells)
         {
             Player.UI.AddSpell(spell);
+            spell.UI.gameObject.SetActive(false);
+            spell.UI.SetInteractable(false);
         }
 
         await System.Threading.Tasks.Task.Delay(2000);

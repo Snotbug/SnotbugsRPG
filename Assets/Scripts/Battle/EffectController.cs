@@ -50,7 +50,6 @@ public class EffectController : MonoBehaviour
         await Task.Delay(100);
         Pending = false;
         Effects.Remove(data);
-        Debug.Log($"num effects: {Effects.Count}");
         if(Effects.Count <= 0) { OnEffectComplete(); }
         else { Activate(); }
     }

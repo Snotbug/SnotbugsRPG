@@ -10,6 +10,7 @@ public class BattleManager : MonoBehaviour
     [field : SerializeField] public TargetController TargetController { get; private set; }
     [field : SerializeField] public EffectController EffectController { get; private set; }
     [field : SerializeField] public SelectionController Selector { get; private set; }
+    [field : SerializeField] public CombatLog Log { get; private set; }
 
     public BattleLayout Layout { get; private set; }
     
@@ -205,12 +206,9 @@ public class BattleManager : MonoBehaviour
 
     public void EnemyTurn()
     {
-        Debug.Log($"{TurnController.ActiveCreature}'s turn");
         List<Spell> Spells = TurnController.ActiveCreature.FindActivatable();
         for(int i = Spells.Count - 1; i >= 0; i--)
         {
-            Debug.Log("active name " + TurnController.ActiveCreature.Base.Name);
-            Debug.Log("spell name " + Spells[i].Base.Name);
             List<Creature> targets = TargetController.FindTargets(TurnController.ActiveCreature, Spells[i]);
             if(Spells[i].Base.TargetType != TargetType.None && targets.Count <= 0)
             {
@@ -219,7 +217,6 @@ public class BattleManager : MonoBehaviour
         }
         if(Spells.Count > 0)
         {
-            Debug.Log(Spells.Count);
             Spell selectedSpell = Spells[Random.Range(0, Spells.Count)];
             List<Creature> targets = TargetController.FindTargets(TurnController.ActiveCreature, selectedSpell);
             if(targets.Count > 0)
@@ -229,8 +226,7 @@ public class BattleManager : MonoBehaviour
 
             if(selectedSpell != null)
             {
-
-                Debug.Log($"{TurnController.ActiveCreature.Base.Name} activating ${selectedSpell.Base.Name}");
+                BattleManager.current.Print($"{TurnController.ActiveCreature.Base.Name} used {selectedSpell.Base.Name}");
                 selectedSpell.ActivateQueued();
             }
             EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
@@ -267,7 +263,6 @@ public class BattleManager : MonoBehaviour
 
     public bool CheckError()
     {
-        Debug.Log("checking errors");
         Creature player = Layout.Player.Creature;
         if(player.Health.Current <= 0)
         {
@@ -297,8 +292,6 @@ public class BattleManager : MonoBehaviour
                 TurnController.Remove(enemy);
                 TargetController.Remove(enemy);
                 container.Remove();
-                Debug.Log($"removing {enemy.Base.Name}");
-                Debug.Log($"turn controller size: {TurnController.Creatures.Count}");
                 Destroy(enemy.gameObject);
             }
         }
@@ -308,5 +301,10 @@ public class BattleManager : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    public void Print(string s)
+    {
+        Log.Print(s);
     }
 }

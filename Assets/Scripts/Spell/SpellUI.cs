@@ -15,11 +15,11 @@ public class SpellUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         Spell = spell;
     }
 
-    public void SetInteractable(bool interactable) { if(Button != null) { Debug.Log($"{Spell.name} is {interactable}"); Button.interactable = interactable; }}
+    public void SetInteractable(bool interactable) { if(Button != null) { Button.interactable = interactable; }}
 
-    public void OnClick() { Debug.Log(Spell.Base.Name); EventManager.current.ClickSpell(Spell); }
+    public void OnClick() { EventManager.current.ClickSpell(Spell); }
     
-    public void OnPointerEnter(PointerEventData eventData) { Debug.Log(Spell.Base.Name); EventManager.current.HoverEnterSpell(Spell); }
+    public void OnPointerEnter(PointerEventData eventData) { EventManager.current.HoverEnterSpell(Spell); }
 
     public void OnPointerExit(PointerEventData eventData) { EventManager.current.HoverExitSpell(); }
 }
