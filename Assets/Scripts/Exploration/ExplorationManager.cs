@@ -75,6 +75,7 @@ public class ExplorationManager : MonoBehaviour
     {
         // Selector.Choice.UI.SetInteractable(false);
         Selector.Choice.gameObject.SetActive(false);
+        if(Selector.Choice.Base.PreDescription != "") { UI.UpdateDescription(Selector.Choice.Base.PreDescription); }
         StartCoroutine(Selector.Choice.EnactConsequences(() =>
         {
             UI.UpdateDescription(Selector.Choice.Base.Description);

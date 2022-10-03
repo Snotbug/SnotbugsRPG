@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class ChoiceBase
 {
     [field : SerializeField] public string Name { get; private set; }
+    [field : SerializeField] public string PreDescription { get; private set; }
     [field : SerializeField] public string Description { get; private set; }
 
     [field : SerializeField] public EncounterBase NextEncounter { get; private set; }

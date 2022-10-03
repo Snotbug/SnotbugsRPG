@@ -19,6 +19,7 @@ MonoBehaviour:
     figure walks forth to block your path ahead...
   <Choices>k__BackingField:
   - <Name>k__BackingField: Fight
+    <PreDescription>k__BackingField: 
     <Description>k__BackingField: Apparitions and spooks don't scare you. Cowardice
       is for the weak, or the wary. Luckily, you're neither...
     <NextEncounter>k__BackingField: {fileID: 11400000, guid: 1af1e8c36e34259438aa713c41d3f713, type: 2}
@@ -28,13 +29,34 @@ MonoBehaviour:
       <Status>k__BackingField: {fileID: 0}
       <Spell>k__BackingField: {fileID: 0}
     <Consequences>k__BackingField: []
-  - <Name>k__BackingField: Fight
-    <Description>k__BackingField: Apparitions and spooks don't scare you. Cowardice
-      is for the weak, or the wary. Luckily, you're neither...
-    <NextEncounter>k__BackingField: {fileID: 11400000, guid: 1af1e8c36e34259438aa713c41d3f713, type: 2}
+  - <Name>k__BackingField: Run
+    <PreDescription>k__BackingField: '[REMOVE SPELL] Your legs started towards the
+      exit before your mind could think. You lost a spell rune in the confusion...'
+    <Description>k__BackingField: Losing a spell rune is unforunate, but luckily
+      you get to live for another day...
+    <NextEncounter>k__BackingField: {fileID: 11400000, guid: ff2dc2ec9f62f764bb5c80009f1220ce, type: 2}
     <BattleLayout>k__BackingField: {fileID: 0}
     <Requirements>k__BackingField:
       <Stats>k__BackingField: []
       <Status>k__BackingField: {fileID: 0}
       <Spell>k__BackingField: {fileID: 0}
-    <Consequences>k__BackingField: []
+    <Consequences>k__BackingField:
+    - <Function>k__BackingField:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+            m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
+            m_MethodName: RemoveSpell
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      <Data>k__BackingField:
+        <Stats>k__BackingField: []
+        <Status>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 0}
