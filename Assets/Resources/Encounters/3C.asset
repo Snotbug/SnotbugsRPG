@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99858b869fa17464a87cb3fcc7624869, type: 3}
+  m_Name: 3C
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Death Valley
+  <Description>k__BackingField: The narrow corridor is drenched with blackened dreg.
+    You chose not to imagine what they came from. But the bones crunching beneath
+    your feet depresses your already waning courage. And as you walk on, a headless
+    figure walks forth to block your path ahead...
+  <Choices>k__BackingField:
+  - <Name>k__BackingField: Fight
+    <Description>k__BackingField: Apparitions and spooks don't scare you. Cowardice
+      is for the weak, or the wary. Luckily, you're neither...
+    <NextEncounter>k__BackingField: {fileID: 11400000, guid: 1af1e8c36e34259438aa713c41d3f713, type: 2}
+    <BattleLayout>k__BackingField: {fileID: 0}
+    <Requirements>k__BackingField:
+      <Stats>k__BackingField: []
+      <Status>k__BackingField: {fileID: 0}
+      <Spell>k__BackingField: {fileID: 0}
+    <Consequences>k__BackingField: []
+  - <Name>k__BackingField: Fight
+    <Description>k__BackingField: Apparitions and spooks don't scare you. Cowardice
+      is for the weak, or the wary. Luckily, you're neither...
+    <NextEncounter>k__BackingField: {fileID: 11400000, guid: 1af1e8c36e34259438aa713c41d3f713, type: 2}
+    <BattleLayout>k__BackingField: {fileID: 0}
+    <Requirements>k__BackingField:
+      <Stats>k__BackingField: []
+      <Status>k__BackingField: {fileID: 0}
+      <Spell>k__BackingField: {fileID: 0}
+    <Consequences>k__BackingField: []

@@ -8,6 +8,7 @@ public class ExplorationUI : MonoBehaviour
 {
     [field : SerializeField] public TMP_Text Name { get; private set; }
     [field : SerializeField] public TMP_Text Description { get; private set; }
+    [field : SerializeField] public TMP_Text Stats { get; private set; }
     [field : SerializeField] public SpriteRenderer Background { get; private set; }
     [field : SerializeField] public VerticalLayoutGroup ChoiceLayout { get; private set; }
     [field : SerializeField] public GridLayoutGroup Spells { get; private set; }
@@ -39,5 +40,10 @@ public class ExplorationUI : MonoBehaviour
     {
         spell.UI.transform.SetParent(Spells.transform);
         spell.UI.transform.localScale = Spells.transform.localScale;
+    }
+
+    public void UpdateStats(Creature creature)
+    {
+        Stats.text = $"Health: {creature.Health.Current} | Mana: {creature.Mana.Current} | Stamina: {creature.Stamina.Current}";
     }
 }

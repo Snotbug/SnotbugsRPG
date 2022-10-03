@@ -38,6 +38,8 @@ public class ExplorationManager : MonoBehaviour
             UI.AddSpell(spell);
         }
 
+        UI.UpdateStats(player);
+
         Selector.OnSelectChoice = CheckChoice;
     }
 
@@ -78,5 +80,11 @@ public class ExplorationManager : MonoBehaviour
             }
             ExplorationManager.current.Selector.Choice = null;
         }));
+        foreach(Choice choice in Choices)
+        {
+            if(!choice.CheckRequirements(Player)) { choice.UI.SetInteractable(true); }
+        }
+
+        UI.UpdateStats(Player);
     }
 }

@@ -12,17 +12,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99858b869fa17464a87cb3fcc7624869, type: 3}
   m_Name: 2B
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 2B
-  <Description>k__BackingField: 
+  <Name>k__BackingField: Inner Memories
+  <Description>k__BackingField: As you traverse down the innards of the arch tree,
+    ancient memories floods your mind. You saw glimpses of ages past. The sorrowful
+    passage of time affects even the great trees. All that once was, will soon be
+    no more. All that came from the earth, to the earth they will return...
   <Choices>k__BackingField:
-  - <Name>k__BackingField: Battle
-    <Description>k__BackingField: 
+  - <Name>k__BackingField: Stay down
+    <Description>k__BackingField: You decided the lay still a while longer, the heat
+      death of the universe can afford to wait...
     <NextEncounter>k__BackingField: {fileID: 11400000}
+    <BattleLayout>k__BackingField: {fileID: 0}
+    <Requirements>k__BackingField:
+      <Stats>k__BackingField: []
+      <Status>k__BackingField: {fileID: 0}
+      <Spell>k__BackingField: {fileID: 0}
+    <Consequences>k__BackingField: []
+  - <Name>k__BackingField: Get up
+    <Description>k__BackingField: As you awake from your stupor, the loud sound of
+      clanking metal greets you, no time for existentialism, it's time to FIGHT...
+    <NextEncounter>k__BackingField: {fileID: 11400000, guid: 69722a6d9609eff49828b07225d6e218, type: 2}
     <BattleLayout>k__BackingField: {fileID: 7991102881252459000, guid: bd10a487465953543b84c7ca05a51eda, type: 3}
     <Requirements>k__BackingField:
       <Stats>k__BackingField: []
       <Status>k__BackingField: {fileID: 0}
-      <Item>k__BackingField: {fileID: 0}
       <Spell>k__BackingField: {fileID: 0}
-      <Equipment>k__BackingField: {fileID: 0}
     <Consequences>k__BackingField: []

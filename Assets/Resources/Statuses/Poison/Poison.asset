@@ -13,51 +13,10 @@ MonoBehaviour:
   m_Name: Poison
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Bleed
-  <Icon>k__BackingField: {fileID: 21300000, guid: 913e4d844b9c5e54c91ddc724c37e3b0, type: 3}
-  <Duration>k__BackingField: 3
+  <Icon>k__BackingField: {fileID: 21300000, guid: 5b4537820bb6e0340bd78282c584aa9b, type: 3}
+  <Description>k__BackingField: Your face is melting off
+  <Stats>k__BackingField: []
   <TriggeredEffects>k__BackingField:
   - <Trigger>k__BackingField: {fileID: 11400000, guid: 46b19bc6bc37d714586874c2af45d9ce, type: 2}
     <TriggerType>k__BackingField: 1
-    <EffectData>k__BackingField:
-    - <TargetType>k__BackingField: 1
-      <ActivationType>k__BackingField: 0
-      <Function>k__BackingField:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 7565620442303135071, guid: 7dea73dd96dbbf94e97594528106b86d, type: 3}
-            m_TargetAssemblyTypeName: EffectFunctions, Assembly-CSharp
-            m_MethodName: ModifyDuration
-            m_Mode: 0
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-      <Stat>k__BackingField: -1
-      <Creature>k__BackingField: {fileID: 0}
-      <Status>k__BackingField: {fileID: 1812095718089642681, guid: ba05ef72f19c5cb43be3f2000447317c, type: 3}
-      <Spell>k__BackingField: {fileID: 0}
-    - <TargetType>k__BackingField: 1
-      <ActivationType>k__BackingField: 0
-      <Function>k__BackingField:
-        m_PersistentCalls:
-          m_Calls:
-          - m_Target: {fileID: 7565620442303135071, guid: 7dea73dd96dbbf94e97594528106b86d, type: 3}
-            m_TargetAssemblyTypeName: EffectFunctions, Assembly-CSharp
-            m_MethodName: ModifyHealth
-            m_Mode: 0
-            m_Arguments:
-              m_ObjectArgument: {fileID: 0}
-              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
-              m_FloatArgument: 0
-              m_StringArgument: 
-              m_BoolArgument: 0
-            m_CallState: 2
-      <Stat>k__BackingField: -10
-      <Creature>k__BackingField: {fileID: 0}
-      <Status>k__BackingField: {fileID: 0}
-      <Spell>k__BackingField: {fileID: 0}
+    <Subeffects>k__BackingField: []

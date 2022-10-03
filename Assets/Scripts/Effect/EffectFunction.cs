@@ -34,17 +34,20 @@ public class EffectFunction : ScriptableObject
     {
         int heal = data.Source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         data.Target.ModifyStat("Health", heal);
+        Debug.Log("healing" + data.Target.Health.Current);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnHeal.TriggerEffect(data.Source, data.Target); }
         data.OnComplete();
     }
 
     public void Buff(EffectData data)
     {
+        Debug.Log("start buffing");
         Stat stat = data.Target.FindStat(data.Stat.Definition);
         int modifier = data.Source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         data.Target.ModifyStat(stat.Definition.Name, modifier);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnBuff.TriggerEffect(data.Source, data.Target); }
         data.OnComplete();
+        Debug.Log("finished buffing");
     }
 
     public void DeBuff(EffectData data)
@@ -82,7 +85,6 @@ public class EffectFunction : ScriptableObject
 
     public void Afflict(EffectData data)
     {
-        Debug.Log("afflicting");
         Status status = data.Target.FindStatus(data.Status);
         int duration = data.Source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
         duration = Mathf.Clamp(duration - data.Target.Resistance.Current, 1, duration);

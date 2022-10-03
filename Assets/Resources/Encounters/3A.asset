@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99858b869fa17464a87cb3fcc7624869, type: 3}
+  m_Name: 3A
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: Least Resistance
+  <Description>k__BackingField: 'Up ahead on the cobblestone path sits a priest draped
+    in '
+  <Choices>k__BackingField:
+  - <Name>k__BackingField: Ask for a blessing
+    <Description>k__BackingField: He takes pity on your and bestowed you with a blessing...
+    <NextEncounter>k__BackingField: {fileID: 11400000, guid: ff2dc2ec9f62f764bb5c80009f1220ce, type: 2}
+    <BattleLayout>k__BackingField: {fileID: 0}
+    <Requirements>k__BackingField:
+      <Stats>k__BackingField: []
+      <Status>k__BackingField: {fileID: 0}
+      <Spell>k__BackingField: {fileID: 0}
+    <Consequences>k__BackingField:
+    - <Function>k__BackingField:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+            m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
+            m_MethodName: AddSpell
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      <Data>k__BackingField:
+        <Stats>k__BackingField: []
+        <Status>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 704262962613650049, guid: 72b55faa464a82d4a92178564dec5162, type: 3}

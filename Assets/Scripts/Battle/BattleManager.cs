@@ -34,7 +34,15 @@ public class BattleManager : MonoBehaviour
         }
         foreach(CreatureContainer enemy in Layout.Enemies)
         {
-            if(enemy.Default != null) { AddEnemy(enemy.Default); }
+            if(enemy.Default != null)
+            {
+                Creature temp = Instantiate(enemy.Default, enemy.transform.position, Quaternion.identity);
+                temp.SetBase();
+                enemy.Add(temp);
+                TurnController.Add(temp);
+                TargetController.AddEnemy(temp);
+                temp.EnableSpells(false);
+            }
         }
 
         TurnController.SetTurnOrder();
@@ -199,17 +207,32 @@ public class BattleManager : MonoBehaviour
     {
         Debug.Log($"{TurnController.ActiveCreature}'s turn");
         List<Spell> Spells = TurnController.ActiveCreature.FindActivatable();
-        Spell selectedSpell = null;
+        for(int i = Spells.Count - 1; i >= 0; i--)
+        {
+            Debug.Log("active name " + TurnController.ActiveCreature.Base.Name);
+            Debug.Log("spell name " + Spells[i].Base.Name);
+            List<Creature> targets = TargetController.FindTargets(TurnController.ActiveCreature, Spells[i]);
+            if(Spells[i].Base.TargetType != TargetType.None && targets.Count <= 0)
+            {
+                Spells.Remove(Spells[i]);
+            }
+        }
         if(Spells.Count > 0)
         {
-            selectedSpell = Spells[Random.Range(0, Spells.Count)];
+            Debug.Log(Spells.Count);
+            Spell selectedSpell = Spells[Random.Range(0, Spells.Count)];
             List<Creature> targets = TargetController.FindTargets(TurnController.ActiveCreature, selectedSpell);
             if(targets.Count > 0)
             {
                 selectedSpell.ActivatedEffect.Target = targets[Random.Range(0, TargetController.Targets.Count)];
             }
 
-            if(selectedSpell != null) { Debug.Log($"{TurnController.ActiveCreature.Base.Name} activating selected spell"); selectedSpell.ActivateQueued(); }
+            if(selectedSpell != null)
+            {
+
+                Debug.Log($"{TurnController.ActiveCreature.Base.Name} activating ${selectedSpell.Base.Name}");
+                selectedSpell.ActivateQueued();
+            }
             EffectController.OnCast.TriggerEffect(TurnController.ActiveCreature, TurnController.ActiveCreature);
 
             EffectController.OnEffectComplete = (() =>

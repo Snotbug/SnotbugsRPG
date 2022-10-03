@@ -13,7 +13,7 @@ public class Status : MonoBehaviour
     public Stat Duration { get { return Stats["Duration"]; }}
 
     public List<Effect> TriggeredEffects { get; private set; }
-
+    
     public void SetBase(Creature owner)
     {
         Owner = owner;

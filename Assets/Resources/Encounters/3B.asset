@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99858b869fa17464a87cb3fcc7624869, type: 3}
+  m_Name: 3B
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: For the Foolhardy
+  <Description>k__BackingField: Behind the skeletons lies a narrow tunnel. The stench
+    of death wafts through and overpowers your sense...
+  <Choices>k__BackingField:
+  - <Name>k__BackingField: Go back
+    <Description>k__BackingField: You swallow your pride and retreat. Better leave
+      with a bruised ego than meeting the same fate as those unfortunates ahead...
+    <NextEncounter>k__BackingField: {fileID: 11400000, guid: e90d615df4195494e8f40cc6bd723b96, type: 2}
+    <BattleLayout>k__BackingField: {fileID: 0}
+    <Requirements>k__BackingField:
+      <Stats>k__BackingField: []
+      <Status>k__BackingField: {fileID: 0}
+      <Spell>k__BackingField: {fileID: 0}
+    <Consequences>k__BackingField: []
+  - <Name>k__BackingField: I'm no coward
+    <Description>k__BackingField: Fortune await the brave, or the foolish, probably.
+      You decided to push on and find out...
+    <NextEncounter>k__BackingField: {fileID: 11400000, guid: 3e20f77221c4ac846a2152f901302305, type: 2}
+    <BattleLayout>k__BackingField: {fileID: 0}
+    <Requirements>k__BackingField:
+      <Stats>k__BackingField: []
+      <Status>k__BackingField: {fileID: 0}
+      <Spell>k__BackingField: {fileID: 0}
+    <Consequences>k__BackingField: []

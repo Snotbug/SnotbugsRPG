@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Burn
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Bleed
+  <Icon>k__BackingField: {fileID: 21300000, guid: f4277373f97f862459a40e3ee4effe96, type: 3}
   <Description>k__BackingField: 
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: b54cf84b7f9960346bbb29b45c5f67fc, type: 2}
@@ -21,7 +22,6 @@ MonoBehaviour:
   <TriggeredEffects>k__BackingField:
   - <Trigger>k__BackingField: {fileID: 11400000, guid: 46b19bc6bc37d714586874c2af45d9ce, type: 2}
     <TriggerType>k__BackingField: 1
-    <Triggerable>k__BackingField: 0
     <Subeffects>k__BackingField:
     - <TargetType>k__BackingField: 0
       <Data>k__BackingField: []

@@ -23,6 +23,7 @@ public class ChoiceUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         if(Button != null) { Button.interactable = interactable; }
         if(!interactable) { Name.fontStyle = FontStyles.Strikethrough; }
+        else { Name.fontStyle = FontStyles.Normal; }
     }
 
     public void OnClick() { EventManager.current.ClickChoice(Choice); }

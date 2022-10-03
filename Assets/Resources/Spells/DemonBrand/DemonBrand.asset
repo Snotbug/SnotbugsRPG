@@ -14,20 +14,67 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Demon Brand
   <Description>k__BackingField: Afflicts the target with an empowering fire
-  <Prerequisites>k__BackingField: []
   <Costs>k__BackingField: []
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
     <Current>k__BackingField: 0
-    <Max>k__BackingField: 0
+    <Max>k__BackingField: 6
   <TargetType>k__BackingField: 4
   <ActivatedEffect>k__BackingField:
     <Trigger>k__BackingField: {fileID: 0}
     <TriggerType>k__BackingField: 0
-    <Triggerable>k__BackingField: 0
-    <Subeffects>k__BackingField: []
+    <Subeffects>k__BackingField:
+    - <TargetType>k__BackingField: 0
+      <Data>k__BackingField:
+      - <Scalings>k__BackingField: []
+        <Function>k__BackingField:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
+              m_MethodName: Afflict
+              m_Mode: 0
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        <Creature>k__BackingField: {fileID: 0}
+        <Stat>k__BackingField:
+          <Definition>k__BackingField: {fileID: 11400000, guid: b54cf84b7f9960346bbb29b45c5f67fc, type: 2}
+          <Current>k__BackingField: 3
+          <Max>k__BackingField: 0
+        <Status>k__BackingField: {fileID: 1812095718089642681, guid: 38757991952d7a34180a33995a0d6804, type: 3}
+        <Spell>k__BackingField: {fileID: 0}
   <TriggeredEffects>k__BackingField:
   - <Trigger>k__BackingField: {fileID: 11400000, guid: 5d32a4007e1a47149bbe422c5acf16dd, type: 2}
-    <TriggerType>k__BackingField: 2
-    <Triggerable>k__BackingField: 0
-    <Subeffects>k__BackingField: []
+    <TriggerType>k__BackingField: 1
+    <Subeffects>k__BackingField:
+    - <TargetType>k__BackingField: 1
+      <Data>k__BackingField:
+      - <Scalings>k__BackingField: []
+        <Function>k__BackingField:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
+              m_MethodName: ModifyCooldown
+              m_Mode: 0
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        <Creature>k__BackingField: {fileID: 0}
+        <Stat>k__BackingField:
+          <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
+          <Current>k__BackingField: -1
+          <Max>k__BackingField: 0
+        <Status>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 6369103817870256385, guid: b5b95a16c1788e843bed73d3f1dc1876, type: 3}

@@ -6,6 +6,8 @@ using TMPro;
 
 public class BattleUI : MonoBehaviour
 {
+    [field : SerializeField] public TMP_Text Name { get; private set; }
+    [field : SerializeField] public TMP_Text Costs { get; private set; }
     [field : SerializeField] public TMP_Text Description { get; private set; }
     [field : SerializeField] public Button EndTurn { get; private set; }
     [field : SerializeField] public GridLayoutGroup Spells { get; private set; }
@@ -37,13 +39,21 @@ public class BattleUI : MonoBehaviour
 
     public void InspectSpell(Spell spell)
     {
-        Description.text =
-        $"Cooldown: {spell.Cooldown.Current} \n {spell.Base.Description}";
+        Name.text = $"{spell.Base.Name}";
+        string temp = "";
+        foreach(StatBase stat in spell.Base.Costs)
+        {
+            temp += $"{stat.Definition.Name}: {stat.Current} ";
+        }
+        Costs.text = temp;
+        Description.text = $"Cooldown: {spell.Cooldown.Current} \n {spell.Base.Description}";
     }
 
     public void InspectStatus(Status status)
     {
-
+        Name.text = $"{status.Base.Name}";
+        Costs.text = $"Duration: {status.Duration.Current}";
+        Description.text = $"{status.Base.Description}";
     }
 
     public void EnableEndTurn(bool enable) { if(EndTurn != null) { EndTurn.interactable = enable; }  }

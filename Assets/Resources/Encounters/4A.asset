@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99858b869fa17464a87cb3fcc7624869, type: 3}
+  m_Name: 4A
+  m_EditorClassIdentifier: 
+  <Name>k__BackingField: '?'
+  <Description>k__BackingField: What things lie ahead?
+  <Choices>k__BackingField:
+  - <Name>k__BackingField: Enter
+    <Description>k__BackingField: Your weary steps land on soft, damp soil. An ancient
+      arch tree lies before you...
+    <NextEncounter>k__BackingField: {fileID: 11400000, guid: 2537cdae88f4ea94386f610b14a8845e, type: 2}
+    <BattleLayout>k__BackingField: {fileID: 7991102881252459000, guid: dfd004ea202fa8840ba246ee6c95b459, type: 3}
+    <Requirements>k__BackingField:
+      <Stats>k__BackingField: []
+      <Status>k__BackingField: {fileID: 0}
+      <Spell>k__BackingField: {fileID: 0}
+    <Consequences>k__BackingField: []
