@@ -41,4 +41,3 @@ MonoBehaviour:
   <Statuses>k__BackingField: []
   <Spells>k__BackingField:
   - {fileID: 6369103817870256385, guid: 7bda5eb42d5721445a8b76f401cf7dbe, type: 3}
-  - {fileID: 704262962613650049, guid: 72b55faa464a82d4a92178564dec5162, type: 3}
