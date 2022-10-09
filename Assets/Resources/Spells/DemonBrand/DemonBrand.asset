@@ -14,7 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Demon Brand
   <Description>k__BackingField: Afflicts the target with an empowering fire
-  <Costs>k__BackingField: []
+  <Costs>k__BackingField:
+  - <Definition>k__BackingField: {fileID: 11400000, guid: f819d00694667614c90d08afb2be7996, type: 2}
+    <Current>k__BackingField: 5
+    <Max>k__BackingField: 0
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}
     <Current>k__BackingField: 0

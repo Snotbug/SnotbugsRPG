@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,7 +47,33 @@ public class ExplorationManager : MonoBehaviour
         Selector.OnSelectChoice = CheckChoice;
     }
 
-    public async void ExitExploration()
+    // public async void ExitExploration()
+    // {
+    //     ChoiceBase choice = ExplorationManager.current.Selector.Choice.Base;
+
+    //     for(int i = Choices.Count - 1; i >= 0; i--)
+    //     {
+    //         Choice temp = Choices[i];
+    //         Destroy(temp.gameObject);
+    //         Choices.Remove(temp);
+    //     }
+
+    //     foreach(Spell spell in Player.Spells)
+    //     {
+    //         Player.UI.AddSpell(spell);
+    //         spell.UI.gameObject.SetActive(false);
+    //         spell.UI.SetInteractable(false);
+    //     }
+
+    //     await System.Threading.Tasks.Task.Delay(2000);
+
+    //     UI.SetBase();
+    //     UI.gameObject.SetActive(false);
+    //     Player.gameObject.SetActive(true);
+    //     EventManager.current.ExitExploration(Player, choice.NextEncounter, choice.BattleLayout);
+    // }
+
+    public void ExitExploration()
     {
         ChoiceBase choice = ExplorationManager.current.Selector.Choice.Base;
 
@@ -63,12 +91,19 @@ public class ExplorationManager : MonoBehaviour
             spell.UI.SetInteractable(false);
         }
 
-        await System.Threading.Tasks.Task.Delay(2000);
+        StartCoroutine(WaitABit(() =>
+        {
+            UI.SetBase();
+            UI.gameObject.SetActive(false);
+            Player.gameObject.SetActive(true);
+            EventManager.current.ExitExploration(Player, choice.NextEncounter, choice.BattleLayout);
+        }));
+    }
 
-        UI.SetBase();
-        UI.gameObject.SetActive(false);
-        Player.gameObject.SetActive(true);
-        EventManager.current.ExitExploration(Player, choice.NextEncounter, choice.BattleLayout);
+    public IEnumerator WaitABit(Action onFinish)
+    {
+        yield return new WaitForSeconds(2f);
+        onFinish();
     }
 
     public void CheckChoice()
@@ -87,7 +122,7 @@ public class ExplorationManager : MonoBehaviour
         }));
         foreach(Choice choice in Choices)
         {
-            if(!choice.CheckRequirements(Player)) { choice.UI.SetInteractable(true); }
+            if(choice.CheckRequirements(Player)) { choice.UI.SetInteractable(true); }
         }
 
         UI.UpdateStats(Player);

@@ -16,7 +16,7 @@ MonoBehaviour:
   <Description>k__BackingField: Show a scary face
   <Costs>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: d69df50c7da53664ab210201a52b538c, type: 2}
-    <Current>k__BackingField: 2
+    <Current>k__BackingField: 1
     <Max>k__BackingField: 0
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}

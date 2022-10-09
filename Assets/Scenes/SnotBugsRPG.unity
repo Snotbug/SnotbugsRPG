@@ -335,9 +335,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <UI>k__BackingField: {fileID: 4072855701164804925}
-  <TargetController>k__BackingField: {fileID: 2125743495}
   <TurnController>k__BackingField: {fileID: 795828381}
+  <TargetController>k__BackingField: {fileID: 2125743495}
   <EffectController>k__BackingField: {fileID: 5940735011243204041}
+  <Selector>k__BackingField: {fileID: 0}
+  <Log>k__BackingField: {fileID: 0}
 --- !u!4 &222400564
 Transform:
   m_ObjectHideFlags: 0
@@ -1076,7 +1078,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1322193939
@@ -1596,15 +1598,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9de0d04aaf67194c9e6d80f2a6d26f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Player>k__BackingField: {fileID: 1232597042}
-  <Friends>k__BackingField:
-  - {fileID: 1322193940}
-  <Enemies>k__BackingField:
-  - {fileID: 818805824}
-  - {fileID: 1881505086}
-  - {fileID: 681647025}
-  <EndTurn>k__BackingField: {fileID: 114425623}
+  <Name>k__BackingField: {fileID: 0}
+  <Costs>k__BackingField: {fileID: 0}
   <Description>k__BackingField: {fileID: 1917380029}
+  <EndTurn>k__BackingField: {fileID: 114425623}
+  <Spells>k__BackingField: {fileID: 0}
 --- !u!114 &5940735011243204041
 MonoBehaviour:
   m_ObjectHideFlags: 0

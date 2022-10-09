@@ -17,6 +17,7 @@ MonoBehaviour:
     of its great power emanates through Its calcified remains even still...
   <Choices>k__BackingField:
   - <Name>k__BackingField: Touch it
+    <PreDescription>k__BackingField: 
     <Description>k__BackingField: An overpowering sense of curiosity fills your mind.
       A wriggling feeling worms itself through your body. You feel empowered, yet
       something feels amiss...
@@ -72,6 +73,7 @@ MonoBehaviour:
         <Status>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 7148560043350483482, guid: 90b458b1d348c2e4184a13393cc12a89, type: 3}
   - <Name>k__BackingField: Whack it
+    <PreDescription>k__BackingField: 
     <Description>k__BackingField: Your weapon bounces off the tree's hardened body.
       You were hurt by the rebound. After recovering from the inital confusion, you
       discovered an entrance hidden within the tree's crevices...
@@ -108,6 +110,7 @@ MonoBehaviour:
         <Status>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
   - <Name>k__BackingField: Ignore it
+    <PreDescription>k__BackingField: 
     <Description>k__BackingField: Not wise to tamper with ancient ruins. Who can
       say what curses or foul magic might still lay abound even now. Best to avoid
       it and move on...

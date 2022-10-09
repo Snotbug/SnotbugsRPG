@@ -45,12 +45,29 @@ public class EffectController : MonoBehaviour
         data.Base.Function.Invoke(data);
     }
 
-    private async void OnComplete()
+    // private async void OnComplete()
+    // {
+    //     await Task.Delay(100);
+    //     Pending = false;
+    //     Effects.Remove(data);
+    //     if(Effects.Count <= 0) { OnEffectComplete(); }
+    //     else { Activate(); }
+    // }
+
+    private void OnComplete()
     {
-        await Task.Delay(100);
-        Pending = false;
-        Effects.Remove(data);
-        if(Effects.Count <= 0) { OnEffectComplete(); }
-        else { Activate(); }
+        StartCoroutine(WaitABit(() =>
+        {
+            Pending = false;
+            Effects.Remove(data);
+            if(Effects.Count <= 0) { OnEffectComplete(); }
+            else { Activate(); }
+        }));
+    }
+
+    private IEnumerator WaitABit(Action onReturn)
+    {
+        yield return new WaitForSeconds(0.1f);
+        onReturn();
     }
 }

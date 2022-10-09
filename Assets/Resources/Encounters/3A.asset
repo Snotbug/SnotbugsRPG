@@ -17,6 +17,7 @@ MonoBehaviour:
     in '
   <Choices>k__BackingField:
   - <Name>k__BackingField: Ask for a blessing
+    <PreDescription>k__BackingField: 
     <Description>k__BackingField: He takes pity on your and bestowed you with a blessing...
     <NextEncounter>k__BackingField: {fileID: 11400000, guid: ff2dc2ec9f62f764bb5c80009f1220ce, type: 2}
     <BattleLayout>k__BackingField: {fileID: 0}
@@ -44,3 +45,36 @@ MonoBehaviour:
         <Stats>k__BackingField: []
         <Status>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 704262962613650049, guid: 72b55faa464a82d4a92178564dec5162, type: 3}
+  - <Name>k__BackingField: Ask for healing
+    <PreDescription>k__BackingField: 
+    <Description>k__BackingField: A warm glow shrouds your body. You feel safe and
+      protected. Time to move on...
+    <NextEncounter>k__BackingField: {fileID: 11400000, guid: ff2dc2ec9f62f764bb5c80009f1220ce, type: 2}
+    <BattleLayout>k__BackingField: {fileID: 0}
+    <Requirements>k__BackingField:
+      <Stats>k__BackingField: []
+      <Status>k__BackingField: {fileID: 0}
+      <Spell>k__BackingField: {fileID: 0}
+    <Consequences>k__BackingField:
+    - <Function>k__BackingField:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+            m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
+            m_MethodName: ModifyStats
+            m_Mode: 0
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+      <Data>k__BackingField:
+        <Stats>k__BackingField:
+        - <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
+          <Current>k__BackingField: 8
+          <Max>k__BackingField: 0
+        <Status>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 0}

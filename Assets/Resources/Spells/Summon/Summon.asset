@@ -45,7 +45,7 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-        <Creature>k__BackingField: {fileID: 5602932842097332090, guid: b0e40c336077a184aa3e8e03816a525f, type: 3}
+        <Creature>k__BackingField: {fileID: 5602932842097332090, guid: 3eecd6587f67bf14ab40a03737191b92, type: 3}
         <Stat>k__BackingField:
           <Definition>k__BackingField: {fileID: 0}
           <Current>k__BackingField: 0

@@ -15,8 +15,8 @@ MonoBehaviour:
   <Name>k__BackingField: DragonTree
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
-    <Current>k__BackingField: 30
-    <Max>k__BackingField: 30
+    <Current>k__BackingField: 20
+    <Max>k__BackingField: 20
   - <Definition>k__BackingField: {fileID: 11400000, guid: f819d00694667614c90d08afb2be7996, type: 2}
     <Current>k__BackingField: 14
     <Max>k__BackingField: 14
@@ -33,8 +33,8 @@ MonoBehaviour:
     <Current>k__BackingField: 0
     <Max>k__BackingField: 0
   - <Definition>k__BackingField: {fileID: 11400000, guid: 76242941c888f0a4299faeae19aa8ce0, type: 2}
-    <Current>k__BackingField: 10
-    <Max>k__BackingField: 10
+    <Current>k__BackingField: 5
+    <Max>k__BackingField: 5
   - <Definition>k__BackingField: {fileID: 11400000, guid: b775c8499a2eaa445ad0e7566041be68, type: 2}
     <Current>k__BackingField: 0
     <Max>k__BackingField: 0

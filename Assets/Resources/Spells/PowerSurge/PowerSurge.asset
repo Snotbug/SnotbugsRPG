@@ -15,8 +15,8 @@ MonoBehaviour:
   <Name>k__BackingField: Power Surge
   <Description>k__BackingField: Empowers the target with a suddent burst of light
   <Costs>k__BackingField:
-  - <Definition>k__BackingField: {fileID: 11400000, guid: f819d00694667614c90d08afb2be7996, type: 2}
-    <Current>k__BackingField: 3
+  - <Definition>k__BackingField: {fileID: 11400000, guid: d69df50c7da53664ab210201a52b538c, type: 2}
+    <Current>k__BackingField: 1
     <Max>k__BackingField: 0
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: ce47ca8acdf09e44383f4939a3d31104, type: 2}

@@ -15,10 +15,11 @@ MonoBehaviour:
   <Name>k__BackingField: Inner Memories
   <Description>k__BackingField: As you traverse down the innards of the arch tree,
     ancient memories floods your mind. You saw glimpses of ages past. The sorrowful
-    passage of time affects even the great trees. All that once was, will soon be
-    no more. All that came from the earth, to the earth they will return...
+    passage of time affects even the great trees. All that came from the earth, to
+    the earth they will return...
   <Choices>k__BackingField:
   - <Name>k__BackingField: Stay down
+    <PreDescription>k__BackingField: 
     <Description>k__BackingField: You decided the lay still a while longer, the heat
       death of the universe can afford to wait...
     <NextEncounter>k__BackingField: {fileID: 11400000}
@@ -29,6 +30,7 @@ MonoBehaviour:
       <Spell>k__BackingField: {fileID: 0}
     <Consequences>k__BackingField: []
   - <Name>k__BackingField: Get up
+    <PreDescription>k__BackingField: 
     <Description>k__BackingField: As you awake from your stupor, the loud sound of
       clanking metal greets you, no time for existentialism, it's time to FIGHT...
     <NextEncounter>k__BackingField: {fileID: 11400000, guid: 69722a6d9609eff49828b07225d6e218, type: 2}

@@ -18,8 +18,8 @@ MonoBehaviour:
     <Current>k__BackingField: 20
     <Max>k__BackingField: 20
   - <Definition>k__BackingField: {fileID: 11400000, guid: f819d00694667614c90d08afb2be7996, type: 2}
-    <Current>k__BackingField: 5
-    <Max>k__BackingField: 5
+    <Current>k__BackingField: 10
+    <Max>k__BackingField: 10
   - <Definition>k__BackingField: {fileID: 11400000, guid: d69df50c7da53664ab210201a52b538c, type: 2}
     <Current>k__BackingField: 3
     <Max>k__BackingField: 3
@@ -33,8 +33,8 @@ MonoBehaviour:
     <Current>k__BackingField: 0
     <Max>k__BackingField: 0
   - <Definition>k__BackingField: {fileID: 11400000, guid: 76242941c888f0a4299faeae19aa8ce0, type: 2}
-    <Current>k__BackingField: 5
-    <Max>k__BackingField: 5
+    <Current>k__BackingField: 3
+    <Max>k__BackingField: 3
   - <Definition>k__BackingField: {fileID: 11400000, guid: b775c8499a2eaa445ad0e7566041be68, type: 2}
     <Current>k__BackingField: 5
     <Max>k__BackingField: 5

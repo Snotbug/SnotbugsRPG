@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Demon Fire
   <Icon>k__BackingField: {fileID: 21300000, guid: 38b20d919d1cc304c83dd342b83076cf, type: 3}
-  <Description>k__BackingField: Hellfire burns within you, you feel a surge of power
+  <Description>k__BackingField: Hellfire burns within you, you feel a surge of power.
+    Stoke me with offerings of blood.
   <Stats>k__BackingField:
   - <Definition>k__BackingField: {fileID: 11400000, guid: b54cf84b7f9960346bbb29b45c5f67fc, type: 2}
     <Current>k__BackingField: 0
@@ -44,7 +45,7 @@ MonoBehaviour:
         <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
           <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
-          <Current>k__BackingField: 4
+          <Current>k__BackingField: 3
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}
@@ -72,4 +73,29 @@ MonoBehaviour:
           <Current>k__BackingField: 2
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
+        <Spell>k__BackingField: {fileID: 0}
+    - <TargetType>k__BackingField: 1
+      <Data>k__BackingField:
+      - <Scalings>k__BackingField: []
+        <Function>k__BackingField:
+          m_PersistentCalls:
+            m_Calls:
+            - m_Target: {fileID: 11400000, guid: af18824d93b5d9d469160634d693d410, type: 2}
+              m_TargetAssemblyTypeName: EffectFunction, Assembly-CSharp
+              m_MethodName: ModifyDuration
+              m_Mode: 0
+              m_Arguments:
+                m_ObjectArgument: {fileID: 0}
+                m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+                m_IntArgument: 0
+                m_FloatArgument: 0
+                m_StringArgument: 
+                m_BoolArgument: 0
+              m_CallState: 2
+        <Creature>k__BackingField: {fileID: 0}
+        <Stat>k__BackingField:
+          <Definition>k__BackingField: {fileID: 11400000, guid: b54cf84b7f9960346bbb29b45c5f67fc, type: 2}
+          <Current>k__BackingField: -1
+          <Max>k__BackingField: 0
+        <Status>k__BackingField: {fileID: 1812095718089642681, guid: 38757991952d7a34180a33995a0d6804, type: 3}
         <Spell>k__BackingField: {fileID: 0}

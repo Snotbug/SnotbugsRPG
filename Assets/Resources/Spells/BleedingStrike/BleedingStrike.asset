@@ -35,7 +35,7 @@ MonoBehaviour:
       <Data>k__BackingField:
       - <Scalings>k__BackingField:
         - <Definition>k__BackingField: {fileID: 11400000, guid: 0fba2f9e91b33b04cacf79210a3f688a, type: 2}
-          <Current>k__BackingField: 100
+          <Current>k__BackingField: 50
           <Max>k__BackingField: 0
         <Function>k__BackingField:
           m_PersistentCalls:
@@ -55,7 +55,7 @@ MonoBehaviour:
         <Creature>k__BackingField: {fileID: 0}
         <Stat>k__BackingField:
           <Definition>k__BackingField: {fileID: 11400000, guid: 23756b90d9e538442a690a5f8a243e86, type: 2}
-          <Current>k__BackingField: 2
+          <Current>k__BackingField: 3
           <Max>k__BackingField: 0
         <Status>k__BackingField: {fileID: 0}
         <Spell>k__BackingField: {fileID: 0}

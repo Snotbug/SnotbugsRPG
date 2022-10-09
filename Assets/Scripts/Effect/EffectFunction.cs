@@ -24,7 +24,7 @@ public class EffectFunction : ScriptableObject
     public void Damage(EffectData data)
     {
         int damage = data.Source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
-        damage = Mathf.Clamp(damage - data.Target.Resistance.Current, 1, data.Target.Health.Max);
+        damage = Mathf.Clamp(damage - (data.Target.Resistance.Current / 2), 1, data.Target.Health.Max);
         bool isDead = data.Target.Health.Current <= 0;
         data.Target.ModifyStat("Health", -damage);
         if(data.SendTrigger) { BattleManager.current.EffectController.OnDamage.TriggerEffect(data.Source, data.Target); BattleManager.current.Print($"{data.Source.Base.Name} damaged {data.Target.Base.Name} for {damage}"); }
@@ -88,7 +88,7 @@ public class EffectFunction : ScriptableObject
     {
         Status status = data.Target.FindStatus(data.Status);
         int duration = data.Source.ApplyScaling(data.Stat.Current, data.Base.Scalings);
-        duration = Mathf.Clamp(duration - data.Target.Resistance.Current, 1, duration);
+        duration = Mathf.Clamp(duration - (data.Target.Resistance.Current / 4), 1, duration);
         if(status == null)
         {
             status = Instantiate(data.Status, data.Target.transform.position, Quaternion.identity);
@@ -119,6 +119,7 @@ public class EffectFunction : ScriptableObject
         foreach(StatBase statBase in data.Base.Stats)
         {
             Stat stat = data.Owner.FindStat(statBase.Definition);
+            stat.ModifyMax(statBase.Max);
             stat.Modify(statBase.Current);
             data.Owner.UI.UpdateUI();
         }
@@ -130,6 +131,7 @@ public class EffectFunction : ScriptableObject
         foreach(StatBase statBase in data.Base.Stats)
         {
             Stat stat = data.Owner.FindStat(statBase.Definition);
+            stat.SetMax(statBase.Max);
             stat.Set(statBase.Current);
         }
         data.OnComplete();
